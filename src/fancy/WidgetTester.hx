@@ -25,6 +25,7 @@ class WidgetTester extends Sprite {
         new FlatColorPass(fui).register();
         new CmsdfPg(fui).register();
         BaseDkit.inject(fui);
+        fui.regDefaultDrawcalls = () -> {};
         e = fui.createDefaultRoot(XmlLayerLayouts.COLOR_AND_TEXT);
         switcher = e.getComponent(WidgetSwitcher);
         var container:Sprite = e.getComponent(Sprite);
