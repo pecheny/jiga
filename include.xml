@@ -11,6 +11,7 @@
     <haxelib name="alayout"/>
     <haxelib name="hscript"/>
     <haxelib name="domkit"/>
+    <haxelib name="hxmath"/>
 
 
     <haxedef name = "openfl_disable_context_cache" value = "true" />
