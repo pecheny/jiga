@@ -20,6 +20,7 @@
         "shimp": "git:https://github.com/pecheny/shimp",
         "flgl": "git:https://github.com/pecheny/flgl",
         "ginp": "git:https://github.com/pecheny/ginp",
+        "htext": "git:https://github.com/pecheny/htext",
         "fancy": "git:https://github.com/pecheny/fancy"
     }
 }
