@@ -131,6 +131,7 @@ class BootstrapMain extends AbstractEngine {
             .withPadding(horizontal, pfr, 0.33)
             .withPadding(vertical, pfr, 0.33)
             .build();
+        rootEntity.addComponent(fitStyle);
         fui.textStyles.resetToDefaults();
         rootEntity.addComponentByType(TextContextStorage, fui.textStyles);
     }
