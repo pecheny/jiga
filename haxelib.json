@@ -2,7 +2,7 @@
     "name": "jiga",
     "url": "https://github.com/pecheny/jiga",
     "license": "MIT",
-    "tags": [ ],
+    "tags": [],
     "description": "",
     "version": "0.0.1",
     "releasenote": "Initial release. ",
@@ -13,13 +13,13 @@
     "dependencies": {
         "format": "",
         "openfl": "",
-        "alayout": "",
-        "shimp": "",
-        "flgl": "",
-        "slec": "",
-        "taxis": "",
-        "ginp": "",
-        "fancy": "",
-        "hxmath": ""
+        "hxmath": "",
+        "slec": "git:https://github.com/pecheny/slec",
+        "taxis": "git:https://github.com/pecheny/taxis",
+        "alayout": "git:https://github.com/pecheny/alayout",
+        "shimp": "git:https://github.com/pecheny/shimp",
+        "flgl": "git:https://github.com/pecheny/flgl",
+        "ginp": "git:https://github.com/pecheny/ginp",
+        "fancy": "git:https://github.com/pecheny/fancy"
     }
 }
