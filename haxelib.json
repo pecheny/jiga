@@ -14,6 +14,8 @@
         "format": "",
         "openfl": "",
         "hxmath": "",
+        "hscript": "",
+        "domkit": "git:https://github.com/pecheny/domkit#postinit",
         "slec": "git:https://github.com/pecheny/slec",
         "taxis": "git:https://github.com/pecheny/taxis",
         "alayout": "git:https://github.com/pecheny/alayout",
