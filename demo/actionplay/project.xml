@@ -8,19 +8,7 @@
     <window background="#303030" fps="60" />
     <window background="#303030" fps="60" width="1280" height="760" unless="html5"/>
     <source path="src"/>
-    <source path="../../src"/>
 
     <haxelib name="openfl"/>
-    <haxelib name="hxmath"/>
-    <haxelib name="tracer"/>
-    <haxelib name="ginp"/>
-    <haxelib name="taxis"/>
-    <haxelib name="fancy"/>
-    <haxelib name="alayout"/>
-    <haxelib name="hxGeomAlgo"/>
-    <haxelib name="json2object"/>
-    <haxelib name="hscript"/>
-    <haxelib name="domkit"/>
-
-    <haxeflag name="--macro" value='domkit.Macros.registerComponentsPath("fancy.domkit.Dkit.$Dkit")'/>
+    <haxelib name="jiga"/>
 </project>
