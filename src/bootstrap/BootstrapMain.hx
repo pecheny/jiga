@@ -1,32 +1,32 @@
 package bootstrap;
 
+import FuiBuilder.XmlLayerLayouts;
 import al.al2d.Placeholder2D;
 import al.ec.WidgetSwitcher;
-import al.openfl.StageAspectResizer;
-import FuiBuilder.XmlLayerLayouts;
-import htext.style.TextContextBuilder;
-import mesh.providers.ColorArrayProvider;
 import al.layouts.PortionLayout;
-import fancy.domkit.Dkit;
 import al.layouts.WholefillLayout;
-import fancy.Layouts.ContainerStyler;
 import al.layouts.data.LayoutData;
-import fancy.Props;
-import update.UpdateBinder;
+import al.openfl.StageAspectResizer;
 import al.openfl.display.FlashDisplayRoot;
-import bootstrap.EntryLoop;
+import ec.CtxWatcher;
 import ec.Entity;
-import fancy.domkit.Dkit.BaseDkit;
+import fancy.Layouts.ContainerStyler;
+import fancy.Props;
+import fancy.domkit.Dkit;
+import gameapi.GameRun;
+import gameapi.GameRunBinder;
 import ginp.GameButtons;
 import ginp.GameInput.GameInputUpdater;
 import ginp.presets.OneButton;
 import ginp.presets.OneButtonInput;
+import htext.style.TextContextBuilder;
 import input.ButtonInputBinder;
 import loops.bounce.BouncingLoop;
 import loops.bounce.BouncingTimeline.MyWeaponFac;
 import loops.bounce.gui.BouncingWidget;
 import openfl.display.Sprite;
 import states.States;
+import update.UpdateBinder;
 import utils.AbstractEngine;
 import utils.MacroGenericAliasConverter as MGA;
 
@@ -44,15 +44,24 @@ class BootstrapMain extends AbstractEngine {
         rootEntity = new Entity("root");
         setWindowPosition();
         regDrawcals();
-        iniupdater();
         textStyles();
         createFlashDisplay();
         initFui();
         dkitDefaultStyles();
         createInput();
+        iniUpdater();
 
-        rootEntity.dispatchContext(rootEntity);
+        // rootEntity.dispatchContext(rootEntity);
         createRunWrapper();
+        createRun();
+    }
+
+    function createRun() {}
+
+    function enterRun(run:GameRun) {
+        run.entity.addComponentByType(GameRun, run);
+        new CtxWatcher(GameRunBinder, run.entity);
+        rootEntity.addChild(run.entity);
     }
 
     function createRunWrapper() {
@@ -112,8 +121,11 @@ class BootstrapMain extends AbstractEngine {
         rootEntity.addComponent(switcher);
     }
 
-    function iniupdater() {
-        rootEntity.addComponent(new UpdateBinder(fui.updater));
+    function iniUpdater() {
+        var inpUpd = rootEntity.getComponent(GameInputUpdater);
+        var updater = new RunUpdater(@:privateAccess inpUpd);
+        addUpdatable(updater);
+        rootEntity.addComponent(new UpdateBinder(updater));
     }
 
     function textStyles() {
