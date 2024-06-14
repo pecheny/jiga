@@ -76,6 +76,7 @@ class IntCapValue implements RW<Int> implements ChangingVal<Int> {
 
     public function init(v) {
         max = val = v;
+        _onChange.dispatch(0);
     }
 
     public function setVal(newVal:Int):Int {
