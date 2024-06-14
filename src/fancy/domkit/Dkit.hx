@@ -58,7 +58,7 @@ class BaseDkit implements domkit.Model<BaseDkit> implements domkit.Object implem
             this.ph = b().b();
         else
             this.ph = p;
-        trans = p.entity.getComponent(ProxyWidgetTransform);
+        trans = ph.entity.getComponent(ProxyWidgetTransform);
 
         if (parent != null) {
             this.fui = parent.fui;
