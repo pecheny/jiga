@@ -183,7 +183,7 @@ class LabelDkit extends BaseDkit {
     public var color(default, set):Int = 0xffffff;
     public var label:CMSDFLabel;
     public var text(default, set):String = "";
-    public var style(default, null):String = "";
+    public var style(default, default):String = "";
 
     @:once var styles:TextContextStorage;
     @:once var props:Props<Dynamic>;
