@@ -71,13 +71,14 @@ class BootstrapMain extends AbstractEngine {
     function regDrawcals() {
         new FlatColorPass(fui).register();
         new CmsdfPg(fui).register();
+        new ImagePass(fui).register();
     }
 
     function setWindowPosition() {
         var wnd = openfl.Lib.application.window;
         if (wnd.y < 0)
             wnd.y = 20;
-        wnd.x = 800;
+        wnd.x = 200;
     }
 
     /**
