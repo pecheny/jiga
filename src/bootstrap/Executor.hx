@@ -12,7 +12,8 @@ class Executor {
     }
 
     public function run(expr:String) {
-        var ast = parser.parseString("ctx." + expr);
+        // var ast = parser.parseString("ctx." + expr);
+        var ast = parser.parseString( expr);
         // on js functions do not carry closure to 'this',
         // so the easies workaround i'd found is pass not function themself, but ctx obj w/methods
         //
