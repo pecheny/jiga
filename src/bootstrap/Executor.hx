@@ -4,7 +4,10 @@ class Executor {
     var parser = new hscript.Parser();
     var interp = new hscript.Interp();
 
-    public function new(ctx) {
+    var useCtxPrefix:Bool;
+
+    public function new(ctx, useCtxPrefix = false) {
+        this.useCtxPrefix = useCtxPrefix;
         for (v in Reflect.fields(ctx)) {
             var fld = Reflect.field(ctx, v);
             interp.variables.set(v, fld);
@@ -12,8 +15,7 @@ class Executor {
     }
 
     public function run(expr:String) {
-        // var ast = parser.parseString("ctx." + expr);
-        var ast = parser.parseString( expr);
+        var ast = if (useCtxPrefix) parser.parseString("ctx." + expr); else parser.parseString(expr);
         // on js functions do not carry closure to 'this',
         // so the easies workaround i'd found is pass not function themself, but ctx obj w/methods
         //
@@ -21,7 +23,7 @@ class Executor {
     }
 
     public function guardsPasses(guards:Array<String>) {
-        if(guards == null)
+        if (guards == null)
             return true;
         for (s in guards)
             if (!run(s))
