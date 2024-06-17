@@ -14,7 +14,7 @@ class TalkingActivity extends GameRunBase implements ActHandler<DialogDesc> {
 
     override function init() {
         super.init();
-        gui.onChoise.listen(clickHandler);
+        gui.onChoice.listen(clickHandler);
     }
 
     function clickHandler(n:Int) {
@@ -33,6 +33,6 @@ class TalkingActivity extends GameRunBase implements ActHandler<DialogDesc> {
     }
 }
 interface ITalkingWidget {
-    public var onChoise(default, null) :IntSignal;
+    public var onChoice(default, null) :IntSignal;
     public function initDescr(d:DialogDesc):Void;
 }
