@@ -1,5 +1,15 @@
 package loops.talk;
 
+import fancy.InteractivePanelBuilder;
+import widgets.ColouredQuad.InteractiveColors;
+import al.layouts.PortionLayout;
+import gl.sets.ColorSet;
+import graphics.ShapesColorAssigner;
+import ec.Signal;
+import al.al2d.ChildrenPool;
+import al.al2d.Placeholder2D;
+import fancy.domkit.Dkit.BaseDkit;
+import loops.talk.TalkingActivity.ITalkingWidget;
 import shimp.ClicksInputSystem.ClickTargetViewState;
 import al.al2d.Widget2DContainer;
 import loops.talk.TalkData;
@@ -13,92 +23,60 @@ using al.Builder;
 using transform.LiquidTransformer;
 using widgets.utils.Utils;
 
-class TalkingWidget extends Widget {
-    var bcont:Widget2DContainer;
-    var currentDescr:DialogDesc;
-    @:once var fui:FuiBuilder;
-    @:once var style:TextStyleContext;
+class TalkingWidget implements ITalkingWidget extends BaseDkit {
+    // var caption:Label;
+    var container:Widget2DContainer;
+    var input:DataChildrenPool<String, ResponceButton>;
+    var data:DialogDesc;
+    public var onChoice(default, null):IntSignal = new IntSignal();
+    @:once var wc:Widget2DContainer;
+    
+    static var SRC = <talking-widget vl={PortionLayout.instance}>
+        <label(b().v(pfr, 6).b()) id="lbl"  style={"small-text"}  />
+        <base(b().v(pfr, 6).b()) id="buttons" vl={PortionLayout.instance}   />
+    </talking-widget>
 
-    public var buttons(default, null):Array<NumButton> = [];
-    public var text(default, null):Label;
-    public var choosen = new IntSignal();
+
+    public function initDescr(d:DialogDesc) {
+        data = d;
+        if (!_inited)
+            return;
+        lbl.text = d.caption;
+        input.initData(d.responces.map(r -> r.caption));
+    }
 
     override function init() {
-        super.init();
-        var b = fui.placeholderBuilder;
-        text = new Label(b.b(), style);
-        bcont = Builder.createContainer(b.b(), vertical, Forward);
-        Builder.createContainer(ph, vertical, Forward).withChildren([text.ph, bcont.widget()]);
-        for (i in 0...4)
-            addButton();
-        if (currentDescr != null)
-            initDescr(currentDescr);
-        ph.entity.getComponent(Widget2DContainer).refresh();
-    }
-
-    public function initDescr(descr:DialogDesc) {
-        currentDescr = descr;
-        if (!_inited)
-            return this;
-        text.withText(descr.caption);
-        for (i in 0...buttons.length) {
-            var btn = buttons[i];
-
-            if (i < descr.responces.length) {
-                btn.setData(descr.responces[i].caption);
-            } else {
-                btn.hide();
-            }
-        }
-        return this;
-    }
-
-    function addButton() {
-        var b = fui.placeholderBuilder;
-        var w = b.b();
-        var lbl = new Label(w, style);
-        var btn = new NumButton(w, buttons.length, buttonHandler, lbl);
-        buttons.push(btn);
-        Builder.addWidget(bcont, w);
-    }
-
-    function buttonHandler(n:Int) {
-        choosen.dispatch(n);
+        input = new InteractivePanelBuilder().withContainer(buttons.c).withWidget(() -> {
+            var c = new ResponceButton(b().h(pfr, 0.1).v(sfr, 0.1).b());
+            c;
+        }).withSignal(onChoice).build();
+        if (data!=null)
+            initDescr(data);
     }
 }
 
-class NumButton extends ButtonBase {
-    var numHandler:Int->Void;
-    var lbl:Label;
-    var n:Int;
+class ResponceButton extends BaseDkit implements DataView<String> {
+    public var onDone:Signal<Void->Void> = new Signal();
+    @:once var bb:ClickViewProcessor;
 
-    public function new(w, n, hnd, lbl) {
-        this.lbl = lbl;
-        super(w, null);
-        this.n = n;
-        this.numHandler = hnd;
+    static var SRC = <responce-button vl={PortionLayout.instance}>
+        <label(b().v(pfr, 6).b()) id="lbl"  style={"small-text"}  />
+    </responce-button>
+
+    override function init() {
+        bb.addHandler(changeViewState);
     }
 
-    public function setData(capt:String) {
-        lbl.withText(capt);
+    public function initData(descr:String) {
+        lbl.text = descr;
     }
 
-    override function handler() {
-        super.handler();
-        numHandler(n);
-    }
-
-    public function hide() {
-        lbl.withText("");
-        clickHandler = null;
-    }
-    override function changeViewState(st:ClickTargetViewState) {
-        super.changeViewState(st);
+    function changeViewState(st:ClickTargetViewState) {
         var c = switch st {
-            case Hovered:0xff0000;
-            case Pressed:0x900000;
+            case Hovered: 0xff0000;
+            case Pressed: 0x900000;
             case Idle, PressedOutside: 0xffffff;
         }
-        lbl.setColor(c);
+        lbl.color = (c);
     }
 }
