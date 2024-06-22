@@ -132,38 +132,31 @@ class BootstrapMain extends AbstractEngine {
     function textStyles() {
         var font = "Assets/fonts/robo.fnt";
         fui.addBmFont("", font); // todo
-        var pcStyleC = fui.textStyles.newStyle("center").withAlign(horizontal, Center).build();
-        var pcStyle = fui.textStyles.newStyle("score") //        .withAlign(vertical, Center)
-            .withSize(sfr, .1)
-            .withPadding(horizontal, sfr, 0.3)
+        var ts = fui.textStyles;
+        ts.newStyle("small-text")
+            .withSize(sfr, .07)
+            .withPadding(horizontal, sfr, 0.1)
+            .withAlign(vertical, Center)
             .build();
-        var fitStyle = fui.textStyles.newStyle("fit")
+        ts.resetToDefaults();
+        ts.newStyle("center").withAlign(horizontal, Center).build();
+        ts.newStyle("fit")
             .withSize(pfr, .5)
             .withAlign(horizontal, Forward)
             .withAlign(vertical, Backward)
             .withPadding(horizontal, pfr, 0.33)
             .withPadding(vertical, pfr, 0.33)
             .build();
-        rootEntity.addComponent(fitStyle);
-        fui.textStyles.resetToDefaults();
-        rootEntity.addComponentByType(TextContextStorage, fui.textStyles);
+        rootEntity.addComponent(ts.getStyle("fit"));
+        ts.resetToDefaults();
+        rootEntity.addComponentByType(TextContextStorage, ts);
     }
 
     function dkitDefaultStyles() {
         BaseDkit.inject(fui);
-
-        var default_text_style = "small-text";
-
-        var pcStyle = fui.textStyles.newStyle(default_text_style)
-            .withSize(sfr, .07)
-            .withPadding(horizontal, sfr, 0.1)
-            .withAlign(vertical, Center)
-            .build();
-
         var e = rootEntity;
-        var props = new DummyProps<String>();
-        props.set(Dkit.TEXT_STYLE, default_text_style);
-        e.addComponentByType(Props, props);
+        var props = e.getOrCreate(Props, () -> new CascadeProps<String>(null, "root-props"));
+        props.set(Dkit.TEXT_STYLE, "small-text");
 
         var distributer = new al.layouts.Padding(new FractionSize(.25), new PortionLayout(Center, new FixedSize(0.1)));
         var contLayouts = new ContainerStyler();
