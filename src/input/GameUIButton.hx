@@ -14,10 +14,7 @@ class GameUIButton<TB:Axis<TB>> implements GameButtonDispatcher<TB> implements I
     var b:TB;
 
     public function new(w:Placeholder2D, b:TB, basisName) {
-
-// TODO b is never assigned!11111 it works just because it is zero by default
-
-
+        this.b = b;
         hittester = new WidgetHitTester(w); // share with possible view processor
         w.entity.addComponentByType(InputSystemTarget, this);
         w.entity.addComponentByName("GameButtonDispatcher_" + basisName, this);
@@ -26,20 +23,31 @@ class GameUIButton<TB:Axis<TB>> implements GameButtonDispatcher<TB> implements I
     }
 
     public function setButtonListener(l:GameButtonsListener<TB>) {
+        if (this.l != null && pressed)
+            this.l.onButtonUp(b);
         this.l = l;
+        if (this.l != null && pressed)
+            this.l.onButtonDown(b);
     }
 
     public function setPos(pos:Point) {}
 
+    var pressed = false;
+
     public function press() {
+        pressed = true;
         l?.onButtonDown(b);
     }
 
     public function release() {
+        pressed = false;
         l?.onButtonUp(b);
     }
 
-    public function setActive(val:Bool) {}
+    public function setActive(val:Bool) {
+        if (!val && pressed) 
+            release();
+    }
 
     public function isUnder(pos:Point):Bool {
         return hittester.isUnder(pos);
