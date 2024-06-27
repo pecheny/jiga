@@ -1,5 +1,6 @@
 package;
 
+import input.GameUIButton;
 import Trix5Buttons.TriButtons;
 import gl.sets.ColorSet;
 import graphics.ShapesColorAssigner;
@@ -17,6 +18,7 @@ import ec.Entity;
 import fancy.domkit.Dkit;
 import gameapi.GameRun;
 import gameapi.GameRunBinder;
+import utils.MacroGenericAliasConverter as MGA;
 
 using al.Builder;
 using transform.LiquidTransformer;
@@ -44,6 +46,7 @@ class GameButtonsDemo extends BootstrapMain {
         rootEntity.addComponentByType(GameInputUpdater, inp);
         rootEntity.addAliasByName(Entity.getComponentId(Trix5Buttons), inp);
         rootEntity.addChild(ie);
+        rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, TriButtons), new ButtonInputBinder(MGA.toString(TriButtons), inp));
     }
 }
 
@@ -63,6 +66,7 @@ class DomkitSampleWidget extends BaseDkit implements Updatable{
         super.init();
         entity.addComponentByType(Updatable, this);
         new CtxWatcher(UpdateBinder, entity);
+        new GameUIButton(l.ph, TriButtons.l, "TriButtons");
     }
 
 	public function update(dt:Float) {

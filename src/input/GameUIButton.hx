@@ -14,6 +14,10 @@ class GameUIButton<TB:Axis<TB>> implements GameButtonDispatcher<TB> implements I
     var b:TB;
 
     public function new(w:Placeholder2D, b:TB, basisName) {
+
+// TODO b is never assigned!11111 it works just because it is zero by default
+
+
         hittester = new WidgetHitTester(w); // share with possible view processor
         w.entity.addComponentByType(InputSystemTarget, this);
         w.entity.addComponentByName("GameButtonDispatcher_" + basisName, this);

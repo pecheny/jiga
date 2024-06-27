@@ -89,6 +89,7 @@ class BootstrapMain extends AbstractEngine {
         rootEntity.addComponentByType(GameInputUpdater, input);
         rootEntity.addComponentByType(GameButtons, input);
         rootEntity.addComponent(input);
+        // listen for gui buttons dispatchers
         rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, OneButton), new ButtonInputBinder(MGA.toString(OneButton), input.buttonListener));
     }
 
