@@ -6,6 +6,7 @@ import bootstrap.Component;
 
 interface Props<T> {
     public function get(name:String):T;
+    public function set(name:String, val:T):Void;
 }
 
 class DummyProps<T> implements Props<T> {
@@ -49,10 +50,33 @@ class CascadeProps<T> extends DummyProps<T> implements IComponent {
     }
 
     function get_entity():Entity {
-        throw new haxe.exceptions.NotImplementedException();
+        return entity;
     }
 
     function set_entity(value:Entity):Entity {
-        throw new haxe.exceptions.NotImplementedException();
+        return entity = value;
+    }
+}
+
+class PropsAccess<T> {
+    var p:Props<T>;
+
+    function new() {}
+
+    
+    public static function getOrCreateStr<T>(e:Entity):PropsAccess<T> {
+        var pa = new PropsAccess<T>();
+        pa.p = null;
+        pa.p = e.getComponent(Props);
+        if (pa.p != null)
+            return pa;
+        pa.p = new CascadeProps<T>(null, e.name + "-props");
+        e.addComponentByType(Props, pa.p);
+        return pa;
+    }
+
+    public function with(name, val:T) {
+        p.set(name, val);
+        return this;
     }
 }
