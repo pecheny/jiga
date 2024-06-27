@@ -1,23 +1,25 @@
 package bootstrap;
 
+import ec.Entity;
+import ec.CtxWatcher.CtxBinder;
 import ginp.GameInput.GameInputUpdater;
 import update.Updatable;
 import update.Updater;
 
-class RunUpdater implements Updater implements Updatable {
-    var input:GameInputUpdater;
+class RunUpdater implements Updater implements Updatable implements GameInputUpdaterBinder {
+    var inputs:Array<GameInputUpdater> = [];
 
-    public function new(i) {
-        this.input = i;
-    }
+    public function new() {}
 
     var updatables:Array<Updatable> = [];
 
     public function update(dt) {
-        input.beforeUpdate(dt);
+        for (input in inputs)
+            input.beforeUpdate(dt);
         for (u in updatables)
             u.update(dt);
-        input.afterUpdate();
+        for (input in inputs)
+            input.afterUpdate();
     }
 
     public function addUpdatable(e:Updatable):Void {
@@ -27,4 +29,18 @@ class RunUpdater implements Updater implements Updatable {
     public function removeUpdatable(e:Updatable):Void {
         updatables.remove(e);
     }
+
+    public function bind(e:Entity) {
+        var input = e.getComponent(GameInputUpdater);
+        if (input != null)
+            inputs.push(input);
+    }
+
+    public function unbind(e:Entity) {
+        var input = e.getComponent(GameInputUpdater);
+        if (input != null)
+            inputs.remove(input);
+    }
 }
+
+interface GameInputUpdaterBinder extends CtxBinder {}

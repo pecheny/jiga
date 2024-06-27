@@ -1,5 +1,6 @@
 package bootstrap;
 
+import bootstrap.RunUpdater.GameInputUpdaterBinder;
 import FuiBuilder.XmlLayerLayouts;
 import al.al2d.Placeholder2D;
 import al.ec.WidgetSwitcher;
@@ -124,9 +125,9 @@ class BootstrapMain extends AbstractEngine {
     }
 
     function iniUpdater() {
-        var inpUpd = rootEntity.getComponent(GameInputUpdater);
-        var updater = new RunUpdater(@:privateAccess inpUpd);
+        var updater = new RunUpdater();
         addUpdatable(updater);
+        rootEntity.addComponentByType(GameInputUpdaterBinder, updater);
         rootEntity.addComponent(new UpdateBinder(updater));
     }
 

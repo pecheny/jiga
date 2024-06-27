@@ -1,5 +1,6 @@
 package;
 
+import bootstrap.RunUpdater.GameInputUpdaterBinder;
 import ginp.Keyboard;
 import ginp.GameKeys;
 import ginp.GameInput.GameInputUpdater;
@@ -23,7 +24,8 @@ class Trix5Buttons extends GameButtonsImpl<TriButtons> implements GameButtons<Tr
         var k = new GameKeys(this, map);
         e.addComponentByType(KbdListener, k);
         //TODO for now gupdater is put to run exec in bootstr.updater and take it from the root e.
-        // e.addComponentByType(GameInputUpdater, this);
+        e.addComponentByType(GameInputUpdater, this);
+        new CtxWatcher(GameInputUpdaterBinder, e);
         e.addComponentByType(GameButtons, this);
         e.addComponent(this);
         new CtxWatcher(KbdDispatcher, e);

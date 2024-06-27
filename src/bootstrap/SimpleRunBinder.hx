@@ -3,18 +3,15 @@ package bootstrap;
 import Pause;
 import al.ec.WidgetSwitcher;
 import ec.CtxWatcher;
-import ginp.GameInput.GameInputUpdater;
-import gameapi.GameRun;
-import update.UpdateBinder;
-import update.Updatable;
 import ec.Entity;
+import gameapi.GameRun;
 import gameapi.GameRunBinder;
+import update.Updatable;
+import update.UpdateBinder;
 
 class SimpleRunBinder extends ec.Component implements CtxBinder implements GameRunBinder implements Updatable implements Pausable {
     var run:GameRun;
-    var loop:UpdateLoop;
     var paused = false;
-    @:once var input:GameInputUpdater;
     @:once var switcher:WidgetSwitcher<Axis2D>;
 
     public function new(e:Entity, switcher) {
@@ -29,13 +26,11 @@ class SimpleRunBinder extends ec.Component implements CtxBinder implements GameR
 
     override function init() {
         super.init();
-        loop = new UpdateLoop(input);
         if (run != null)
             startGame();
     }
 
     function startGame() {
-        loop.run = run;
         run.reset();
         switcher.switchTo(run.getView());
         run.startGame();
@@ -48,8 +43,7 @@ class SimpleRunBinder extends ec.Component implements CtxBinder implements GameR
             this.run.gameOvered.remove(startGame);
         this.run = run;
         this.run.gameOvered.listen(startGame);
-        if (loop != null)
-            startGame();
+        startGame();
     }
 
     public function bind(e:Entity) {
@@ -63,7 +57,6 @@ class SimpleRunBinder extends ec.Component implements CtxBinder implements GameR
         if (this.run != run)
             return;
         this.run = null;
-        loop.run = null;
     }
 
     public function pause(v) {
@@ -73,26 +66,8 @@ class SimpleRunBinder extends ec.Component implements CtxBinder implements GameR
     public function update(dt:Float) {
         if (paused)
             return;
-        if (run == null || loop == null)
-            return;
-        loop.update(dt);
-    }
-}
-
-class UpdateLoop implements Updatable {
-    var input:GameInputUpdater;
-
-    public var run:GameRun;
-
-    public function new(input) {
-        this.input = input;
-    }
-
-    public function update(t:Float) {
         if (run == null)
             return;
-        input.beforeUpdate(t);
-        run.update(t);
-        input.afterUpdate();
+        run.update(dt);
     }
 }
