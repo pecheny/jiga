@@ -163,6 +163,7 @@ class BootstrapMain extends AbstractEngine {
         var distributer = new al.layouts.Padding(new FractionSize(.25), new PortionLayout(Center, new FixedSize(0.1)));
         var contLayouts = new ContainerStyler();
         contLayouts.reg(GuiStyles.L_HOR_CARDS, distributer, WholefillLayout.instance);
+        contLayouts.reg(GuiStyles.L_VERT_BUTTONS, WholefillLayout.instance, distributer);
         e.addComponent(contLayouts);
     }
 }
