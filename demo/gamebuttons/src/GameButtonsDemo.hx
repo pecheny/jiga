@@ -70,17 +70,22 @@ class DomkitSampleWidget extends BaseDkit {
 class GbuttonView extends BaseDkit implements Updatable {
     @:once var colors:ShapesColorAssigner<ColorSet>;
     @:once var inp:Trix5Buttons;
+    @:once var styles:TextContextStorage;
+    @:once var props:Props<Dynamic>;
     var gameButton:TriButtons;
 
-    static var SRC = <gbutton>
+    static var SRC = <gbutton hl={PortionLayout.instance}>
     ${fui.quad(__this__.ph, 0xff025f29)}
+        <label(b().b()) id="lbl" style={"small-text"}/>
     </gbutton>
+
     public function new(gb:TriButtons, p:Placeholder2D, ?parent:BaseDkit) {
         this.gameButton = gb;
-        super(p,parent);
+        super(p, parent);
         initComponent();
+        initDkit();
+        lbl.text = TriButtons.aliases[gb];
     }
-
 
     public function update(dt:Float) {
         var val = (inp.pressed(gameButton));
@@ -88,9 +93,10 @@ class GbuttonView extends BaseDkit implements Updatable {
     }
 
     override function init() {
-        super.init();
         entity.addComponentByType(Updatable, this);
         new CtxWatcher(UpdateBinder, entity);
         new GameUIButton(ph, gameButton, "TriButtons");
+        super.init();
+        trace(lbl.entity.parent);
     }
 }
