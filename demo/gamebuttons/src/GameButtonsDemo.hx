@@ -1,5 +1,6 @@
 package;
 
+import al.al2d.Placeholder2D;
 import input.GameUIButton;
 import Trix5Buttons.TriButtons;
 import gl.sets.ColorSet;
@@ -50,39 +51,46 @@ class GameButtonsDemo extends BootstrapMain {
     }
 }
 
-class DomkitSampleWidget extends BaseDkit implements Updatable{
-    @:once var inp:Trix5Buttons;
+class DomkitSampleWidget extends BaseDkit {
     static var SRC = <domkit-sample-widget hl={PortionLayout.instance}>
-        <gbutton(b().b()) id="l"/>
+        <gbutton(TriButtons.l, b().b()) id="l" />
         <base(b().v(pfr, 0.7).b()) id="cardsContainer"  layouts={GuiStyles.L_HOR_CARDS} >
         </base>
-        <gbutton(b().b())/>
+        <gbutton(TriButtons.r, b().b()) id="r" />
     </domkit-sample-widget>
 
     function onOkClick() {
         trace("click");
     }
+
+ 
+}
+
+@:uiComp("gbutton")
+class GbuttonView extends BaseDkit implements Updatable {
+    @:once var colors:ShapesColorAssigner<ColorSet>;
+    @:once var inp:Trix5Buttons;
+    var gameButton:TriButtons;
+
+    static var SRC = <gbutton>
+    ${fui.quad(__this__.ph, 0xff025f29)}
+    </gbutton>
+    public function new(gb:TriButtons, p:Placeholder2D, ?parent:BaseDkit) {
+        this.gameButton = gb;
+        super(p,parent);
+        initComponent();
+    }
+
+
+    public function update(dt:Float) {
+        var val = (inp.pressed(gameButton));
+        colors.setColor(val ? 0xff0000 : 0x0);
+    }
+
     override function init() {
         super.init();
         entity.addComponentByType(Updatable, this);
         new CtxWatcher(UpdateBinder, entity);
-        new GameUIButton(l.ph, TriButtons.l, "TriButtons");
-    }
-
-	public function update(dt:Float) {
-        l.setP(inp.pressed(TriButtons.l));
-    }
-}
-
-@:uiComp("gbutton")
-class GbuttonView extends BaseDkit {
-    @:once var colors:ShapesColorAssigner<ColorSet>;
-    static var SRC = <gbutton>
-    ${fui.quad(__this__.ph, 0xff025f29)}
-    </gbutton>
-
-    public function setP(v:Bool) {
-        colors.setColor(v? 0xff0000:0x0);
-    
+        new GameUIButton(ph, gameButton, "TriButtons");
     }
 }
