@@ -1,5 +1,10 @@
 package;
 
+import shimp.InputSystem.InputSystemTarget;
+import ecbind.InputBinder;
+import widgets.utils.WidgetHitTester;
+import fancy.Props;
+import htext.style.TextContextBuilder.TextContextStorage;
 import al.al2d.Placeholder2D;
 import input.GameUIButton;
 import Trix5Buttons.TriButtons;
@@ -52,18 +57,26 @@ class GameButtonsDemo extends BootstrapMain {
 }
 
 class DomkitSampleWidget extends BaseDkit {
-    static var SRC = <domkit-sample-widget hl={PortionLayout.instance}>
-        <gbutton(TriButtons.l, b().b()) id="l" />
-        <base(b().v(pfr, 0.7).b()) id="cardsContainer"  layouts={GuiStyles.L_HOR_CARDS} >
-        </base>
-        <gbutton(TriButtons.r, b().b()) id="r" />
+    static var SRC = <domkit-sample-widget layouts={GuiStyles.L_VERT_BUTTONS }>
+    <base(b().v(pfr, 0.7).b())  layouts={GuiStyles.L_HOR_CARDS} >
+        ${createTouchSystem(__this__.ph)}
+        <gbutton(TriButtons.l, b().b("lb")) />
+        <gbutton(TriButtons.up, b().b()) />
+        <gbutton(TriButtons.r, b().b()) />
+    </base>
+    <base(b().v(pfr, 0.7).b())  layouts={GuiStyles.L_HOR_CARDS} >
+        <gbutton(TriButtons.l, b().b("lb")) />
+        <gbutton(TriButtons.up, b().b()) />
+        <gbutton(TriButtons.r, b().b()) />
+    </base>
     </domkit-sample-widget>
 
-    function onOkClick() {
-        trace("click");
+    function createTouchSystem(ph:Placeholder2D) {
+        var sys = new HoverInputSystem(new Point(), new WidgetHitTester(ph));
+        ph.entity.addComponent(new InputBinder<Point>(sys));
+        ph.entity.addComponentByType(InputSystemTarget, sys);
+        new CtxWatcher(InputBinder, ph.entity, true);
     }
-
- 
 }
 
 @:uiComp("gbutton")
@@ -75,7 +88,7 @@ class GbuttonView extends BaseDkit implements Updatable {
     var gameButton:TriButtons;
 
     static var SRC = <gbutton hl={PortionLayout.instance}>
-    ${fui.quad(__this__.ph, 0xff025f29)}
+        ${fui.quad(__this__.ph, 0xff025f29)}
         <label(b().b()) id="lbl" style={"small-text"}/>
     </gbutton>
 
@@ -97,6 +110,5 @@ class GbuttonView extends BaseDkit implements Updatable {
         new CtxWatcher(UpdateBinder, entity);
         new GameUIButton(ph, gameButton, "TriButtons");
         super.init();
-        trace(lbl.entity.parent);
     }
 }
