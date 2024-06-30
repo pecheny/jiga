@@ -1,8 +1,8 @@
 package bootstrap;
 
 import ec.Entity;
-import ec.CtxWatcher.CtxBinder;
 import ginp.GameInput.GameInputUpdater;
+import ginp.GameInputUpdaterBinder;
 import update.Updatable;
 import update.Updater;
 
@@ -43,4 +43,3 @@ class RunUpdater implements Updater implements Updatable implements GameInputUpd
     }
 }
 
-interface GameInputUpdaterBinder extends CtxBinder {}

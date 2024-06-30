@@ -1,6 +1,6 @@
 package bootstrap;
 
-import bootstrap.RunUpdater.GameInputUpdaterBinder;
+import ginp.GameInputUpdaterBinder;
 import FuiBuilder.XmlLayerLayouts;
 import al.al2d.Placeholder2D;
 import al.ec.WidgetSwitcher;
