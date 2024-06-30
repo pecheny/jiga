@@ -1,5 +1,6 @@
 package;
 
+import shimp.HoverInputSystem;
 import shimp.InputSystem.InputSystemTarget;
 import ecbind.InputBinder;
 import widgets.utils.WidgetHitTester;
