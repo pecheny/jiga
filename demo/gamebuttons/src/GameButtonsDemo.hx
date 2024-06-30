@@ -1,31 +1,33 @@
 package;
 
-import shimp.HoverInputSystem;
-import shimp.InputSystem.InputSystemTarget;
-import ecbind.InputBinder;
-import widgets.utils.WidgetHitTester;
-import fancy.Props;
-import htext.style.TextContextBuilder.TextContextStorage;
+import TriButtons;
 import al.al2d.Placeholder2D;
-import input.GameUIButton;
-import Trix5Buttons.TriButtons;
-import gl.sets.ColorSet;
-import graphics.ShapesColorAssigner;
-import update.UpdateBinder;
-import update.Updatable;
-import input.ButtonInputBinder;
-import ginp.GameInput.GameInputUpdater;
-import openfl.OflKbd;
-import ginp.api.KbdDispatcher;
 import al.layouts.PortionLayout;
 import bootstrap.BootstrapMain;
 import bootstrap.GameRunBase;
 import ec.CtxWatcher;
 import ec.Entity;
+import ecbind.InputBinder;
+import fancy.Props;
 import fancy.domkit.Dkit;
 import gameapi.GameRun;
 import gameapi.GameRunBinder;
+import ginp.GameButtons;
+import ginp.GameInput.GameInputUpdater;
+import ginp.KeyToGameButtons;
+import ginp.api.KbdDispatcher;
+import gl.sets.ColorSet;
+import graphics.ShapesColorAssigner;
+import htext.style.TextContextBuilder.TextContextStorage;
+import input.ButtonInputBinder;
+import input.GameUIButton;
+import openfl.OflKbd;
+import shimp.HoverInputSystem;
+import shimp.InputSystem;
+import update.Updatable;
+import update.UpdateBinder;
 import utils.MacroGenericAliasConverter as MGA;
+import widgets.utils.WidgetHitTester;
 
 using al.Builder;
 using transform.LiquidTransformer;
@@ -39,6 +41,7 @@ class GameButtonsDemo extends BootstrapMain {
         fui.makeClickInput(ph);
 
         var wdg = new DomkitSampleWidget(Builder.widget());
+        // var wdg = new Trix5Widget(Builder.widget());
         var e = new Entity("run");
         var run = new GameRunBase(e, wdg.ph);
         run.entity.addComponentByType(GameRun, run);
@@ -49,9 +52,10 @@ class GameButtonsDemo extends BootstrapMain {
     override function createInput() {
         rootEntity.addComponentByType(KbdDispatcher, new OflKbd());
         var ie = new Entity("input");
-        var inp = new Trix5Buttons(ie);
+        var inp = new KeyToGameButtons(TriButtons.aliases.length);
+        inp.bind(ie); // maybe bind to rootEntity would work too but this way better illustrates composition several inputs in one project
         rootEntity.addComponentByType(GameInputUpdater, inp);
-        rootEntity.addAliasByName(Entity.getComponentId(Trix5Buttons), inp);
+        rootEntity.addAliasByName(Entity.getComponentId(GameButtons), inp);
         rootEntity.addChild(ie);
         rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, TriButtons), new ButtonInputBinder(MGA.toString(TriButtons), inp));
     }
@@ -83,7 +87,7 @@ class DomkitSampleWidget extends BaseDkit {
 @:uiComp("gbutton")
 class GbuttonView extends BaseDkit implements Updatable {
     @:once var colors:ShapesColorAssigner<ColorSet>;
-    @:once var inp:Trix5Buttons;
+    @:once var inp:GameButtons<TriButtons>;
     @:once var styles:TextContextStorage;
     @:once var props:Props<Dynamic>;
     var gameButton:TriButtons;
