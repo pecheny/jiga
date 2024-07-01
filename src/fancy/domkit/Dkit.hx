@@ -31,6 +31,7 @@ class BaseDkit implements domkit.Model<BaseDkit> implements domkit.Object implem
     public var c:Widget2DContainer;
     public var fui(get, null):FuiBuilder;
     public var _verbose = false;
+    public var onConstruct:(Placeholder2D)->Void;
 
     var hl:AxisLayout = WholefillLayout.instance;
     var vl:AxisLayout = WholefillLayout.instance;
@@ -86,6 +87,8 @@ class BaseDkit implements domkit.Model<BaseDkit> implements domkit.Object implem
     }
 
     public function initDkit() {
+        if (onConstruct!=null)
+            onConstruct(ph);
         if (containerRequired()) {
             c = new Widget2DContainer(iph, 2);
             for (a in Axis2D) {
