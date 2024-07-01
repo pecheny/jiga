@@ -1,48 +1,22 @@
 package;
 
-import InputTest.GButtonView;
 import TriButtons;
 import al.al2d.Placeholder2D;
-import al.layouts.PortionLayout;
-import bootstrap.BootstrapMain;
-import bootstrap.GameRunBase;
 import ec.CtxWatcher;
-import ec.Entity;
 import ecbind.InputBinder;
-import fancy.Props;
 import fancy.domkit.Dkit;
-import gameapi.GameRun;
-import gameapi.GameRunBinder;
+import fancy.widgets.GbuttonView;
 import ginp.GameButtons;
 import ginp.GameInput.GameInputUpdater;
-import ginp.KeyToGameButtons;
-import ginp.api.KbdDispatcher;
-import gl.sets.ColorSet;
+import ginp.GameInputUpdaterBinder;
 import graphics.ShapesColorAssigner;
-import htext.style.TextContextBuilder.TextContextStorage;
 import input.ButtonInputBinder;
 import input.GameUIButton;
-import openfl.OflKbd;
 import shimp.HoverInputSystem;
 import shimp.InputSystem;
-import update.Updatable;
-import update.UpdateBinder;
-import utils.MacroGenericAliasConverter as MGA;
-import widgets.utils.WidgetHitTester;
-import update.Updatable;
-import ginp.GameInputUpdaterBinder;
-import ginp.GameButtons;
-import ginp.GameInput.GameInputUpdater;
 import utils.MacroGenericAliasConverter;
-import input.ButtonInputBinder;
-import ginp.GameButtons.GameButtonsImpl;
-import TriButtons;
-import al.al2d.Placeholder2D;
-import ec.CtxWatcher;
-import ecbind.InputBinder;
-import fancy.domkit.Dkit;
-import shimp.HoverInputSystem;
-import shimp.InputSystem;
+import widgets.CMSDFLabel;
+import widgets.ColouredQuad.InteractiveColors;
 import widgets.utils.WidgetHitTester;
 
 using al.Builder;
@@ -68,7 +42,11 @@ class Trix5Widget extends BaseDkit {
     }
 
     function gbutton(bt:TriButtons, ph:Placeholder2D) {
-        new GbuttonView(bt, ph);
+        new GameUIButton(ph, bt, "TriButtons");
+        var wdg = new GbuttonView(ph, bt);
+        new CMSDFLabel(ph, fui.textStyles.getStyle("center")).withText(bt.toString());
+        fui.quad(ph, 0);
+        wdg.addHandler(new InteractiveColors(ph.entity.getComponent(ShapesColorAssigner).setColor).viewHandler);
     }
 
     #if !display
@@ -86,35 +64,4 @@ class Trix5Widget extends BaseDkit {
     </base>
     </trix5-widget>;
     #end
-}
-
-class GbuttonView extends BaseDkit implements Updatable {
-    @:once var colors:ShapesColorAssigner<ColorSet>;
-    @:once var inp:GameButtons<TriButtons>;
-    var gameButton:TriButtons;
-
-    static var SRC = <gbutton-view hl={PortionLayout.instance}>
-        ${fui.quad(__this__.ph, 0xff025f29)}
-        <label(b().b()) id="lbl" style={"small-text"}/>
-    </gbutton-view>
-
-    public function new(gb:TriButtons, p:Placeholder2D, ?parent:BaseDkit) {
-        this.gameButton = gb;
-        super(p, parent);
-        initComponent();
-        initDkit();
-        lbl.text = TriButtons.aliases[gb];
-    }
-
-    public function update(dt:Float) {
-        var val = (inp.pressed(gameButton));
-        colors.setColor(val ? 0xff0000 : 0x0);
-    }
-
-    override function init() {
-        entity.addComponentByType(Updatable, this);
-        new CtxWatcher(UpdateBinder, entity);
-        new GameUIButton(ph, gameButton, "TriButtons");
-        super.init();
-    }
 }
