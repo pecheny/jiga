@@ -28,6 +28,7 @@ import update.Updatable;
 import update.UpdateBinder;
 import utils.MacroGenericAliasConverter as MGA;
 import widgets.utils.WidgetHitTester;
+import Trix5Widget;
 
 using al.Builder;
 using transform.LiquidTransformer;
@@ -40,8 +41,8 @@ class GameButtonsDemo extends BootstrapMain {
         var ph = Builder.widget();
         fui.makeClickInput(ph);
 
-        var wdg = new DomkitSampleWidget(Builder.widget());
-        // var wdg = new Trix5Widget(Builder.widget());
+        // var wdg = new DomkitSampleWidget(Builder.widget());
+        var wdg = new Trix5Widget(Builder.widget());
         var e = new Entity("run");
         var run = new GameRunBase(e, wdg.ph);
         run.entity.addComponentByType(GameRun, run);
@@ -49,71 +50,37 @@ class GameButtonsDemo extends BootstrapMain {
         rootEntity.addChild(run.entity);
     }
 
-    override function createInput() {
-        rootEntity.addComponentByType(KbdDispatcher, new OflKbd());
-        var ie = new Entity("input");
-        var inp = new KeyToGameButtons(TriButtons.aliases.length);
-        inp.bind(ie); // maybe bind to rootEntity would work too but this way better illustrates composition several inputs in one project
-        rootEntity.addComponentByType(GameInputUpdater, inp);
-        rootEntity.addAliasByName(Entity.getComponentId(GameButtons), inp);
-        rootEntity.addChild(ie);
-        rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, TriButtons), new ButtonInputBinder(MGA.toString(TriButtons), inp));
-    }
+    // override function createInput() {
+    //     rootEntity.addComponentByType(KbdDispatcher, new OflKbd());
+    //     var ie = new Entity("input");
+    //     var inp = new KeyToGameButtons(TriButtons.aliases.length);
+    //     inp.bind(ie); // maybe bind to rootEntity would work too but this way better illustrates composition several inputs in one project
+    //     rootEntity.addComponentByType(GameInputUpdater, inp);
+    //     rootEntity.addAliasByName(Entity.getComponentId(GameButtons), inp);
+    //     rootEntity.addChild(ie);
+    //     rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, TriButtons), new ButtonInputBinder(MGA.toString(TriButtons), inp));
+    // }
 }
 
-class DomkitSampleWidget extends BaseDkit {
-    static var SRC = <domkit-sample-widget layouts={GuiStyles.L_VERT_BUTTONS }>
-    <base(b().v(pfr, 0.7).b())  layouts={GuiStyles.L_HOR_CARDS} >
-        ${createTouchSystem(__this__.ph)}
-        <gbutton(TriButtons.l, b().b("lb")) />
-        <gbutton(TriButtons.up, b().b()) />
-        <gbutton(TriButtons.r, b().b()) />
-    </base>
-    <base(b().v(pfr, 0.7).b())  layouts={GuiStyles.L_HOR_CARDS} >
-        <gbutton(TriButtons.l, b().b("lb")) />
-        <gbutton(TriButtons.up, b().b()) />
-        <gbutton(TriButtons.r, b().b()) />
-    </base>
-    </domkit-sample-widget>
+// class DomkitSampleWidget extends BaseDkit {
+//     static var SRC = <domkit-sample-widget layouts={GuiStyles.L_VERT_BUTTONS }>
+//     <base(b().v(pfr, 0.7).b())  layouts={GuiStyles.L_HOR_CARDS} >
+//         ${createTouchSystem(__this__.ph)}
+//         <gbutton(TriButtons.l, b().b("lb")) />
+//         <gbutton(TriButtons.up, b().b()) />
+//         <gbutton(TriButtons.r, b().b()) />
+//     </base>
+//     <base(b().v(pfr, 0.7).b())  layouts={GuiStyles.L_HOR_CARDS} >
+//         <gbutton(TriButtons.l, b().b("lb")) />
+//         <gbutton(TriButtons.up, b().b()) />
+//         <gbutton(TriButtons.r, b().b()) />
+//     </base>
+//     </domkit-sample-widget>
 
-    function createTouchSystem(ph:Placeholder2D) {
-        var sys = new HoverInputSystem(new Point(), new WidgetHitTester(ph));
-        ph.entity.addComponent(new InputBinder<Point>(sys));
-        ph.entity.addComponentByType(InputSystemTarget, sys);
-        new CtxWatcher(InputBinder, ph.entity, true);
-    }
-}
-
-@:uiComp("gbutton")
-class GbuttonView extends BaseDkit implements Updatable {
-    @:once var colors:ShapesColorAssigner<ColorSet>;
-    @:once var inp:GameButtons<TriButtons>;
-    @:once var styles:TextContextStorage;
-    @:once var props:Props<Dynamic>;
-    var gameButton:TriButtons;
-
-    static var SRC = <gbutton hl={PortionLayout.instance}>
-        ${fui.quad(__this__.ph, 0xff025f29)}
-        <label(b().b()) id="lbl" style={"small-text"}/>
-    </gbutton>
-
-    public function new(gb:TriButtons, p:Placeholder2D, ?parent:BaseDkit) {
-        this.gameButton = gb;
-        super(p, parent);
-        initComponent();
-        initDkit();
-        lbl.text = TriButtons.aliases[gb];
-    }
-
-    public function update(dt:Float) {
-        var val = (inp.pressed(gameButton));
-        colors.setColor(val ? 0xff0000 : 0x0);
-    }
-
-    override function init() {
-        entity.addComponentByType(Updatable, this);
-        new CtxWatcher(UpdateBinder, entity);
-        new GameUIButton(ph, gameButton, "TriButtons");
-        super.init();
-    }
-}
+//     function createTouchSystem(ph:Placeholder2D) {
+//         var sys = new HoverInputSystem(new Point(), new WidgetHitTester(ph));
+//         ph.entity.addComponent(new InputBinder<Point>(sys));
+//         ph.entity.addComponentByType(InputSystemTarget, sys);
+//         new CtxWatcher(InputBinder, ph.entity, true);
+//     }
+// }
