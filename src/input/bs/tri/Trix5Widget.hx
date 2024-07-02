@@ -1,7 +1,6 @@
-package;
+package input.bs.tri;
 
 import input.GameUIButtonTuple;
-import TriButtons;
 import al.al2d.Placeholder2D;
 import ec.CtxWatcher;
 import ecbind.InputBinder;

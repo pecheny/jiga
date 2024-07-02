@@ -1,6 +1,7 @@
 package;
 
-import TriButtons;
+import input.bs.tri.TriButtons;
+import input.bs.tri.Trix5Widget;
 import al.al2d.Placeholder2D;
 import al.layouts.PortionLayout;
 import bootstrap.BootstrapMain;
@@ -28,7 +29,6 @@ import update.Updatable;
 import update.UpdateBinder;
 import utils.MacroGenericAliasConverter as MGA;
 import widgets.utils.WidgetHitTester;
-import Trix5Widget;
 
 using al.Builder;
 using transform.LiquidTransformer;
