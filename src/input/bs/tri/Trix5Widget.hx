@@ -9,7 +9,7 @@ import fancy.domkit.Dkit;
 import fancy.widgets.GbuttonView;
 import ginp.GameButtons;
 import ginp.GameInput.GameInputUpdater;
-import ginp.GameInputUpdaterBinder;
+import ginp.api.GameInputUpdaterBinder;
 import graphics.ShapesColorAssigner;
 import input.ButtonInputBinder;
 import input.GameUIButton;
