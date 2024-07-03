@@ -1,5 +1,6 @@
 package input.bs.tri;
 
+import al.layouts.PortionLayout;
 import input.GameUIButtonTuple;
 import al.al2d.Placeholder2D;
 import ec.CtxWatcher;
@@ -52,14 +53,14 @@ class Trix5Widget extends BaseDkit {
     }
 
     #if !display
-    static var SRC = <trix5-widget  layouts={GuiStyles.L_VERT_BUTTONS }>
+    static var SRC = <trix5-widget  vl={PortionLayout.instance}>
         ${createTouchSystem(__this__.ph)}
-    <base(b().v(pfr, 0.7).b())  layouts={GuiStyles.L_HOR_CARDS} >
+    <base(b().v(pfr, 0.7).b())  hl={PortionLayout.instance} >
         <base( b().b()) onConstruct={gbutton.bind([l, up])} />
         <base( b().b()) onConstruct={gbutton.bind([ up])} />
         <base( b().b()) onConstruct={gbutton.bind([r, up])} />
     </base>
-    <base(b().v(pfr, 0.7).b())  layouts={GuiStyles.L_HOR_CARDS} >
+    <base(b().v(pfr, 0.7).b())  hl={PortionLayout.instance} >
         <base( b().b()) onConstruct={gbutton.bind([l])} />
         <base( b().b()) />
         <base( b().b()) onConstruct={gbutton.bind([r])} />
