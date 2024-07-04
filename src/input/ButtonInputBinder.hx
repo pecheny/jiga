@@ -1,8 +1,9 @@
 package input;
 
+import ginp.api.GameButtonsListener;
 import ec.CtxWatcher.CtxBinder;
 import ec.Entity;
-import ginp.GameButtons;
+import ginp.GameButtonsImpl;
 
 class ButtonInputBinder<TButtons:Axis<TButtons>> implements CtxBinder {
     var input:GameButtonsListener<TButtons>;

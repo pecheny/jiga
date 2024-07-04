@@ -1,10 +1,11 @@
 package loops.bounce;
 
+import ginp.api.GameButtons;
 import gameapi.Interruption;
 import utils.MathUtil;
 import bootstrap.Activitor.ActHandler;
 import ginp.presets.OneButton;
-import ginp.GameButtons;
+import ginp.GameButtonsImpl;
 import bootstrap.Data;
 import bootstrap.GameRunBase;
 import loops.bounce.Data;

@@ -1,5 +1,7 @@
 package bootstrap;
 
+import ginp.api.GameButtons;
+import ginp.api.GameInputUpdater;
 import ginp.api.GameInputUpdaterBinder;
 import FuiBuilder.XmlLayerLayouts;
 import al.al2d.Placeholder2D;
@@ -16,8 +18,7 @@ import fancy.Props;
 import fancy.domkit.Dkit;
 import gameapi.GameRun;
 import gameapi.GameRunBinder;
-import ginp.GameButtons;
-import ginp.GameInput.GameInputUpdater;
+import ginp.GameButtonsImpl;
 import ginp.presets.OneButton;
 import ginp.presets.OneButtonInput;
 import htext.style.TextContextBuilder;

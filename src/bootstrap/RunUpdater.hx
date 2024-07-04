@@ -1,7 +1,7 @@
 package bootstrap;
 
+import ginp.api.GameInputUpdater;
 import ec.Entity;
-import ginp.GameInput.GameInputUpdater;
 import ginp.api.GameInputUpdaterBinder;
 import update.Updatable;
 import update.Updater;

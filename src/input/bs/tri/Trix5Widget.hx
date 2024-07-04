@@ -1,18 +1,19 @@
 package input.bs.tri;
 
-import al.layouts.PortionLayout;
-import input.GameUIButtonTuple;
 import al.al2d.Placeholder2D;
+import al.layouts.PortionLayout;
 import ec.CtxWatcher;
 import ecbind.InputBinder;
 import fancy.domkit.Dkit;
 import fancy.widgets.GbuttonView;
 import ginp.GameButtons;
-import ginp.GameInput.GameInputUpdater;
+import ginp.api.GameButtons;
+import ginp.api.GameInputUpdater;
 import ginp.api.GameInputUpdaterBinder;
 import graphics.ShapesColorAssigner;
 import input.ButtonInputBinder;
 import input.GameUIButton;
+import input.GameUIButtonTuple;
 import shimp.HoverInputSystem;
 import shimp.InputSystem;
 import utils.MacroGenericAliasConverter;

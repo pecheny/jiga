@@ -3,7 +3,7 @@ package fancy.widgets;
 import al.al2d.Placeholder2D;
 import al.al2d.Widget;
 import ec.CtxWatcher;
-import ginp.GameButtons;
+import ginp.api.GameButtons;
 import shimp.ClicksInputSystem.ClickTargetViewState;
 import update.Updatable;
 import update.UpdateBinder;

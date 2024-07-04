@@ -4,7 +4,7 @@ import al.al2d.Placeholder2D;
 import input.ButtonInputBinder.GameButtonDispatcher;
 import ec.CtxWatcher;
 import ecbind.InputBinder;
-import ginp.GameButtons.GameButtonsListener;
+import ginp.api.GameButtonsListener;
 import shimp.InputSystem.InputSystemTarget;
 import widgets.utils.WidgetHitTester;
 
