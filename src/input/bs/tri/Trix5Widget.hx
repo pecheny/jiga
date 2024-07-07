@@ -1,12 +1,15 @@
 package input.bs.tri;
 
+import a2d.AspectRatioProvider;
+import ginp.api.GameButtonsDispatcher;
+import ginp.api.GameButtonsListener;
 import al.al2d.Placeholder2D;
 import al.layouts.PortionLayout;
 import ec.CtxWatcher;
 import ecbind.InputBinder;
 import fancy.domkit.Dkit;
 import fancy.widgets.GbuttonView;
-import ginp.GameButtons;
+import ginp.GameButtonsImpl;
 import ginp.api.GameButtons;
 import ginp.api.GameInputUpdater;
 import ginp.api.GameInputUpdaterBinder;
@@ -26,16 +29,30 @@ using transform.LiquidTransformer;
 using widgets.utils.Utils;
 
 class Trix5Widget extends BaseDkit {
+
+    var gb : GameButtonsImpl<TriButtons>;
+    public var dispatcher(get, null):GameButtonsDispatcher<TriButtons>;
+    function get_dispatcher() return gb;
+    public var buttons(get, null):GameButtons<TriButtons>;
+    function get_buttons() return gb;
+
+    @:once var ar:AspectRatioProvider;
+    override function init() {
+        createTouchSystem(ph);
+    }
     function createTouchSystem(ph:Placeholder2D) {
-        var sys = new HoverInputSystem(new Point(), new WidgetHitTester(ph));
+        var sys = new shimp.MultiInputSystemContainer(() -> new Point(), new WidgetHitTester(ph));
+        var mtroot = new fui.input.MultitouchRoot(sys, ar.getAspectRatio());
+        // var sys = new HoverInputSystem(new Point(), new WidgetHitTester(ph));
         ph.entity.addComponent(new InputBinder<Point>(sys));
-        ph.entity.addComponentByType(InputSystemTarget, sys);
-        new CtxWatcher(InputBinder, ph.entity, true);
+        // ph.entity.addComponentByType(InputSystemTarget, sys);
+        // new CtxWatcher(InputBinder, ph.entity, true, true);
+        // new CtxWatcherBase("InputBinder_MT", ph.entity, true, true);
     }
 
     override public function initDkit() {
         super.initDkit();
-        var gb = new GameButtonsImpl<TriButtons>(TriButtons.aliases.length);
+        gb = new GameButtonsImpl<TriButtons>(TriButtons.aliases.length);
         var bb = new ButtonInputBinder(MacroGenericAliasConverter.toString(TriButtons), gb);
         new CtxWatcher(GameInputUpdaterBinder, entity);
         entity.addComponentByName(MacroGenericAliasConverter.toAlias(ButtonInputBinder, TriButtons), bb);
@@ -55,7 +72,7 @@ class Trix5Widget extends BaseDkit {
 
     #if !display
     static var SRC = <trix5-widget  vl={PortionLayout.instance}>
-        ${createTouchSystem(__this__.ph)}
+        // ${createTouchSystem(__this__.ph)}
     <base(b().v(pfr, 0.7).b())  hl={PortionLayout.instance} >
         <base( b().b()) onConstruct={gbutton.bind([l, up])} />
         <base( b().b()) onConstruct={gbutton.bind([ up])} />
