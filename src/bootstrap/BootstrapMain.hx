@@ -1,5 +1,9 @@
 package bootstrap;
 
+import ecbind.MultiInputBinder;
+import shimp.MultiInputTarget;
+import openfl.InputRoot;
+import fui.input.MultitouchRoot;
 import ginp.api.GameButtons;
 import ginp.api.GameInputUpdater;
 import ginp.api.GameInputUpdaterBinder;
@@ -81,6 +85,17 @@ class BootstrapMain extends AbstractEngine {
         if (wnd.y < 0)
             wnd.y = 20;
         wnd.x = 200;
+    }
+
+    /**
+        Creates root for multitouch input targets.
+    **/
+    function createMultiInput() {
+        var ar = fui.ar;
+        var mibinder = new MultiInputBinder();
+        var mroot = new MultitouchRoot(mibinder, ar.getAspectRatio());
+        var root = new InputRoot(new InputToMultiTarget(mibinder, -1), ar.getAspectRatio());
+        rootEntity.addComponent(mibinder);
     }
 
     /**
