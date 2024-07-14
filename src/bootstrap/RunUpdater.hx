@@ -32,14 +32,17 @@ class RunUpdater implements Updater implements Updatable implements GameInputUpd
 
     public function bind(e:Entity) {
         var input = e.getComponent(GameInputUpdater);
-        if (input != null)
+        if (input != null) {
+            input.reset();
             inputs.push(input);
+        }
     }
 
     public function unbind(e:Entity) {
         var input = e.getComponent(GameInputUpdater);
-        if (input != null)
+        if (input != null) {
+            input.reset();
             inputs.remove(input);
+        }
     }
 }
-
