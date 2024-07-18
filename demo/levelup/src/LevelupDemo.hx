@@ -25,7 +25,7 @@ class LevelupDemo extends BootstrapMain {
         player.addComponent(new LevelingDef("levelups", openfl.utils.Assets.getLibrary("")));
         var entity = player;
         var ctx = entity.addComponent(new ExecCtx(entity));
-        entity.addComponent(new Executor(ctx.vars));
+        entity.addComponent(new Executor(ctx.vars, true));
 
         var run = new LevelUpActivity(new Entity("dungeon-run"), wdg);
         player.addChild(run.entity); // for injection only
