@@ -1,5 +1,6 @@
 package fancy.widgets;
 
+import al.al2d.Widget;
 import al.Builder;
 import al.al2d.ChildrenPool;
 import al.al2d.Widget2DContainer;
@@ -9,49 +10,33 @@ import htext.style.TextStyleContext;
 import utils.Signal;
 import widgets.ColouredQuad;
 import widgets.Label;
-import widgets.Widget;
 
-class NumChoisesWidget extends Widget {
-    // var buttonsPools:Array<ChoiseButton> = [];
-    var buttons:ChildrenPool<ChoiseButton>;
-    @:once var fui:FuiBuilder;
+class NumChoisesWidget extends DataViewContainer<String, ChoiseButton> implements OptionPickerGui<String> {
     var b:PlaceholderBuilderGl;
-    var captions:Array<String>; // stores before init only
 
-    public var onChoise(default, null) = new IntSignal();
+    public var onChoice(default, null) = new IntSignal();
+
+    public function new(ph) {
+        super(ph, addButton);
+    }
 
     override function init() {
-        var wc = Builder.createContainer(ph, vertical, Center);
         b = new PlaceholderBuilderGl(fui.ar, true);
         b.keepStateAfterBuild = true;
         b.v(sfr, 0.15).h(sfr, 0.7);
-        buttons = new ChildrenPool(wc, addButton);
-        if (captions != null) {
-            initChoises(captions);
-            captions = null;
-        }
-    }
-
-    public function initChoises(captions:Array<String>) {
-        if (_inited) {
-            buttons.setActiveNum(captions.length);
-            for (i in 0...captions.length)
-                buttons.pool[i].lbl.withText(captions[i]);
-        } else {
-            this.captions = captions;
-        }
+        super.init();
     }
 
     function addButton() {
         return new ChoiseButton(b.b(), buttons.pool.length, clickHandler);
     }
 
-    function clickHandler(n) {
-        onChoise.dispatch(n);
+    public function clickHandler(n) {
+        onChoice.dispatch(n);
     }
 }
 
-class ChoiseButton extends NumButton {
+class ChoiseButton extends NumButton implements DataView<String> {
     public var lbl(default, null):Label;
 
     @:once var style:TextStyleContext;
@@ -59,5 +44,9 @@ class ChoiseButton extends NumButton {
     override function init() {
         ColouredQuad.flatClolorQuad(ph);
         lbl = new Label(ph, style);
+    }
+
+    public function initData(descr:String) {
+        lbl.withText(descr);
     }
 }

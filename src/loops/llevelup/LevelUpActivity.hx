@@ -1,5 +1,6 @@
 package loops.llevelup;
 
+import fancy.widgets.OptionPickerGui;
 import shared.ProgStats;
 import loops.llevelup.LevelupData.LevelingDef;
 import bootstrap.Executor;
@@ -17,13 +18,12 @@ class LevelUpActivity extends GameRunBase implements CheckedActivity {
     // @:once var defs:DungeonDefs; // todo  replace with levelup defs
     @:once var defs:LevelingDef;
     @:once var executor:Executor;
-    var gui:NumChoisesWidget;
+    @:once var gui:OptionPickerGui<String>;
     var expToLvl = [0, 5, 10, 15, 30, 50, 70, 90, 100, 120, 140];
 
-    public function new(ctx, w) {
-        gui = new NumChoisesWidget(w);
-        gui.onChoise.listen(onChoise);
-        super(ctx, w);
+
+    override function init() {
+        gui.onChoice.listen(onChoise);
     }
 
     var options:Array<LevelUpDesc>;
@@ -39,7 +39,7 @@ class LevelUpActivity extends GameRunBase implements CheckedActivity {
                 o;
             }
         ];
-        gui.initChoises(options.map(o -> o.name));
+        gui.initData(options.map(o -> o.name));
     }
     
 

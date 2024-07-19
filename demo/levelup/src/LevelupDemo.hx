@@ -1,5 +1,7 @@
 package;
 
+import fancy.widgets.OptionPickerGui;
+import fancy.widgets.NumChoisesWidget;
 import bootstrap.BootstrapMain;
 import bootstrap.Executor;
 import ec.Component;
@@ -27,7 +29,10 @@ class LevelupDemo extends BootstrapMain {
         var ctx = entity.addComponent(new ExecCtx(entity));
         entity.addComponent(new Executor(ctx.vars, true));
 
+        var gui = new NumChoisesWidget(wdg);
         var run = new LevelUpActivity(new Entity("dungeon-run"), wdg);
+        run.entity.addAliasByName(Entity.getComponentId(OptionPickerGui), gui);
+
         player.addChild(run.entity); // for injection only
         run.entity.addComponentByType(GameRun, run);
         new CtxWatcher(GameRunBinder, run.entity);
