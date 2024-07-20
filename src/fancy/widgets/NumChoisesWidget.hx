@@ -1,9 +1,6 @@
 package fancy.widgets;
 
-import al.al2d.Widget;
-import al.Builder;
 import al.al2d.ChildrenPool;
-import al.al2d.Widget2DContainer;
 import algl.Builder.PlaceholderBuilderGl;
 import fancy.widgets.NumButton;
 import htext.style.TextStyleContext;
@@ -27,8 +24,8 @@ class NumChoisesWidget extends DataViewContainer<String, ChoiseButton> implement
         super.init();
     }
 
-    function addButton() {
-        return new ChoiseButton(b.b(), buttons.pool.length, clickHandler);
+    function addButton(n) {
+        return new ChoiseButton(b.b(), n, clickHandler);
     }
 
     public function clickHandler(n) {

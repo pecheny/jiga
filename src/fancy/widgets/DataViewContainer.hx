@@ -13,7 +13,7 @@ class DataViewContainer<TData, TWidget:IWidget<Axis2D> & DataView<TData>> extend
     public var buttons(default, null):ChildrenPool<TWidget>;
 
 
-    public function new(ph:Placeholder2D, fac:Void->TWidget) {
+    public function new(ph:Placeholder2D, fac:Int->TWidget) {
         super(ph);
         var wc = ph.entity.getComponent(Widget2DContainer);
         if (wc == null)

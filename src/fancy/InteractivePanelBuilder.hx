@@ -17,9 +17,8 @@ class InteractivePanelBuilder<TData, TButton:IWidget<Axis2D> & DataView<TData>> 
     // var handler:Int->Void;
     public function new() {}
 
-    function factory():TButton {
+    function factory(n:Int):TButton {
         var btn = widgetFactory();
-        var n = buttons.pool.length;
         inputHandlerFactory(btn.ph, n);
         return btn;
     }
