@@ -1,23 +1,20 @@
 package;
 
-import widgets.ColouredQuad;
-import fancy.widgets.ActivButton;
-import haxe.ds.ReadOnlyArray;
-import fancy.GuiApi.ToggleComponent;
-import widgets.ColouredQuad.InteractiveColors;
 import al.al2d.ChildrenPool.DataView;
 import al.al2d.Placeholder2D;
+import al.al2d.Widget.IWidget;
 import al.layouts.PortionLayout;
 import al.layouts.WholefillLayout;
 import al.layouts.data.LayoutData;
 import algl.Builder.PlaceholderBuilderGl;
+import fancy.GuiApi.ToggleComponent;
 import fancy.Layouts;
 import fancy.Props;
 import fancy.WidgetTester;
 import fancy.domkit.Dkit;
 import fancy.widgets.DataViewContainer;
-import graphics.ShapesColorAssigner;
 import widgets.ButtonBase;
+import widgets.ColouredQuad;
 
 using al.Builder;
 using transform.LiquidTransformer;
@@ -34,19 +31,8 @@ class LevelupDemo extends WidgetTester {
         b.keepStateAfterBuild = true;
         b.v(sfr, 0.15).h(sfr, 0.7);
 
-        var toggles:Array<ToggleComponent> = [];
-        var rgroup = new RadioGroup(toggles);
-        var gui = new DataViewContainer<String, RadioButton>(wdg, (n) -> {
-            var ph = b.b();
-            var toggle = new ToggleComponent();
-            ph.entity.addComponent(toggle);
-            toggles.push(toggle);
-
-            new ButtonBase(ph, rgroup.setActiveId.bind(n));
-            ColouredQuad.flatClolorToggleQuad(ph);
-            var clr = ph.entity.getComponent(ColorToggle);
-            toggle.onChange.listen(() -> clr.setActive(toggle.value));
-            new RadioButton(ph);
+        var gui = new RadioGroup<String, RadioButton>(wdg, (n) -> {
+            new RadioButton(b.b());
         });
         gui.initData(["foo", "bar", "baz"]);
         switcher.switchTo(wdg);
@@ -72,12 +58,21 @@ class LevelupDemo extends WidgetTester {
     }
 }
 
-class RadioGroup {
-    var toggles:ReadOnlyArray<ToggleComponent>;
+class RadioGroup<TData, TWidget:IWidget<Axis2D> & DataView<TData>> extends DataViewContainer<TData, TWidget> {
+    var toggles:Array<ToggleComponent> = [];
     var activeId = 0;
+    var fac:Int->TWidget;
 
-    public function new(tgls) {
-        this.toggles = tgls;
+    public function new(ph, fac) {
+        this.fac = fac;
+        super(ph, factory);
+    }
+
+    function factory(n) {
+        var wdg = fac(n);
+        toggles.push(ToggleComponent.getOrCreate(wdg.entity));
+        new ButtonBase(wdg.ph, setActiveId.bind(n));
+        return wdg;
     }
 
     public function setActiveId(id:Int) {
@@ -85,6 +80,12 @@ class RadioGroup {
             toggles[activeId].value = false;
         activeId = id;
         toggles[activeId].value = true;
+    }
+
+    override function initData(descr:Array<TData>) {
+        super.initData(descr);
+        if (_inited)
+            setActiveId(0);
     }
 }
 
@@ -94,16 +95,29 @@ class RadioButton extends BaseDkit implements DataView<String> {
     <label(b().h(pfr, .7).b()) id="caption"  text={ "text" }  />
 </radio-button>;
 
+    @:once var vswitcher:ClickViewProcessor;
+
+    var toggle:ToggleComponent;
+    var clr:ColorToggle;
+
     public function new(ph:Placeholder2D, ?parent:BaseDkit) {
         super(ph, parent);
         initComponent();
         initDkit();
-        var tg = ToggleComponent.getOrCreate(ph.entity);
-        tg.onChange.listen(() -> setState(tg.value));
     }
 
-    function setState(val:Bool) {
-        status.text = val ? "[X]" : "[--]";
+    override function init() {
+        super.init();
+        ColouredQuad.flatClolorToggleQuad(ph);
+        clr = ph.entity.getComponent(ColorToggle);
+        toggle = ToggleComponent.getOrCreate(ph.entity);
+        toggle.onChange.listen(invalidate);
+        invalidate();
+    }
+
+    function invalidate() {
+        clr.setActive(toggle.value);
+        status.text = toggle.value ? "[X]" : "[--]";
     }
 
     public function initData(descr:String) {
