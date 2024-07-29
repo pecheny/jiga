@@ -4,7 +4,7 @@ import al.al2d.ChildrenPool;
 import algl.Builder.PlaceholderBuilderGl;
 import fancy.widgets.NumButton;
 import htext.style.TextStyleContext;
-import utils.Signal;
+import score.Signal;
 import widgets.ColouredQuad;
 import widgets.Label;
 

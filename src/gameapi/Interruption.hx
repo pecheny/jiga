@@ -1,5 +1,5 @@
 package gameapi;
 
-import utils.Signal;
+import score.Signal;
 
 typedef Interruption = Signal<Void->Void>;
