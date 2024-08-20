@@ -11,4 +11,5 @@
 
     <haxelib name="openfl"/>
     <haxelib name="jiga"/>
+    <haxelib name="ginp"/>
 </project>

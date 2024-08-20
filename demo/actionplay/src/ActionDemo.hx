@@ -1,11 +1,11 @@
 package;
 
+import ginp.api.GameInputUpdater;
 import openfl.DummyOflStickAdapter;
 import ginp.OnScreenStick;
 import graphics.ShapesColorAssigner;
 import graphics.shapes.QuadGraphicElement;
 import gl.sets.ColorSet;
-import widgets.ShapeWidget;
 import al.core.AllAxisApplier.AnyAxisApplier;
 import Input;
 import al.al2d.Placeholder2D;

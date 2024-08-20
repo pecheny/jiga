@@ -1,8 +1,10 @@
 package fancy.domkit;
 
+import al.al2d.ProxyWidgetTransform;
+import fui.graphics.ColouredQuad;
+import fui.ui.ButtonBase;
+import fui.ui.CMSDFLabel;
 import graphics.ShapesColorAssigner;
-import widgets.ColouredQuad.InteractiveColors;
-import widgets.ButtonBase;
 import fancy.Layouts.ContainerStyler;
 import al.al2d.Placeholder2D;
 import al.al2d.Widget2DContainer;
@@ -12,7 +14,6 @@ import al.layouts.AxisLayout;
 import al.layouts.WholefillLayout;
 import ec.Entity;
 import htext.style.TextContextBuilder.TextContextStorage;
-import widgets.CMSDFLabel;
 
 class Dkit {
     public static inline var TEXT_COLOR = "TEXT_COLOR";

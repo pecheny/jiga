@@ -1,6 +1,6 @@
 package fancy.widgets;
 
-import utils.Signal.IntSignal;
+import fu.Signal;
 import al.al2d.Widget.IWidget;
 
 interface OptionPickerGui<TData> extends DataView<Array<TData>> {

@@ -1,6 +1,6 @@
 package bootstrap;
 
-import score.Signal;
+import fu.Signal;
 
 typedef Weight = Float;
 typedef NormVal = Float;

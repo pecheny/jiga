@@ -22,8 +22,6 @@ import shimp.HoverInputSystem;
 import shimp.InputSystem;
 import shimp.MultiInputTarget;
 import utils.MacroGenericAliasConverter;
-import widgets.CMSDFLabel;
-import widgets.ColouredQuad.InteractiveColors;
 import widgets.utils.WidgetHitTester;
 
 using al.Builder;

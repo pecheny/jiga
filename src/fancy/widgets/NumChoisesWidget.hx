@@ -1,15 +1,15 @@
 package fancy.widgets;
 
+import fui.graphics.ColouredQuad;
 import al.al2d.ChildrenPool;
-import algl.Builder.PlaceholderBuilderGl;
+import al.al2d.PlaceholderBuilder2D;
 import fancy.widgets.NumButton;
 import htext.style.TextStyleContext;
-import score.Signal;
-import widgets.ColouredQuad;
+import fu.Signal;
 import widgets.Label;
 
 class NumChoisesWidget extends DataViewContainer<String, ChoiseButton> implements OptionPickerGui<String> {
-    var b:PlaceholderBuilderGl;
+    var b:PlaceholderBuilder2D;
 
     public var onChoice(default, null) = new IntSignal();
 
@@ -18,7 +18,7 @@ class NumChoisesWidget extends DataViewContainer<String, ChoiseButton> implement
     }
 
     override function init() {
-        b = new PlaceholderBuilderGl(fui.ar, true);
+        b = new PlaceholderBuilder2D(fui.ar, true);
         b.keepStateAfterBuild = true;
         b.v(sfr, 0.15).h(sfr, 0.7);
         super.init();

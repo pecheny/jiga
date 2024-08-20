@@ -1,19 +1,19 @@
 package fancy.widgets;
 
-import widgets.ButtonBase;
+import fui.ui.ButtonBase;
 
 class NumButton extends ButtonBase {
-    var numHandler:Int->Void;
-    var n:Int;
+	var numHandler:Int->Void;
+	var n:Int;
 
-    public function new(w, n, hndl) {
-        super(w, null);
-        this.n = n;
-        this.numHandler = hndl;
-    }
+	public function new(w, n, hndl) {
+		super(w, null);
+		this.n = n;
+		this.numHandler = hndl;
+	}
 
-    override function handler() {
-        super.handler();
-        numHandler(n);
-    }
+	override function handler() {
+		super.handler();
+		numHandler(n);
+	}
 }

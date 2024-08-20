@@ -1,5 +1,6 @@
 package fancy.widgets;
 
+import fui.ui.ButtonBase.ClickViewProcessor;
 import al.al2d.Placeholder2D;
 import al.al2d.Widget;
 import ec.CtxWatcher;
@@ -7,7 +8,6 @@ import ginp.api.GameButtons;
 import shimp.ClicksInputSystem.ClickTargetViewState;
 import update.Updatable;
 import update.UpdateBinder;
-import widgets.ButtonBase.ClickViewProcessor;
 
 class GbuttonView<TB:Axis<TB>> extends Widget implements Updatable implements ClickViewProcessor {
     var interactives:Array<ClickTargetViewState->Void> = [];

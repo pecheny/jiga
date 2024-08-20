@@ -4,7 +4,6 @@ import fancy.Props;
 import fancy.Layouts.ContainerStyler;
 import al.layouts.WholefillLayout;
 import al.layouts.data.LayoutData;
-import widgets.CMSDFLabel;
 import al.layouts.PortionLayout;
 import fancy.WidgetTester;
 import fancy.domkit.Dkit;

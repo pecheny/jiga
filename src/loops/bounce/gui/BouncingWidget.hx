@@ -1,5 +1,6 @@
 package loops.bounce.gui;
 
+import fui.graphics.ShapeWidget;
 import loops.bounce.BouncingLoop.BouncingGui;
 import widgets.Label;
 import loops.bounce.BouncingTimeline.RegionStateProvider;
@@ -9,7 +10,6 @@ import gl.sets.ColorSet;
 import graphics.ShapesColorAssigner;
 import graphics.shapes.QuadGraphicElement;
 import haxe.ds.ReadOnlyArray;
-import widgets.ShapeWidget;
 import widgets.Widget;
 
 using al.Builder;
