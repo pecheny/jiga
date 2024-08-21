@@ -1,6 +1,6 @@
 package loops.bounce.gui;
 
-import fui.graphics.ShapeWidget;
+import fu.graphics.ShapeWidget;
 import loops.bounce.BouncingLoop.BouncingGui;
 import widgets.Label;
 import loops.bounce.BouncingTimeline.RegionStateProvider;

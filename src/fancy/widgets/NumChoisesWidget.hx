@@ -1,6 +1,6 @@
 package fancy.widgets;
 
-import fui.graphics.ColouredQuad;
+import fu.graphics.ColouredQuad;
 import al.al2d.ChildrenPool;
 import al.al2d.PlaceholderBuilder2D;
 import fancy.widgets.NumButton;

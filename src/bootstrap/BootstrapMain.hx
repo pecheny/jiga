@@ -3,7 +3,7 @@ package bootstrap;
 import backends.openfl.OpenflBackend;
 import ecbind.MultiInputBinder;
 import shimp.MultiInputTarget;
-import fui.input.MultitouchRoot;
+import fu.input.MultitouchRoot;
 import ginp.api.GameButtons;
 import ginp.api.GameInputUpdater;
 import ginp.api.GameInputUpdaterBinder;

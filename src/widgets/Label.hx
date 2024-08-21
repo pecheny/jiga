@@ -1,5 +1,5 @@
 package widgets;
 
-import fui.ui.CMSDFLabel;
+import fu.ui.CMSDFLabel;
 
 typedef Label = CMSDFLabel;

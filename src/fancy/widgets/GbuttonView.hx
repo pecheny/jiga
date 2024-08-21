@@ -1,6 +1,6 @@
 package fancy.widgets;
 
-import fui.ui.ButtonBase.ClickViewProcessor;
+import fu.ui.ButtonBase.ClickViewProcessor;
 import al.al2d.Placeholder2D;
 import al.al2d.Widget;
 import ec.CtxWatcher;

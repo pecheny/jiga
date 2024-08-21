@@ -1,9 +1,9 @@
 package fancy.domkit;
 
 import al.al2d.ProxyWidgetTransform;
-import fui.graphics.ColouredQuad;
-import fui.ui.ButtonBase;
-import fui.ui.CMSDFLabel;
+import fu.graphics.ColouredQuad;
+import fu.ui.ButtonBase;
+import fu.ui.CMSDFLabel;
 import graphics.ShapesColorAssigner;
 import fancy.Layouts.ContainerStyler;
 import al.al2d.Placeholder2D;

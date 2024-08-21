@@ -1,6 +1,6 @@
 package fancy.widgets;
 
-import fui.ui.ButtonBase;
+import fu.ui.ButtonBase;
 
 class NumButton extends ButtonBase {
 	var numHandler:Int->Void;
