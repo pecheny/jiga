@@ -6,16 +6,16 @@ import ec.CtxWatcher;
 import ecbind.InputBinder;
 import ginp.api.GameButtonsListener;
 import shimp.InputSystem.InputSystemTarget;
-import widgets.utils.WidgetHitTester;
+import widgets.utils.WidgetHitTester2D;
 
 class GameUIButtonTuple<TB:Axis<TB>> implements GameButtonDispatcher<TB> implements InputSystemTarget<Point> {
-    var hittester:WidgetHitTester;
+    var hittester:WidgetHitTester2D;
     var l:GameButtonsListener<TB>;
     var bts:Array<TB>;
 
     public function new(w:Placeholder2D, b:Array<TB>, basisName) {
         this.bts = b;
-        hittester = new WidgetHitTester(w); // share with possible view processor
+        hittester = new WidgetHitTester2D(w); // share with possible view processor
         w.entity.addComponentByType(InputSystemTarget, this);
         w.entity.addComponentByName("GameButtonDispatcher_" + basisName, this);
         new CtxWatcherBase("ButtonInputBinder_" + basisName, w.entity);
