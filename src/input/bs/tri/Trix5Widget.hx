@@ -22,7 +22,7 @@ import shimp.HoverInputSystem;
 import shimp.InputSystem;
 import shimp.MultiInputTarget;
 import utils.MacroGenericAliasConverter;
-import widgets.utils.WidgetHitTester2D;
+import al2d.WidgetHitTester2D;
 
 using al.Builder;
 using transform.LiquidTransformer;

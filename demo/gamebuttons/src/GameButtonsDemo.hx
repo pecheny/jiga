@@ -28,7 +28,7 @@ import shimp.InputSystem;
 import update.Updatable;
 import update.UpdateBinder;
 import utils.MacroGenericAliasConverter as MGA;
-import widgets.utils.WidgetHitTester2D;
+import al2d.WidgetHitTester2D;
 
 using al.Builder;
 using transform.LiquidTransformer;
