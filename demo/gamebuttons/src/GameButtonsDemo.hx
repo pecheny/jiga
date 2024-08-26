@@ -32,7 +32,7 @@ import al2d.WidgetHitTester2D;
 
 using al.Builder;
 using transform.LiquidTransformer;
-using widgets.utils.Utils;
+using transform.LiquidTransformer;
 
 class GameButtonsDemo extends BootstrapMain {
     public function new() {

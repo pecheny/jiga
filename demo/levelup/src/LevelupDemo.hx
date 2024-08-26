@@ -15,7 +15,7 @@ import shared.ProgStats;
 
 using al.Builder;
 using transform.LiquidTransformer;
-using widgets.utils.Utils;
+using transform.LiquidTransformer;
 
 class LevelupDemo extends BootstrapMain {
     public function new() {

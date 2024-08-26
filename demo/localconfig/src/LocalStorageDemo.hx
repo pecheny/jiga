@@ -13,7 +13,7 @@ import widgets.ColouredQuad;
 
 using al.Builder;
 using transform.LiquidTransformer;
-using widgets.utils.Utils;
+using transform.LiquidTransformer;
 
 class LocalStorageDemo extends WidgetTester {
     public function new() {

@@ -21,7 +21,7 @@ import al.al2d.Widget;
 
 using al.Builder;
 using transform.LiquidTransformer;
-using widgets.utils.Utils;
+using transform.LiquidTransformer;
 
 class TalkingWidget implements ITalkingWidget extends BaseDkit {
     // var caption:Label;

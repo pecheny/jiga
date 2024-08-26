@@ -5,7 +5,7 @@ import al.al2d.Widget;
 
 using al.Builder;
 using transform.LiquidTransformer;
-using widgets.utils.Utils;
+using transform.LiquidTransformer;
 
 class DeltaProgressBar extends Widget {
     var healthRed:ProgressBarWidget;

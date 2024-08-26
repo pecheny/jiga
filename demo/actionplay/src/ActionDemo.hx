@@ -21,7 +21,7 @@ import openfl.display.Sprite;
 
 using al.Builder;
 using transform.LiquidTransformer;
-using widgets.utils.Utils;
+using transform.LiquidTransformer;
 
 class ActionDemo extends BootstrapMain {
     var input:GameInput<TGAxis, TGButts>;

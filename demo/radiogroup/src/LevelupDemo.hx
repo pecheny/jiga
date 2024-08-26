@@ -18,7 +18,7 @@ import widgets.ColouredQuad;
 
 using al.Builder;
 using transform.LiquidTransformer;
-using widgets.utils.Utils;
+using transform.LiquidTransformer;
 
 class LevelupDemo extends WidgetTester {
     public function new() {

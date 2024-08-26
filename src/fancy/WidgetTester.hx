@@ -9,7 +9,7 @@ import openfl.display.Sprite;
 
 using al.Builder;
 using transform.LiquidTransformer;
-using widgets.utils.Utils;
+using transform.LiquidTransformer;
 
 class WidgetTester extends Sprite {
     public var fui:FuiBuilder;

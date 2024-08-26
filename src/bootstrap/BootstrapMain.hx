@@ -38,7 +38,7 @@ import utils.MacroGenericAliasConverter as MGA;
 
 using al.Builder;
 using transform.LiquidTransformer;
-using widgets.utils.Utils;
+using transform.LiquidTransformer;
 
 class BootstrapMain extends AbstractEngine {
     var fui = new FuiBuilder();

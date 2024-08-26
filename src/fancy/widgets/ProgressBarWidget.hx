@@ -7,7 +7,7 @@ import widgets.ShapeWidget;
 
 using al.Builder;
 using transform.LiquidTransformer;
-using widgets.utils.Utils;
+using transform.LiquidTransformer;
 
 
 class ProgressBarWidget extends ShapeWidget<ColorSet> {

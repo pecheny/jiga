@@ -8,7 +8,7 @@ import al.al2d.Widget;
 
 using al.Builder;
 using transform.LiquidTransformer;
-using widgets.utils.Utils;
+using transform.LiquidTransformer;
 
 typedef GameMock = Pause.Pausable;
 

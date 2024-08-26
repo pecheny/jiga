@@ -16,7 +16,7 @@ import widgets.Label;
 
 using al.Builder;
 using transform.LiquidTransformer;
-using widgets.utils.Utils;
+using transform.LiquidTransformer;
 
 class EntryLoop {
     var machine:StateMachine;

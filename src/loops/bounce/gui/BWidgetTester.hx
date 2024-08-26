@@ -7,7 +7,7 @@ import al.Builder;
 
 using al.Builder;
 using transform.LiquidTransformer;
-using widgets.utils.Utils;
+using transform.LiquidTransformer;
 
 class BWidgetTester extends WidgetTester {
     public function new() {

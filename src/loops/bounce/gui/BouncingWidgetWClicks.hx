@@ -16,7 +16,7 @@ import al.al2d.Widget;
 
 using al.Builder;
 using transform.LiquidTransformer;
-using widgets.utils.Utils;
+using transform.LiquidTransformer;
 
 class BouncingWidget extends Widget {
     var region:RegionButton;
