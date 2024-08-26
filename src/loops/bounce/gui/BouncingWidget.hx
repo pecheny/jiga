@@ -13,8 +13,8 @@ import haxe.ds.ReadOnlyArray;
 import al.al2d.Widget;
 
 using al.Builder;
-using transform.LiquidTransformer;
-using transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
 
 class BouncingWidget extends Widget implements BouncingGui {
     var weights:ReadOnlyArray<Float> = [];

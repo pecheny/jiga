@@ -20,8 +20,8 @@ import ginp.GameInput;
 import openfl.display.Sprite;
 
 using al.Builder;
-using transform.LiquidTransformer;
-using transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
 
 class ActionDemo extends BootstrapMain {
     var input:GameInput<TGAxis, TGButts>;

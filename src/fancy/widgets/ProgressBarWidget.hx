@@ -6,8 +6,8 @@ import graphics.shapes.ProgressBar;
 import widgets.ShapeWidget;
 
 using al.Builder;
-using transform.LiquidTransformer;
-using transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
 
 
 class ProgressBarWidget extends ShapeWidget<ColorSet> {

@@ -17,8 +17,8 @@ import widgets.ButtonBase;
 import widgets.ColouredQuad;
 
 using al.Builder;
-using transform.LiquidTransformer;
-using transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
 
 class LevelupDemo extends WidgetTester {
     public function new() {

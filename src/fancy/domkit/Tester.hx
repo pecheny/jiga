@@ -7,8 +7,8 @@ import al.Builder;
 import fancy.WidgetTester;
 
 using al.Builder;
-using transform.LiquidTransformer;
-using transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
 
 class Tester extends WidgetTester {
     public function new() {

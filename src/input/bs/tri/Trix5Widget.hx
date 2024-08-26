@@ -25,8 +25,8 @@ import utils.MacroGenericAliasConverter;
 import al2d.WidgetHitTester2D;
 
 using al.Builder;
-using transform.LiquidTransformer;
-using transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
 
 class Trix5Widget extends BaseDkit {
 

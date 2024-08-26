@@ -7,8 +7,8 @@ import widgets.Button;
 import al.al2d.Widget;
 
 using al.Builder;
-using transform.LiquidTransformer;
-using transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
 
 typedef GameMock = Pause.Pausable;
 

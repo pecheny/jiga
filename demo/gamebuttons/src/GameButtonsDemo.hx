@@ -31,8 +31,8 @@ import utils.MacroGenericAliasConverter as MGA;
 import al2d.WidgetHitTester2D;
 
 using al.Builder;
-using transform.LiquidTransformer;
-using transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
 
 class GameButtonsDemo extends BootstrapMain {
     public function new() {

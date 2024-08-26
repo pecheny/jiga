@@ -8,8 +8,8 @@ import al.Builder;
 import openfl.display.Sprite;
 
 using al.Builder;
-using transform.LiquidTransformer;
-using transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
 
 class WidgetTester extends Sprite {
     public var fui:FuiBuilder;

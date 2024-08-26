@@ -6,8 +6,8 @@ import widgets.Button;
 import al.Builder;
 
 using al.Builder;
-using transform.LiquidTransformer;
-using transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
 
 class BWidgetTester extends WidgetTester {
     public function new() {

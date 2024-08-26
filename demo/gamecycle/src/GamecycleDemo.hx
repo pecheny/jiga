@@ -15,8 +15,8 @@ import gameapi.GameRun;
 import gameapi.GameRunBinder;
 
 using al.Builder;
-using transform.LiquidTransformer;
-using transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
 
 
 class GamecycleDemo extends BootstrapMain {

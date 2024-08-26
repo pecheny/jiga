@@ -4,8 +4,8 @@ import fancy.widgets.ProgressBarWidget;
 import al.al2d.Widget;
 
 using al.Builder;
-using transform.LiquidTransformer;
-using transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
 
 class DeltaProgressBar extends Widget {
     var healthRed:ProgressBarWidget;
