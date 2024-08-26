@@ -12,7 +12,7 @@ import shimp.ClicksInputSystem;
 import widgets.ButtonBase;
 import widgets.ColouredQuad;
 import widgets.ShapeWidget;
-import widgets.Widget;
+import al.al2d.Widget;
 
 using al.Builder;
 using transform.LiquidTransformer;

@@ -4,7 +4,7 @@ import bootstrap.Data.IntCapValue;
 import bootstrap.Data.ChangingVal;
 import htext.style.TextStyleContext;
 import widgets.Label;
-import widgets.Widget;
+import al.al2d.Widget;
 
 class ValLabel<T:Float> extends Widget {
     var lbl:Label;

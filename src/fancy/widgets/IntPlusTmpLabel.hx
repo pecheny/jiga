@@ -4,7 +4,7 @@ import bootstrap.Data.ChangingVal;
 import bootstrap.Data.IntPlusTempValue;
 import htext.style.TextStyleContext;
 import widgets.Label;
-import widgets.Widget;
+import al.al2d.Widget;
 
 class IntPlusTmpLabel extends Widget {
     var lbl:Label;

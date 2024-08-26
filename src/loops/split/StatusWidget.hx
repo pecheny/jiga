@@ -4,7 +4,7 @@ import al.core.Align;
 import al.ec.WidgetSwitcher;
 import fancy.widgets.ProgressBarWidget;
 import widgets.Label;
-import widgets.Widget;
+import al.al2d.Widget;
 
 using al.Builder;
 using transform.LiquidTransformer;

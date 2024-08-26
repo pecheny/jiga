@@ -17,7 +17,7 @@ import htext.style.TextStyleContext;
 import utils.Signal.IntSignal;
 import widgets.ButtonBase;
 import widgets.Label;
-import widgets.Widget;
+import al.al2d.Widget;
 
 using al.Builder;
 using transform.LiquidTransformer;

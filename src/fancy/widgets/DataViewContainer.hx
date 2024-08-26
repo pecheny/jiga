@@ -5,7 +5,7 @@ import al.al2d.ChildrenPool;
 import al.al2d.Placeholder2D;
 import al.al2d.Widget.IWidget;
 import al.al2d.Widget2DContainer;
-import widgets.Widget;
+import al.al2d.Widget;
 
 class DataViewContainer<TData, TWidget:IWidget<Axis2D> & DataView<TData>> extends Widget implements DataView<Array<TData>>{
     @:once var fui:FuiBuilder; // for cases when construction called before fui/ctx are available, to call init later. not sure if it should be removed.

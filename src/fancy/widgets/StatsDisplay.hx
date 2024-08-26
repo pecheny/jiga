@@ -6,7 +6,7 @@ import htext.style.TextContextBuilder;
 import bootstrap.Data.IntPlusTempValue;
 import bootstrap.Data.ChangingVal;
 import dungsmpl.DungeonData.BattleStats;
-import widgets.Widget;
+import al.al2d.Widget;
 
 using al.Builder;
 

@@ -4,7 +4,7 @@ import al.al2d.Placeholder2D;
 import al.al2d.Widget2DContainer;
 import ec.Entity;
 import widgets.Button;
-import widgets.Widget;
+import al.al2d.Widget;
 
 using al.Builder;
 using transform.LiquidTransformer;

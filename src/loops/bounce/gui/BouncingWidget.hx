@@ -10,7 +10,7 @@ import gl.sets.ColorSet;
 import graphics.ShapesColorAssigner;
 import graphics.shapes.QuadGraphicElement;
 import haxe.ds.ReadOnlyArray;
-import widgets.Widget;
+import al.al2d.Widget;
 
 using al.Builder;
 using transform.LiquidTransformer;
