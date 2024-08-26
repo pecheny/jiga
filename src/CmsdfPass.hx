@@ -8,7 +8,7 @@ import shaderbuilder.SnaderBuilder;
 import shaderbuilder.MSDFShader;
 import gl.sets.MSDFSet;
 
-class CmsdfPg extends PassBase<CMSDFSet> {
+class CmsdfPass extends PassBase<CMSDFSet> {
     static var smoothShaderEl = new GeneralPassthrough(MSDFSet.NAME_DPI, MSDFShader.smoothness);
 
     public function new(fui) {

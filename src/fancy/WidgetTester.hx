@@ -22,7 +22,7 @@ class WidgetTester extends Sprite {
         fui = new FuiBuilder();
 
         new FlatColorPass(fui).register();
-        new CmsdfPg(fui).register();
+        new CmsdfPass(fui).register();
         BaseDkit.inject(fui);
         fui.regDefaultDrawcalls = () -> {};
         e = fui.createDefaultRoot(XmlLayerLayouts.COLOR_AND_TEXT);

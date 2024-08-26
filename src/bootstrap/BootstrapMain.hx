@@ -76,7 +76,7 @@ class BootstrapMain extends AbstractEngine {
 
     function regDrawcals() {
         new FlatColorPass(fui).register();
-        new CmsdfPg(fui).register();
+        new CmsdfPass(fui).register();
         new ImagePass(fui).register();
     }
 
