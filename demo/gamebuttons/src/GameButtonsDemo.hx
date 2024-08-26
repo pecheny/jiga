@@ -2,7 +2,7 @@ package;
 
 import input.bs.tri.TriButtons;
 import input.bs.tri.Trix5Widget;
-import al.al2d.Placeholder2D;
+import a2d.Placeholder2D;
 import al.layouts.PortionLayout;
 import bootstrap.BootstrapMain;
 import bootstrap.GameRunBase;

@@ -2,7 +2,7 @@ package bootstrap;
 
 import ginp.GameButtons.GameButtonsImpl;
 import Axis2D;
-import al.al2d.Placeholder2D;
+import a2d.Placeholder2D;
 import al.core.Align;
 import al.ec.WidgetSwitcher;
 import ec.Entity;

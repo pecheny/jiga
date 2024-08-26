@@ -1,7 +1,7 @@
 package input.bs.tri;
 
 import a2d.AspectRatioProvider;
-import al.al2d.Placeholder2D;
+import a2d.Placeholder2D;
 import al.layouts.PortionLayout;
 import ec.CtxWatcher;
 import ecbind.InputBinder;

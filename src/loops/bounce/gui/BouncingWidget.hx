@@ -4,13 +4,13 @@ import fu.graphics.ShapeWidget;
 import loops.bounce.BouncingLoop.BouncingGui;
 import widgets.Label;
 import loops.bounce.BouncingTimeline.RegionStateProvider;
-import al.al2d.Widget2DContainer;
+import a2d.Widget2DContainer;
 import al.layouts.data.LayoutData.FractionSize;
 import gl.sets.ColorSet;
 import graphics.ShapesColorAssigner;
 import graphics.shapes.QuadGraphicElement;
 import haxe.ds.ReadOnlyArray;
-import al.al2d.Widget;
+import a2d.Widget;
 
 using al.Builder;
 using a2d.transform.LiquidTransformer;

@@ -1,6 +1,6 @@
 package fancy.widgets;
 
-import al.al2d.Widget;
+import a2d.Widget;
 import fancy.GuiApi.ToggleComponent;
 import gl.sets.ColorSet;
 import graphics.ShapesColorAssigner;

@@ -1,6 +1,6 @@
 package fancy.widgets;
 
-import al.al2d.Placeholder2D;
+import a2d.Placeholder2D;
 import fancy.GuiApi.ToggleComponent;
 import shimp.ClicksInputSystem.ClickTargetViewState;
 import widgets.ButtonBase;

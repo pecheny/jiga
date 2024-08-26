@@ -1,6 +1,6 @@
 package fancy;
 
-import al.al2d.Widget2DContainer;
+import a2d.Widget2DContainer;
 import al.layouts.AxisLayout;
 
 // class LayoutStorage {}

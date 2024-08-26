@@ -1,7 +1,7 @@
 package fancy.widgets;
 
 import fancy.widgets.ProgressBarWidget;
-import al.al2d.Widget;
+import a2d.Widget;
 
 using al.Builder;
 using a2d.transform.LiquidTransformer;

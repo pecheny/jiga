@@ -1,14 +1,14 @@
 package fancy.domkit;
 
-import al.al2d.ProxyWidgetTransform;
+import a2d.ProxyWidgetTransform;
 import fu.graphics.ColouredQuad;
 import fu.ui.ButtonBase;
 import fu.ui.CMSDFLabel;
 import graphics.ShapesColorAssigner;
 import fancy.Layouts.ContainerStyler;
-import al.al2d.Placeholder2D;
-import al.al2d.Widget2DContainer;
-import al.al2d.Widget;
+import a2d.Placeholder2D;
+import a2d.Widget2DContainer;
+import a2d.Widget;
 import al.appliers.ContainerRefresher;
 import al.layouts.AxisLayout;
 import al.layouts.WholefillLayout;

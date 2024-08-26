@@ -1,11 +1,11 @@
 package fancy.widgets;
 
 import al.Builder;
-import al.al2d.ChildrenPool;
-import al.al2d.Placeholder2D;
-import al.al2d.Widget.IWidget;
-import al.al2d.Widget2DContainer;
-import al.al2d.Widget;
+import a2d.ChildrenPool;
+import a2d.Placeholder2D;
+import a2d.Widget.IWidget;
+import a2d.Widget2DContainer;
+import a2d.Widget;
 
 class DataViewContainer<TData, TWidget:IWidget<Axis2D> & DataView<TData>> extends Widget implements DataView<Array<TData>>{
     @:once var fui:FuiBuilder; // for cases when construction called before fui/ctx are available, to call init later. not sure if it should be removed.

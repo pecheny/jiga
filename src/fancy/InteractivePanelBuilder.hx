@@ -1,8 +1,8 @@
 package fancy;
 
-import al.al2d.ChildrenPool;
-import al.al2d.Placeholder2D;
-import al.al2d.Widget;
+import a2d.ChildrenPool;
+import a2d.Placeholder2D;
+import a2d.Widget;
 import al.core.Placeholder;
 import al.core.WidgetContainer.WContainer;
 import utils.Signal.IntSignal;

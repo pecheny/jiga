@@ -1,8 +1,8 @@
 package;
 
-import al.al2d.ChildrenPool.DataView;
-import al.al2d.Placeholder2D;
-import al.al2d.Widget.IWidget;
+import a2d.ChildrenPool.DataView;
+import a2d.Placeholder2D;
+import a2d.Widget.IWidget;
 import al.layouts.PortionLayout;
 import al.layouts.WholefillLayout;
 import al.layouts.data.LayoutData;

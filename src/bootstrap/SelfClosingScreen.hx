@@ -1,6 +1,6 @@
 package bootstrap;
 
-import al.al2d.Placeholder2D;
+import a2d.Placeholder2D;
 import ec.Signal;
 
 interface SelfClosingScreen {

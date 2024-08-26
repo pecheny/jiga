@@ -1,6 +1,6 @@
 package gameapi;
 
-import al.al2d.Placeholder2D;
+import a2d.Placeholder2D;
 import ec.IComponent;
 import ec.Entity;
 import ec.Signal;

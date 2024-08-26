@@ -1,10 +1,10 @@
 package ui;
 
-import al.al2d.Placeholder2D;
-import al.al2d.Widget2DContainer;
+import a2d.Placeholder2D;
+import a2d.Widget2DContainer;
 import ec.Entity;
 import widgets.Button;
-import al.al2d.Widget;
+import a2d.Widget;
 
 using al.Builder;
 using a2d.transform.LiquidTransformer;

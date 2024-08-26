@@ -1,7 +1,7 @@
 package loops.market;
 
-import al.al2d.ChildrenPool;
-import al.al2d.Placeholder2D;
+import a2d.ChildrenPool;
+import a2d.Placeholder2D;
 import al.layouts.PortionLayout;
 import fancy.ClickTargetScale;
 import fancy.GuiApi.ToggleComponent;

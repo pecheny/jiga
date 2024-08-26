@@ -1,7 +1,7 @@
 package input;
 
 import ginp.api.GameButtonsListener;
-import al.al2d.Placeholder2D;
+import a2d.Placeholder2D;
 import input.ButtonInputBinder.GameButtonDispatcher;
 import ec.CtxWatcher;
 import ecbind.InputBinder;

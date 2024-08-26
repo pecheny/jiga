@@ -1,6 +1,6 @@
 package;
 
-import al.al2d.Placeholder2D;
+import a2d.Placeholder2D;
 import al.ec.WidgetSwitcher;
 import al.layouts.PortionLayout;
 import bootstrap.BootstrapMain;

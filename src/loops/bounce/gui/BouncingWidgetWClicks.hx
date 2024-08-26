@@ -1,7 +1,7 @@
 package loops.bounce.gui;
 
 import haxe.ds.ReadOnlyArray;
-import al.al2d.Widget2DContainer;
+import a2d.Widget2DContainer;
 import al.layouts.data.LayoutData.FractionSize;
 import ec.Signal;
 import ecbind.ClickInputBinder;
@@ -12,7 +12,7 @@ import shimp.ClicksInputSystem;
 import widgets.ButtonBase;
 import widgets.ColouredQuad;
 import widgets.ShapeWidget;
-import al.al2d.Widget;
+import a2d.Widget;
 
 using al.Builder;
 using a2d.transform.LiquidTransformer;

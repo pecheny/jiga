@@ -1,8 +1,8 @@
 package fancy.widgets;
 
 import fu.ui.ButtonBase.ClickViewProcessor;
-import al.al2d.Placeholder2D;
-import al.al2d.Widget;
+import a2d.Placeholder2D;
+import a2d.Widget;
 import ec.CtxWatcher;
 import ginp.api.GameButtons;
 import shimp.ClicksInputSystem.ClickTargetViewState;
