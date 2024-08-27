@@ -1,11 +1,12 @@
 package;
 
+import FuiBuilder.RenderingPipeline;
 import ec.Entity;
 import gl.AttribSet;
 import shaderbuilder.ShaderElement;
 
 class PassBase<TAtt:AttribSet> {
-    var fui:FuiBuilder;
+    var fui:RenderingPipeline;
     var attr:TAtt;
 
     public var shaderType(default, null):String;
