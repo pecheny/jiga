@@ -1,5 +1,6 @@
 package;
 
+import gl.passes.FlatColorPass;
 import ginp.api.GameInputUpdater;
 import openfl.DummyOflStickAdapter;
 import ginp.OnScreenStick;
@@ -70,16 +71,15 @@ class ActionDemo extends BootstrapMain {
     //* [2024-05-29 Wed 23:42] Render passes / notes.org
 
     function createRenderLayer(ph:Placeholder2D) {
-        new GameRenderPass(fui).register();
+        fui.pipeline.addPass(new GameRenderPass(fui.pipeline));
         var projAspect = new ProjMatAspect();
         ph.entity.addComponent(projAspect);
         for (a in Axis2D)
             ph.axisStates[a].addSibling(new AnyAxisApplier(projAspect, a));
-        fui.setAspects([projAspect]);
+        fui.pipeline.addAspect(projAspect);
         fui.createContainer(ph.entity, Xml.parse(dl).firstElement());
         var spr:Sprite = ph.entity.getComponent(Sprite);
         addChild(spr);
-        fui.setAspects([]);
     }
 }
 

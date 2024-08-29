@@ -1,5 +1,8 @@
 package bootstrap;
 
+import gl.passes.ImagePass;
+import gl.passes.MsdfPass;
+import gl.passes.FlatColorPass;
 import backends.openfl.OpenflBackend;
 import ecbind.MultiInputBinder;
 import shimp.MultiInputTarget;
@@ -75,9 +78,10 @@ class BootstrapMain extends AbstractEngine {
     }
 
     function regDrawcals() {
-        new FlatColorPass(fui.pipeline).register();
-        new CmsdfPass(fui.pipeline, fui.fonts).register();
-        new ImagePass(fui.pipeline).register();
+        var pipeline = fui.pipeline;
+        pipeline.addPass(new FlatColorPass(pipeline));
+        pipeline.addPass(new MsdfPass(pipeline, fui.fonts));
+        pipeline.addPass(new ImagePass(pipeline));
     }
 
     function setWindowPosition() {
