@@ -79,9 +79,9 @@ class BootstrapMain extends AbstractEngine {
 
     function regDrawcals() {
         var pipeline = fui.pipeline;
-        pipeline.addPass(new FlatColorPass(pipeline));
-        pipeline.addPass(new MsdfPass(pipeline, fui.fonts));
-        pipeline.addPass(new ImagePass(pipeline));
+        pipeline.addPass(new FlatColorPass());
+        pipeline.addPass(new MsdfPass());
+        pipeline.addPass(new ImagePass());
     }
 
     function setWindowPosition() {
@@ -137,8 +137,8 @@ class BootstrapMain extends AbstractEngine {
         fui.configureAnimation(rootEntity);
         rootEntity.addComponent(fui);
         fui.createContainer(rootEntity, Xml.parse(XmlLayerLayouts.COLOR_AND_TEXT).firstElement());
-        var container:Sprite = rootEntity.getComponent(Sprite);
-        addChild(container);
+        // var container:Sprite = rootEntity.getComponent(Sprite);
+        // addChild(container);
         var v = new StageAspectResizer(rw, 2);
         var switcher = new WidgetSwitcher(rw);
         rootEntity.addComponent(switcher);
