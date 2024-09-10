@@ -1,5 +1,7 @@
 package;
 
+import fu.graphics.ColouredQuad;
+import fu.ui.ButtonBase;
 import al.layouts.PortionLayout;
 import fancy.GuiApi.ToggleComponent;
 import fancy.Layouts.ContainerStyler;
@@ -8,8 +10,6 @@ import fancy.WidgetTester;
 import fancy.domkit.Dkit;
 import storage.LocalStorage;
 import storage.Storage;
-import widgets.ButtonBase;
-import widgets.ColouredQuad;
 
 using al.Builder;
 using a2d.transform.LiquidTransformer;
@@ -46,7 +46,7 @@ class LocalStorageDemo extends WidgetTester {
 
 class DomkitSampleWidget extends BaseDkit {
     static var SRC = <domkit-sample-widget vl={PortionLayout.instance}>
-        <label(b().v(pfr, .2).b())  text={ "This button can stay in pressed or realised state. The state stored in target-dependent local storage: json file in app data dir on sys targets and browser localStorage on HTML5." }  />
+        <label(b().v(pfr, .2).b())  text={ "This button can stay in pressed or released state. The state stored in target-dependent local storage: json file in app data dir on sys targets and browser localStorage on HTML5." }  />
         <base(b().v(pfr, 0.1).l().b()) >
             ${new ToggleButton (__this__.ph)}
             ${new PersistentProperty(__this__.entity,ToggleComponent.getOrCreate(__this__.entity), "buttonToggled")}

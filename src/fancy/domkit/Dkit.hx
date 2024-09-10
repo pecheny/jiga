@@ -1,5 +1,6 @@
 package fancy.domkit;
 
+import al.core.TWidget.IWidget;
 import a2d.ProxyWidgetTransform;
 import fu.graphics.ColouredQuad;
 import fu.ui.ButtonBase;

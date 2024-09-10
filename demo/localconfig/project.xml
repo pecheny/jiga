@@ -11,5 +11,6 @@
 
     <haxelib name="openfl"/>
     <haxelib name="jiga"/>
+    <haxelib name="storage"/>
     <define name="localStoragePrefix" value="${meta.packageName}" />
 </project>

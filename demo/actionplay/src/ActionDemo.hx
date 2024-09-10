@@ -68,7 +68,7 @@ class ActionDemo extends BootstrapMain {
     //* [2024-05-29 Wed 23:42] Render passes / notes.org
 
     function createRenderLayer(ph:Placeholder2D) {
-        fui.pipeline.addPass(new GameRenderPass());
+        fui.pipeline.addPass("color", new GameRenderPass());
         var projAspect = new ProjectionMatrixAspect();
         ph.entity.addComponent(projAspect);
         for (a in Axis2D)
