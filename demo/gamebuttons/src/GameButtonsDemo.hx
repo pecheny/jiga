@@ -1,5 +1,7 @@
 package;
 
+import ginp.api.GameButtons;
+import ginp.api.GameInputUpdater;
 import input.bs.tri.TriButtons;
 import input.bs.tri.Trix5Widget;
 import a2d.Placeholder2D;
@@ -13,8 +15,6 @@ import fancy.Props;
 import fancy.domkit.Dkit;
 import gameapi.GameRun;
 import gameapi.GameRunBinder;
-import ginp.GameButtons;
-import ginp.GameInput.GameInputUpdater;
 import ginp.KeyToGameButtons;
 import ginp.api.KbdDispatcher;
 import gl.sets.ColorSet;
@@ -50,16 +50,17 @@ class GameButtonsDemo extends BootstrapMain {
         rootEntity.addChild(run.entity);
     }
 
-    // override function createInput() {
-    //     rootEntity.addComponentByType(KbdDispatcher, new OflKbd());
-    //     var ie = new Entity("input");
-    //     var inp = new KeyToGameButtons(TriButtons.aliases.length);
-    //     inp.bind(ie); // maybe bind to rootEntity would work too but this way better illustrates composition several inputs in one project
-    //     rootEntity.addComponentByType(GameInputUpdater, inp);
-    //     rootEntity.addAliasByName(Entity.getComponentId(GameButtons), inp);
-    //     rootEntity.addChild(ie);
-    //     rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, TriButtons), new ButtonInputBinder(MGA.toString(TriButtons), inp));
-    // }
+    override function createInput() {
+        createMultiInput();
+        rootEntity.addComponentByType(KbdDispatcher, new OflKbd());
+        var ie = new Entity("input");
+        var inp = new KeyToGameButtons(TriButtons.aliases.length);
+        inp.bind(ie); // maybe bind to rootEntity would work too but this way better illustrates composition several inputs in one project
+        rootEntity.addComponentByType(GameInputUpdater, inp);
+        rootEntity.addAliasByName(Entity.getComponentId(GameButtons), inp);
+        rootEntity.addChild(ie);
+        rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, TriButtons), new ButtonInputBinder(MGA.toString(TriButtons), inp));
+    }
 }
 
 // class DomkitSampleWidget extends BaseDkit {

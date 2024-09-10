@@ -6,6 +6,7 @@ import ec.CtxWatcher;
 import ecbind.InputBinder;
 import ginp.api.GameButtonsListener;
 import shimp.InputSystem.InputSystemTarget;
+import shimp.Point;
 import al2d.WidgetHitTester2D;
 
 class GameUIButtonTuple<TB:Axis<TB>> implements GameButtonDispatcher<TB> implements InputSystemTarget<Point> {

@@ -3,30 +3,28 @@ package input.bs.tri;
 import a2d.AspectRatioProvider;
 import a2d.Placeholder2D;
 import al.layouts.PortionLayout;
+import al2d.WidgetHitTester2D;
 import ec.CtxWatcher;
 import ecbind.InputBinder;
 import ecbind.MultiInputBinder;
 import fancy.domkit.Dkit;
 import fancy.widgets.GbuttonView;
+import fu.graphics.ColouredQuad.InteractiveColors;
+import fu.ui.CMSDFLabel;
 import ginp.GameButtonsImpl;
 import ginp.api.GameButtons;
 import ginp.api.GameButtonsDispatcher;
-import ginp.api.GameButtonsListener;
 import ginp.api.GameInputUpdater;
 import ginp.api.GameInputUpdaterBinder;
 import graphics.ShapesColorAssigner;
 import input.ButtonInputBinder;
-import input.GameUIButton;
 import input.GameUIButtonTuple;
-import shimp.HoverInputSystem;
-import shimp.InputSystem;
 import shimp.MultiInputTarget;
+import shimp.Point;
 import utils.MacroGenericAliasConverter;
-import al2d.WidgetHitTester2D;
 
+using a2d.transform.LiquidTransformer;
 using al.Builder;
-using a2d.transform.LiquidTransformer;
-using a2d.transform.LiquidTransformer;
 
 class Trix5Widget extends BaseDkit {
 
@@ -41,7 +39,7 @@ class Trix5Widget extends BaseDkit {
         createTouchSystem(ph);
     }
     function createTouchSystem(ph:Placeholder2D) {
-        var sys = new shimp.MultiInputSystemContainer(() -> new Point(), new WidgetHitTester(ph));
+        var sys = new shimp.MultiInputSystemContainer(() -> new Point(), new WidgetHitTester2D(ph));
         // var mtroot = new fui.input.MultitouchRoot(sys, ar.getAspectRatio());
         // var sys = new HoverInputSystem(new Point(), new WidgetHitTester(ph));
         ph.entity.addComponent(new InputBinder<Point>(sys));

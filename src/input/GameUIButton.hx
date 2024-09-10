@@ -7,6 +7,7 @@ import ec.CtxWatcher;
 import ecbind.InputBinder;
 import shimp.InputSystem.InputSystemTarget;
 import al2d.WidgetHitTester2D;
+import shimp.Point;
 
 class GameUIButton<TB:Axis<TB>> implements GameButtonDispatcher<TB> implements InputSystemTarget<Point> {
     var hittester:WidgetHitTester2D;
