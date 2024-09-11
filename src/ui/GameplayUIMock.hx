@@ -3,7 +3,7 @@ package ui;
 import a2d.Placeholder2D;
 import a2d.Widget2DContainer;
 import ec.Entity;
-import widgets.Button;
+import fu.ui.Button;
 import a2d.Widget;
 
 using al.Builder;

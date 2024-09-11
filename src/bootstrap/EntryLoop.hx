@@ -11,7 +11,7 @@ import ginp.GameInput.GameInputUpdater;
 import states.States;
 import ui.GameplayUIMock;
 import update.RealtimeUpdater;
-import widgets.Button;
+import fu.ui.Button;
 import widgets.Label;
 
 using al.Builder;

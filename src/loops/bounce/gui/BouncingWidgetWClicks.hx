@@ -9,9 +9,9 @@ import gl.sets.ColorSet;
 import graphics.ShapesColorAssigner;
 import graphics.shapes.QuadGraphicElement;
 import shimp.ClicksInputSystem;
-import widgets.ButtonBase;
-import widgets.ColouredQuad;
-import widgets.ShapeWidget;
+import fu.ui.ButtonBase;
+import fu.graphics.ColouredQuad;
+import fu.graphics.ShapeWidget;
 import a2d.Widget;
 
 using al.Builder;

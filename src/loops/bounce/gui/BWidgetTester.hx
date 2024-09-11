@@ -2,7 +2,7 @@ package loops.bounce.gui;
 
 import fancy.WidgetTester;
 import al.layouts.data.LayoutData.FixedSize;
-import widgets.Button;
+import fu.ui.Button;
 import al.Builder;
 
 using al.Builder;

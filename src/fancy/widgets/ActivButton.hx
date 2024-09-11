@@ -3,7 +3,7 @@ package fancy.widgets;
 import a2d.Placeholder2D;
 import fancy.GuiApi.ToggleComponent;
 import shimp.ClicksInputSystem.ClickTargetViewState;
-import widgets.ButtonBase;
+import fu.ui.ButtonBase;
 
 class ActivButton extends ButtonBase {
     var toggle:ToggleComponent;

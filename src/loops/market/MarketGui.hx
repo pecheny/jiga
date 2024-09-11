@@ -1,5 +1,6 @@
 package loops.market;
 
+import fu.Signal.IntSignal;
 import a2d.ChildrenPool;
 import a2d.Placeholder2D;
 import al.layouts.PortionLayout;
@@ -11,7 +12,7 @@ import fancy.widgets.ActivButton;
 import fancy.widgets.ColorBgToggleComponent;
 import loops.market.MarketData;
 import utils.Signal;
-import widgets.Button;
+import fu.ui.Button;
 
 using al.Builder;
 

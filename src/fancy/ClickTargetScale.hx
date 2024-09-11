@@ -2,7 +2,7 @@ package fancy;
 
 import al.prop.ScaleComponent;
 import shimp.ClicksInputSystem.ClickTargetViewState;
-import widgets.ButtonBase.ClickViewProcessor;
+import fu.ui.ButtonBase.ClickViewProcessor;
 import bootstrap.Component;
 import macros.AVConstructor;
 

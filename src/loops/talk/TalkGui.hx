@@ -1,7 +1,7 @@
 package loops.talk;
 
 import fancy.InteractivePanelBuilder;
-import widgets.ColouredQuad.InteractiveColors;
+import fu.graphics.ColouredQuad.InteractiveColors;
 import al.layouts.PortionLayout;
 import gl.sets.ColorSet;
 import graphics.ShapesColorAssigner;
@@ -14,8 +14,8 @@ import shimp.ClicksInputSystem.ClickTargetViewState;
 import a2d.Widget2DContainer;
 import loops.talk.TalkData;
 import htext.style.TextStyleContext;
-import utils.Signal.IntSignal;
-import widgets.ButtonBase;
+import fu.Signal.IntSignal;
+import fu.ui.ButtonBase;
 import widgets.Label;
 import a2d.Widget;
 

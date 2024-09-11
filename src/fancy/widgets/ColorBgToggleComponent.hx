@@ -5,9 +5,9 @@ import fancy.GuiApi.ToggleComponent;
 import gl.sets.ColorSet;
 import graphics.ShapesColorAssigner;
 import shimp.ClicksInputSystem.ClickTargetViewState;
-import widgets.ButtonBase;
-import widgets.ColouredQuad;
-import widgets.ShapeWidget;
+import fu.ui.ButtonBase;
+import fu.graphics.ColouredQuad;
+import fu.graphics.ShapeWidget;
 
 class ColorBgToggleComponent extends Widget {
     @:once var viewProc:ClickViewProcessor;

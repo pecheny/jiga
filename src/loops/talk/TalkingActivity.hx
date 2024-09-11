@@ -1,6 +1,6 @@
 package loops.talk;
 
-import utils.Signal.IntSignal;
+import fu.Signal.IntSignal;
 import loops.talk.TalkGui;
 import bootstrap.Activitor.ActHandler;
 import bootstrap.Executor;

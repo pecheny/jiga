@@ -3,10 +3,9 @@ package fancy.widgets;
 import gl.sets.ColorSet;
 import graphics.ShapesColorAssigner;
 import graphics.shapes.ProgressBar;
-import widgets.ShapeWidget;
+import fu.graphics.ShapeWidget;
 
 using al.Builder;
-using a2d.transform.LiquidTransformer;
 using a2d.transform.LiquidTransformer;
 
 

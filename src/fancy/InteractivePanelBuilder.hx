@@ -1,12 +1,13 @@
 package fancy;
 
+import al.core.TWidget.IWidget;
 import a2d.ChildrenPool;
 import a2d.Placeholder2D;
 import a2d.Widget;
 import al.core.Placeholder;
 import al.core.WidgetContainer.WContainer;
-import utils.Signal.IntSignal;
-import widgets.ButtonBase;
+import fu.Signal.IntSignal;
+import fu.ui.ButtonBase;
 
 class InteractivePanelBuilder<TData, TButton:IWidget<Axis2D> & DataView<TData>> {
     var onChoise:IntSignal;
