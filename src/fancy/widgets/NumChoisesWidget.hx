@@ -1,11 +1,12 @@
 package fancy.widgets;
 
-import fu.graphics.ColouredQuad;
 import a2d.ChildrenPool;
 import a2d.PlaceholderBuilder2D;
+import al.core.DataView;
 import fancy.widgets.NumButton;
-import htext.style.TextStyleContext;
 import fu.Signal;
+import fu.graphics.ColouredQuad;
+import htext.style.TextStyleContext;
 import widgets.Label;
 
 class NumChoisesWidget extends DataViewContainer<String, ChoiseButton> implements OptionPickerGui<String> {

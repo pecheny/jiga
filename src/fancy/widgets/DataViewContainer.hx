@@ -5,6 +5,7 @@ import a2d.Placeholder2D;
 import a2d.Widget2DContainer;
 import a2d.Widget;
 import al.Builder;
+import al.core.DataView;
 import al.core.TWidget.IWidget;
 
 class DataViewContainer<TData, TWidget:IWidget<Axis2D> & DataView<TData>> extends Widget implements DataView<Array<TData>>{
