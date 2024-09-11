@@ -1,8 +1,8 @@
 package loops.market;
 
-import fu.Signal.IntSignal;
 import a2d.ChildrenPool;
 import a2d.Placeholder2D;
+import al.core.DataView;
 import al.layouts.PortionLayout;
 import fancy.ClickTargetScale;
 import fancy.GuiApi.ToggleComponent;
@@ -10,9 +10,10 @@ import fancy.InteractivePanelBuilder;
 import fancy.domkit.Dkit.BaseDkit;
 import fancy.widgets.ActivButton;
 import fancy.widgets.ColorBgToggleComponent;
+import fu.Signal.IntSignal;
+import fu.ui.Button;
 import loops.market.MarketData;
 import utils.Signal;
-import fu.ui.Button;
 
 using al.Builder;
 

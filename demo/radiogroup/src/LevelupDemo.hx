@@ -3,6 +3,7 @@ package;
 import a2d.ChildrenPool.DataView;
 import a2d.Placeholder2D;
 import a2d.PlaceholderBuilder2D;
+import al.core.DataView;
 import al.core.TWidget;
 import al.layouts.PortionLayout;
 import al.layouts.WholefillLayout;
