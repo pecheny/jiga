@@ -1,16 +1,16 @@
 package fancy.widgets;
 
 import a2d.Placeholder2D;
-import fancy.GuiApi.ToggleComponent;
-import shimp.ClicksInputSystem.ClickTargetViewState;
 import fu.ui.ButtonBase;
+import fu.ui.Properties;
+import shimp.ClicksInputSystem.ClickTargetViewState;
 
 class ActivButton extends ButtonBase {
-    var toggle:ToggleComponent;
+    var toggle:EnabledProp;
 
     public function new(w:Placeholder2D, h) {
         super(w, h);
-        toggle = ToggleComponent.getOrCreate(w.entity);
+        toggle = EnabledProp.getOrCreate(w.entity);
         toggle.onChange.listen(set_active);
         set_active();
     }

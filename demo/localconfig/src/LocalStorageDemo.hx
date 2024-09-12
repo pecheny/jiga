@@ -1,19 +1,19 @@
 package;
 
-import fu.graphics.ColouredQuad;
-import fu.ui.ButtonBase;
 import al.layouts.PortionLayout;
-import fancy.GuiApi.ToggleComponent;
 import fancy.Layouts.ContainerStyler;
 import fancy.Props;
 import fancy.WidgetTester;
 import fancy.domkit.Dkit;
+import fu.graphics.ColouredQuad;
+import fu.ui.ButtonBase;
+import fu.ui.Properties;
 import storage.LocalStorage;
 import storage.Storage;
 
+using a2d.transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
 using al.Builder;
-using a2d.transform.LiquidTransformer;
-using a2d.transform.LiquidTransformer;
 
 class LocalStorageDemo extends WidgetTester {
     public function new() {
@@ -49,7 +49,7 @@ class DomkitSampleWidget extends BaseDkit {
         <label(b().v(pfr, .2).b())  text={ "This button can stay in pressed or released state. The state stored in target-dependent local storage: json file in app data dir on sys targets and browser localStorage on HTML5." }  />
         <base(b().v(pfr, 0.1).l().b()) >
             ${new ToggleButton (__this__.ph)}
-            ${new PersistentProperty(__this__.entity,ToggleComponent.getOrCreate(__this__.entity), "buttonToggled")}
+            ${new PersistentProperty(__this__.entity,CheckedProp.getOrCreate(__this__.entity), "buttonToggled")}
             <label(b().b())  text={ "Button" }  />
         </base>
         <base(b().v(pfr, .2).b())   />
@@ -58,11 +58,11 @@ class DomkitSampleWidget extends BaseDkit {
 
 class ToggleButton extends ButtonBase {
     var colorToggle:ColorToggle;
-    var toggle:ToggleComponent;
+    var toggle:CheckedProp;
 
     public function new(w) {
         super(w, null);
-        toggle = ToggleComponent.getOrCreate(w.entity);
+        toggle = CheckedProp.getOrCreate(w.entity);
         var q = ColouredQuad.flatClolorToggleQuad(w);
         colorToggle = q.ph.entity.getComponent(ColorToggle);
         invalidate();

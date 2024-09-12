@@ -1,6 +1,5 @@
 package;
 
-import a2d.ChildrenPool.DataView;
 import a2d.Placeholder2D;
 import a2d.PlaceholderBuilder2D;
 import al.core.DataView;
@@ -8,7 +7,6 @@ import al.core.TWidget;
 import al.layouts.PortionLayout;
 import al.layouts.WholefillLayout;
 import al.layouts.data.LayoutData;
-import fancy.GuiApi.ToggleComponent;
 import fancy.Layouts;
 import fancy.Props;
 import fancy.WidgetTester;
@@ -16,6 +14,7 @@ import fancy.domkit.Dkit;
 import fancy.widgets.DataViewContainer;
 import fu.graphics.ColouredQuad;
 import fu.ui.ButtonBase;
+import fu.ui.Properties;
 
 using a2d.transform.LiquidTransformer;
 using al.Builder;
@@ -59,7 +58,7 @@ class LevelupDemo extends WidgetTester {
 }
 
 class RadioGroup<TData, TWidget:IWidget<Axis2D> & DataView<TData>> extends DataViewContainer<TData, TWidget> {
-	var toggles:Array<ToggleComponent> = [];
+	var toggles:Array<CheckedProp> = [];
 	var activeId = 0;
 	var fac:Int->TWidget;
 
@@ -70,7 +69,7 @@ class RadioGroup<TData, TWidget:IWidget<Axis2D> & DataView<TData>> extends DataV
 
 	function factory(n) {
 		var wdg = fac(n);
-		toggles.push(ToggleComponent.getOrCreate(wdg.entity));
+		toggles.push(CheckedProp.getOrCreate(wdg.entity));
 		new ButtonBase(wdg.ph, setActiveId.bind(n));
 		return wdg;
 	}
@@ -97,7 +96,7 @@ class RadioButton extends BaseDkit implements DataView<String> {
 
 	@:once var vswitcher:ClickViewProcessor;
 
-	var toggle:ToggleComponent;
+	var toggle:CheckedProp;
 	var clr:ColorToggle;
 
 	public function new(ph:Placeholder2D, ?parent:BaseDkit) {
@@ -110,7 +109,7 @@ class RadioButton extends BaseDkit implements DataView<String> {
 		super.init();
         ColouredQuad.flatClolorToggleQuad(ph);
         clr = ph.entity.getComponent(ColorToggle);
-        toggle = ToggleComponent.getOrCreate(ph.entity);
+        toggle = CheckedProp.getOrCreate(ph.entity);
         toggle.onChange.listen(invalidate);
         invalidate();
 	}

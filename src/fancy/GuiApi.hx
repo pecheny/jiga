@@ -7,7 +7,6 @@ interface ActiveToggle {
     var enabled(get, set):Bool;
 }
 
-class ToggleComponent extends FlagComponent {}
 
 interface Label {
     var text(get, set):String;

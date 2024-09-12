@@ -5,13 +5,13 @@ import a2d.Placeholder2D;
 import al.core.DataView;
 import al.layouts.PortionLayout;
 import fancy.ClickTargetScale;
-import fancy.GuiApi.ToggleComponent;
 import fancy.InteractivePanelBuilder;
 import fancy.domkit.Dkit.BaseDkit;
 import fancy.widgets.ActivButton;
 import fancy.widgets.ColorBgToggleComponent;
 import fu.Signal.IntSignal;
 import fu.ui.Button;
+import fu.ui.Properties;
 import loops.market.MarketData;
 import utils.Signal;
 
@@ -59,7 +59,7 @@ class MarketWidget extends BaseDkit {
 }
 
 class MarketCard extends BaseDkit implements DataView<MarketItemRecord> {
-    @:once var toggle:ToggleComponent;
+    @:once var toggle:EnabledProp;
     var descr:MarketItemRecord;
 
     static var SRC = <market-card vl={PortionLayout.instance} >

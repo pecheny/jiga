@@ -1,18 +1,18 @@
 package fancy.widgets;
 
 import a2d.Widget;
-import fancy.GuiApi.ToggleComponent;
+import fu.graphics.ColouredQuad;
+import fu.graphics.ShapeWidget;
+import fu.ui.ButtonBase;
+import fu.ui.Properties;
 import gl.sets.ColorSet;
 import graphics.ShapesColorAssigner;
 import shimp.ClicksInputSystem.ClickTargetViewState;
-import fu.ui.ButtonBase;
-import fu.graphics.ColouredQuad;
-import fu.graphics.ShapeWidget;
 
 class ColorBgToggleComponent extends Widget {
     @:once var viewProc:ClickViewProcessor;
     @:once var fui:FuiBuilder;
-    var toggle:ToggleComponent;
+    var toggle:EnabledProp;
     var inactiveColor = 0x1c1c1c;
     var colors:ShapesColorAssigner<ColorSet>;
     var interactiveColors:InteractiveColors;
@@ -26,7 +26,7 @@ class ColorBgToggleComponent extends Widget {
         interactiveColors = new InteractiveColors(colors.setColor);
         viewProc.addHandler(changeViewState);
         shw.manInit();
-        toggle = ToggleComponent.getOrCreate(ph.entity);
+        toggle = EnabledProp.getOrCreate(ph.entity);
         toggle.onChange.listen(() -> changeViewState(state));
         changeViewState(state);
     }
