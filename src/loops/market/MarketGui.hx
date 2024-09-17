@@ -7,7 +7,7 @@ import al.layouts.PortionLayout;
 import fancy.ClickTargetScale;
 import fancy.InteractivePanelBuilder;
 import fancy.domkit.Dkit.BaseDkit;
-import fancy.widgets.ButtonEnabled;
+import fu.ui.ButtonEnabled;
 import fancy.widgets.ColorBgToggleComponent;
 import fu.Signal.IntSignal;
 import fu.ui.Button;
