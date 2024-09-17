@@ -7,7 +7,7 @@ import al.layouts.PortionLayout;
 import fancy.ClickTargetScale;
 import fancy.InteractivePanelBuilder;
 import fancy.domkit.Dkit.BaseDkit;
-import fancy.widgets.ActivButton;
+import fancy.widgets.ButtonEnabled;
 import fancy.widgets.ColorBgToggleComponent;
 import fu.Signal.IntSignal;
 import fu.ui.Button;
@@ -45,7 +45,7 @@ class MarketWidget extends BaseDkit {
                 mc;
             })
             .withSignal(onChoise)
-            .withInput((ph, n) -> new ActivButton(ph, onChoise.dispatch.bind(n)))
+            .withInput((ph, n) -> new ButtonEnabled(ph, onChoise.dispatch.bind(n)))
             .build();
     }
 

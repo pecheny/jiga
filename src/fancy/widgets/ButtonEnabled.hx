@@ -5,7 +5,7 @@ import fu.ui.ButtonBase;
 import fu.ui.Properties;
 import shimp.ClicksInputSystem.ClickTargetViewState;
 
-class ActivButton extends ButtonBase {
+class ButtonEnabled extends ButtonBase {
     var toggle:EnabledProp;
 
     public function new(w:Placeholder2D, h) {
