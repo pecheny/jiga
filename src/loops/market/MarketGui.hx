@@ -5,7 +5,7 @@ import a2d.Placeholder2D;
 import al.core.DataView;
 import al.layouts.PortionLayout;
 import fancy.ClickTargetScale;
-import fancy.InteractivePanelBuilder;
+import fu.ui.InteractivePanelBuilder;
 import fancy.domkit.Dkit.BaseDkit;
 import fu.ui.ButtonEnabled;
 import fancy.widgets.ColorBgToggleComponent;

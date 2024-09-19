@@ -1,7 +1,7 @@
 package loops.talk;
 
 import al.core.DataView;
-import fancy.InteractivePanelBuilder;
+import fu.ui.InteractivePanelBuilder;
 import fu.graphics.ColouredQuad.InteractiveColors;
 import al.layouts.PortionLayout;
 import gl.sets.ColorSet;
