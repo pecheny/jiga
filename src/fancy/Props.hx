@@ -2,7 +2,7 @@ package fancy;
 
 import ec.Entity;
 import ec.IComponent;
-import bootstrap.Component;
+import ec.Component;
 
 interface Props<T> {
     public function get(name:String):T;
