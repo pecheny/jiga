@@ -1,7 +1,7 @@
 package;
 
 import al.layouts.PortionLayout;
-import fancy.Layouts.ContainerStyler;
+import a2d.Layouts.ContainerStyler;
 import fu.PropStorage;
 import fancy.WidgetTester;
 import fancy.domkit.Dkit;

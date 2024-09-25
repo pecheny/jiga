@@ -1,7 +1,7 @@
 package;
 
 import fu.PropStorage;
-import fancy.Layouts.ContainerStyler;
+import a2d.Layouts.ContainerStyler;
 import al.layouts.WholefillLayout;
 import al.layouts.data.LayoutData;
 import al.layouts.PortionLayout;

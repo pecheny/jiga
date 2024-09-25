@@ -7,7 +7,7 @@ import al.core.TWidget;
 import al.layouts.PortionLayout;
 import al.layouts.WholefillLayout;
 import al.layouts.data.LayoutData;
-import fancy.Layouts;
+import a2d.ContainerStyler;
 import fu.PropStorage;
 import fancy.WidgetTester;
 import fancy.domkit.Dkit;

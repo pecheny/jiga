@@ -9,7 +9,7 @@ import al.core.TWidget.IWidget;
 import al.layouts.AxisLayout;
 import al.layouts.WholefillLayout;
 import ec.Entity;
-import fancy.Layouts.ContainerStyler;
+import a2d.ContainerStyler;
 import fu.PropStorage;
 import fu.graphics.ColouredQuad;
 import fu.ui.ButtonBase;

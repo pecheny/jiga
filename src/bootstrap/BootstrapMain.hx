@@ -16,7 +16,7 @@ import backends.openfl.OpenflBackend;
 import ec.CtxWatcher;
 import ec.Entity;
 import ecbind.MultiInputBinder;
-import fancy.Layouts.ContainerStyler;
+import a2d.ContainerStyler;
 import fu.PropStorage;
 import fancy.domkit.Dkit;
 import gameapi.GameRun;
