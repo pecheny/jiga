@@ -11,7 +11,7 @@ import bootstrap.GameRunBase;
 import ec.CtxWatcher;
 import ec.Entity;
 import ecbind.InputBinder;
-import fancy.Props;
+import fu.PropStorage;
 import fancy.domkit.Dkit;
 import gameapi.GameRun;
 import gameapi.GameRunBinder;

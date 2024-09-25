@@ -1,6 +1,6 @@
 package;
 
-import fancy.Props;
+import fu.PropStorage;
 import fancy.Layouts.ContainerStyler;
 import al.layouts.WholefillLayout;
 import al.layouts.data.LayoutData;
@@ -35,7 +35,7 @@ class DkitDemo extends WidgetTester {
 
         var props = new DummyProps<String>();
         props.set(Dkit.TEXT_STYLE, default_text_style);
-        e.addComponentByType(Props, props);
+        e.addComponentByType(PropStorage, props);
 
         var distributer = new al.layouts.Padding(new FractionSize(.25), new PortionLayout(Center, new FixedSize(0.1)));
         var contLayouts = new ContainerStyler();

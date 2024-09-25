@@ -2,7 +2,7 @@ package;
 
 import al.layouts.PortionLayout;
 import fancy.Layouts.ContainerStyler;
-import fancy.Props;
+import fu.PropStorage;
 import fancy.WidgetTester;
 import fancy.domkit.Dkit;
 import fu.graphics.ColouredQuad;
@@ -37,7 +37,7 @@ class LocalStorageDemo extends WidgetTester {
 
         var props = new DummyProps<String>();
         props.set(Dkit.TEXT_STYLE, default_text_style);
-        e.addComponentByType(Props, props);
+        e.addComponentByType(PropStorage, props);
 
         var contLayouts = new ContainerStyler();
         e.addComponent(contLayouts);

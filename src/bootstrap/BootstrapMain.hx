@@ -17,7 +17,7 @@ import ec.CtxWatcher;
 import ec.Entity;
 import ecbind.MultiInputBinder;
 import fancy.Layouts.ContainerStyler;
-import fancy.Props;
+import fu.PropStorage;
 import fancy.domkit.Dkit;
 import gameapi.GameRun;
 import gameapi.GameRunBinder;
@@ -184,7 +184,7 @@ class BootstrapMain extends AbstractEngine {
 	function dkitDefaultStyles() {
 		BaseDkit.inject(fui);
 		var e = rootEntity;
-		var props = e.getOrCreate(Props, () -> new CascadeProps<String>(null, "root-props"));
+		var props = e.getOrCreate(PropStorage, () -> new CascadeProps<String>(null, "root-props"));
 		props.set(Dkit.TEXT_STYLE, "small-text");
 
 		var distributer = new al.layouts.Padding(new FractionSize(.25), new PortionLayout(Center, new FixedSize(0.1)));

@@ -1,19 +1,20 @@
 package fancy.domkit;
 
-import al.core.TWidget.IWidget;
+import a2d.Placeholder2D;
 import a2d.ProxyWidgetTransform;
+import a2d.Widget2DContainer;
+import a2d.Widget;
+import al.appliers.ContainerRefresher;
+import al.core.TWidget.IWidget;
+import al.layouts.AxisLayout;
+import al.layouts.WholefillLayout;
+import ec.Entity;
+import fancy.Layouts.ContainerStyler;
+import fu.PropStorage;
 import fu.graphics.ColouredQuad;
 import fu.ui.ButtonBase;
 import fu.ui.CMSDFLabel;
 import graphics.ShapesColorAssigner;
-import fancy.Layouts.ContainerStyler;
-import a2d.Placeholder2D;
-import a2d.Widget2DContainer;
-import a2d.Widget;
-import al.appliers.ContainerRefresher;
-import al.layouts.AxisLayout;
-import al.layouts.WholefillLayout;
-import ec.Entity;
 import htext.style.TextContextBuilder.TextContextStorage;
 
 class Dkit {
@@ -159,7 +160,7 @@ class ButtonDkit extends BaseDkit {
     public var onClick:Void->Void;
 
     @:once var styles:TextContextStorage;
-    @:once var props:Props<Dynamic>;
+    @:once var props:PropStorage<Dynamic>;
 
     public function new(p:Placeholder2D, ?parent) {
         super(p, parent);
@@ -191,7 +192,7 @@ class LabelDkit extends BaseDkit {
     public var style(default, default):String = "";
 
     @:once var styles:TextContextStorage;
-    @:once var props:Props<Dynamic>;
+    @:once var props:PropStorage<Dynamic>;
 
     public function new(p:Placeholder2D, ?parent) {
         super(p, parent);

@@ -1,19 +1,20 @@
 package fancy.widgets;
 
-import htext.style.TextStyleContext;
-import fancy.domkit.Dkit;
-import htext.style.TextContextBuilder;
-import bootstrap.Data.IntPlusTempValue;
-import bootstrap.Data.ChangingVal;
-import dungsmpl.DungeonData.BattleStats;
 import a2d.Widget;
+import bootstrap.Data.ChangingVal;
+import bootstrap.Data.IntPlusTempValue;
+import dungsmpl.DungeonData.BattleStats;
+import fancy.domkit.Dkit;
+import fu.PropStorage;
+import htext.style.TextContextBuilder;
+import htext.style.TextStyleContext;
 
 using al.Builder;
 
 class StatsDisplay extends Widget {
     @:once var unit:BattleStats;
     @:once var styles:TextContextStorage;
-    @:once var props:Props<Dynamic>;
+    @:once var props:PropStorage<Dynamic>;
     var tc:TextStyleContext;
 
     override function init() {

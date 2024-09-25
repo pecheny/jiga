@@ -4,7 +4,7 @@ import a2d.ChildrenPool;
 import al.layouts.PortionLayout;
 import bootstrap.Executor;
 import bootstrap.GameRunBase;
-import fancy.Props;
+import fu.PropStorage;
 import fancy.domkit.Dkit.BaseDkit;
 import fancy.widgets.OptionPickerGui;
 import fu.Signal;
@@ -74,7 +74,7 @@ class LevelUpActivity extends GameRunBase implements CheckedActivity {
 class LevelupGui extends BaseDkit implements OptionPickerGui<String> {
     public var onChoice(default, null) = new IntSignal();
 
-    @:once var props:Props<Dynamic>;
+    @:once var props:PropStorage<Dynamic>;
     var input:DataChildrenPool<String, DataLabel>;
 
     static var SRC = <levelup-gui>
