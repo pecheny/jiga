@@ -16,6 +16,7 @@ import fu.ui.ButtonBase;
 import fu.ui.CMSDFLabel;
 import graphics.ShapesColorAssigner;
 import htext.style.TextContextBuilder.TextContextStorage;
+using a2d.ProxyWidgetTransform;
 
 class Dkit {
     public static inline var TEXT_COLOR = "TEXT_COLOR";
@@ -27,8 +28,6 @@ class Dkit {
 @:autoBuild(fancy.domkit.Macros.DefaultConstructorBuilder.build())
 class BaseDkit implements domkit.Model<BaseDkit> implements domkit.Object implements IWidget<Axis2D> {
     public var ph(get, null):Placeholder2D;
-    // if has proxy transform, returns transformed ph else own ph
-    public var iph(get, null):Placeholder2D;
     public var w:Widget;
     public var entity(get, null):Entity;
     public var c:Widget2DContainer;
@@ -93,9 +92,9 @@ class BaseDkit implements domkit.Model<BaseDkit> implements domkit.Object implem
         if (onConstruct!=null)
             onConstruct(ph);
         if (containerRequired()) {
-            c = new Widget2DContainer(iph, 2);
+            c = new Widget2DContainer(ph.getInnerPh(), 2);
             for (a in Axis2D) {
-                iph.axisStates[a].addSibling(new ContainerRefresher(c));
+                ph.getInnerPh().axisStates[a].addSibling(new ContainerRefresher(c));
             }
             setLayouts();
             ph.entity.addComponent(c);
@@ -145,12 +144,6 @@ class BaseDkit implements domkit.Model<BaseDkit> implements domkit.Object implem
         setLayouts();
         return value;
     }
-
-	function get_iph():Placeholder2D {
-        if(trans != null)
-            return trans.target;
-        return ph;
-	}
 }
 
 @:uiComp("button")

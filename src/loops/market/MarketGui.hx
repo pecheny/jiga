@@ -16,6 +16,7 @@ import loops.market.MarketData;
 import utils.Signal;
 
 using al.Builder;
+using a2d.ProxyWidgetTransform;
 
 
 class MarketWidget extends BaseDkit {
@@ -63,7 +64,7 @@ class MarketCard extends BaseDkit implements DataView<MarketItemRecord> {
     var descr:MarketItemRecord;
 
     static var SRC = <market-card vl={PortionLayout.instance} >
-        ${new ColorBgToggleComponent(__this__.iph)}
+        ${new ColorBgToggleComponent(__this__.ph.getInnerPh())}
         <label(b().v(pfr, 1).b()) id="lbl"  color={ 0xecb7b7 } text={ "Region" }  />
     </market-card>;
 
