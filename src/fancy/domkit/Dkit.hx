@@ -2,7 +2,6 @@ package fancy.domkit;
 
 import fu.bootstrap.ButtonScale;
 import a2d.Placeholder2D;
-import a2d.ProxyWidgetTransform;
 import a2d.Widget2DContainer;
 import a2d.Widget;
 import al.appliers.ContainerRefresher;
@@ -29,16 +28,13 @@ class Dkit {
 @:autoBuild(fancy.domkit.Macros.DefaultConstructorBuilder.build())
 class BaseDkit implements domkit.Model<BaseDkit> implements domkit.Object implements IWidget<Axis2D> {
     public var ph(get, null):Placeholder2D;
-    public var w:Widget;
     public var entity(get, null):Entity;
     public var c:Widget2DContainer;
     public var fui(get, null):FuiBuilder;
-    public var _verbose = false;
     public var onConstruct:(Placeholder2D)->Void;
 
     var hl:AxisLayout = WholefillLayout.instance;
     var vl:AxisLayout = WholefillLayout.instance;
-    var trans:ProxyWidgetTransform;
     @:isVar var layouts(default, set):String = "";
 
     static var _fui:FuiBuilder;
@@ -62,7 +58,6 @@ class BaseDkit implements domkit.Model<BaseDkit> implements domkit.Object implem
             this.ph = b().b();
         else
             this.ph = p;
-        trans = ph.entity.getComponent(ProxyWidgetTransform);
 
         if (parent != null) {
             this.fui = parent.fui;
