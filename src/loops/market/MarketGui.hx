@@ -8,7 +8,6 @@ import fu.bootstrap.ButtonScale;
 import fu.ui.InteractivePanelBuilder;
 import fancy.domkit.Dkit.BaseDkit;
 import fu.ui.ButtonEnabled;
-import fancy.widgets.ColorBgToggleComponent;
 import fu.Signal.IntSignal;
 import fu.ui.Button;
 import fu.ui.Properties;
@@ -64,7 +63,7 @@ class MarketCard extends BaseDkit implements DataView<MarketItemRecord> {
     var descr:MarketItemRecord;
 
     static var SRC = <market-card vl={PortionLayout.instance} >
-        ${new ColorBgToggleComponent(__this__.ph.getInnerPh())}
+        // ${new ColorBgToggleComponent(__this__.ph.getInnerPh())}
         <label(b().v(pfr, 1).b()) id="lbl"  color={ 0xecb7b7 } text={ "Region" }  />
     </market-card>;
 
