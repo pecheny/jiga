@@ -4,7 +4,7 @@ import a2d.ChildrenPool;
 import a2d.Placeholder2D;
 import al.core.DataView;
 import al.layouts.PortionLayout;
-import fancy.ClickTargetScale;
+import fu.bootstrap.ButtonScale;
 import fu.ui.InteractivePanelBuilder;
 import fancy.domkit.Dkit.BaseDkit;
 import fu.ui.ButtonEnabled;
@@ -42,7 +42,7 @@ class MarketWidget extends BaseDkit {
         buttons = new InteractivePanelBuilder<MarketItemRecord, MarketCard>().withContainer(cardsContainer.c)
             .withWidget(() -> {
                 var mc = new MarketCard(b().v(sfr, 0.3).h(sfr, 0.3).t(1).b("card"));
-                new ClickTargetScale(mc.entity);
+                new ButtonScale(mc.entity);
                 mc;
             })
             .withSignal(onChoise)
