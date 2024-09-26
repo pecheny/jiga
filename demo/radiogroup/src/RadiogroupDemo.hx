@@ -19,7 +19,7 @@ import fu.ui.Properties;
 using a2d.transform.LiquidTransformer;
 using al.Builder;
 
-class LevelupDemo extends WidgetTester {
+class RadiogroupDemo extends WidgetTester {
 	public function new() {
 		super();
 		var wdg = Builder.widget();

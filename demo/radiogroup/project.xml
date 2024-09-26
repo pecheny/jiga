@@ -2,7 +2,7 @@
 <project>
 
     <meta title="Sample" package="shoo.fancy.LevelupDemo" version="1.0.0" company="shoo"/>
-    <app main="LevelupDemo" />
+    <app main="RadiogroupDemo" />
 
     <window antialiasing="4"/>
     <window background="#303030" fps="60" />
