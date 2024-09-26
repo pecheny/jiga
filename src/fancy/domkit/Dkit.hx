@@ -1,5 +1,6 @@
 package fancy.domkit;
 
+import fu.bootstrap.ButtonScale;
 import a2d.Placeholder2D;
 import a2d.ProxyWidgetTransform;
 import a2d.Widget2DContainer;
@@ -163,10 +164,12 @@ class ButtonDkit extends BaseDkit {
     override function init() {
         super.init();
         var btn = new ButtonBase(ph, onClick);
-        fui.quad(ph, 0);
+        ProxyWidgetTransform.grantInnerTransformPh(ph);
+        fui.quad(ph.getInnerPh(), 0);
         btn.addHandler(new InteractiveColors(entity.getComponent(ShapesColorAssigner).setColor).viewHandler);
         var style = props.get(Dkit.TEXT_STYLE);
-        label = new CMSDFLabel(ph, fui.s(style));
+        label = new CMSDFLabel(ph.getInnerPh(), fui.s(style));
+        new ButtonScale(ph.entity);
         text = text;
     }
 
