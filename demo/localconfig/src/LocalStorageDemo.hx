@@ -3,7 +3,7 @@ package;
 import al.layouts.PortionLayout;
 import a2d.Layouts.ContainerStyler;
 import fu.PropStorage;
-import fancy.WidgetTester;
+import fu.bootstrap.WidgetTester;
 import fancy.domkit.Dkit;
 import fu.graphics.ColouredQuad;
 import fu.ui.ButtonBase;

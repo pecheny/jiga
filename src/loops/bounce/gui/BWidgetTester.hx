@@ -1,6 +1,6 @@
 package loops.bounce.gui;
 
-import fancy.WidgetTester;
+import fu.bootstrap.WidgetTester;
 import al.layouts.data.LayoutData.FixedSize;
 import fu.ui.Button;
 import al.Builder;

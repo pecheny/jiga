@@ -4,7 +4,7 @@ import widgets.CMSDFLabel;
 import dungsmpl.WeaponsGui;
 import fancy.domkit.Dkit;
 import al.Builder;
-import fancy.WidgetTester;
+import fu.bootstrap.WidgetTester;
 
 using al.Builder;
 using a2d.transform.LiquidTransformer;

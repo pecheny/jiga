@@ -9,7 +9,7 @@ import al.core.TWidget;
 import al.layouts.PortionLayout;
 import al.layouts.WholefillLayout;
 import al.layouts.data.LayoutData;
-import fancy.WidgetTester;
+import fu.bootstrap.WidgetTester;
 import fancy.domkit.Dkit;
 import fu.PropStorage;
 import fu.graphics.ColouredQuad;
