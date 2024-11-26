@@ -20,6 +20,7 @@ typedef LevelUpDesc = {
 
 typedef LevelingDesc = {
     levelups:ReadOnlyArray<LevelUpDesc>,
+    expToLvl:ReadOnlyArray<Int>
 }
 
 class LevelingDef extends DefNode<LevelingDesc> {}

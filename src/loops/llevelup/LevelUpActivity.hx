@@ -24,10 +24,13 @@ class LevelUpActivity extends GameRunBase implements CheckedActivity {
     @:once var defs:LevelingDef;
     @:once var executor:Executor;
     @:once var gui:OptionPickerGui<String>;
-    var expToLvl = [0, 5, 10, 15, 30, 50, 70, 90, 100, 120, 140];
+    var expToLvl:ReadOnlyArray<Int> = [0, 5, 10, 15, 30, 50, 70, 90, 100, 120, 140];
 
     override function init() {
         gui.onChoice.listen(onChoise);
+        var etl = defs.get(null).expToLvl;
+        if (etl!=null)
+            expToLvl = etl;
     }
 
     var options:Array<LevelUpDesc>;
