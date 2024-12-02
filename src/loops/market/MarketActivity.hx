@@ -1,6 +1,5 @@
 package loops.market;
 
-import shared.ProgStats;
 import bootstrap.Activitor.ActHandler;
 import bootstrap.GameRunBase;
 import dungsmpl.DungeonData;
@@ -34,7 +33,7 @@ class MarketActivity extends GameRunBase implements ActHandler<MarketDesc> {
         var item = items[n];
         if (!isAvailable(item.data))
             return;
-        stats.gld -= item.data.price;
+        stats.gld.value -= item.data.price;
         item.setState(sold);
         exec.addItem(item.data);
         // todo this check available right in gui now, put it there
@@ -54,6 +53,6 @@ class MarketActivity extends GameRunBase implements ActHandler<MarketDesc> {
     }
 
     function isAvailable(item:MarketItem) {
-        return (item.price <= stats.gld);
+        return (item.price <= stats.gld.value);
     }
 }

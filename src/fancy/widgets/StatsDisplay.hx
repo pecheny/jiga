@@ -8,11 +8,12 @@ import fancy.domkit.Dkit;
 import fu.PropStorage;
 import htext.style.TextContextBuilder;
 import htext.style.TextStyleContext;
+import stset2.Stats;
 
 using al.Builder;
 
 class StatsDisplay extends Widget {
-    @:once var unit:BattleStats;
+    @:once var unit:StatsSet;
     @:once var styles:TextContextStorage;
     @:once var props:PropStorage<Dynamic>;
     var tc:TextStyleContext;
@@ -21,13 +22,13 @@ class StatsDisplay extends Widget {
         var styleName = props.get(Dkit.TEXT_STYLE);
         tc = styles.getStyle(styleName??"");
         Builder.createContainer(ph, horizontal, Center).withChildren([
-            for (kv in unit.stats.keyValueIterator())
-                factory(kv.key, cast kv.value)
+            for (k in unit.keys)
+                factory(k, cast Reflect.field(unit, k))
         ]);
     }
 
-    function factory(name, val:ChangingVal<Int>) {
-        if (Std.isOfType(val, IntPlusTempValue))
+    function factory(name, val:StatRO<Int>) {
+        if (Std.isOfType(val, TempIncGameStat))
             return new IntPlusTmpLabel(Builder.widget(), tc).setup(name, cast val).ph;
         return new ValLabel(Builder.widget(), tc).setup(name, val).ph;
     }

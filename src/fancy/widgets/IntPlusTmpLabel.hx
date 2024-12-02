@@ -5,11 +5,12 @@ import bootstrap.Data.IntPlusTempValue;
 import htext.style.TextStyleContext;
 import widgets.Label;
 import a2d.Widget;
+import stset2.Stats;
 
 class IntPlusTmpLabel extends Widget {
     var lbl:Label;
     var statName:String;
-    var stat:IntPlusTempValue;
+    var stat:TempIncGameStat<Int>;
     var style:TextStyleContext;
 
     public function new(p, s) {
@@ -35,8 +36,8 @@ class IntPlusTmpLabel extends Widget {
     }
 
     function setText(?_:Int) {
-        var tmpVal = stat.tmp.getVal();
+        var tmpVal = stat.tmp.value;
         var delta = if (tmpVal == 0) "" else if (tmpVal > 0) ' +$tmpVal' else ' -$tmpVal';
-        lbl?.withText('$statName:<br/>${stat.prm.getVal()}$delta');
+        lbl?.withText('$statName:<br/>${stat.prm.value}$delta');
     }
 }

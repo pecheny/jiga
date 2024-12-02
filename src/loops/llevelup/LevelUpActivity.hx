@@ -1,5 +1,7 @@
 package loops.llevelup;
 
+import bootstrap.Data;
+import stset2.Stats;
 import a2d.ChildrenPool;
 import al.layouts.PortionLayout;
 import bootstrap.Executor;
@@ -14,12 +16,16 @@ import gameapi.CheckedActivity;
 import haxe.ds.ReadOnlyArray;
 import loops.llevelup.LevelupData.LevelUpDesc;
 import loops.llevelup.LevelupData.LevelingDef;
-import shared.ProgStats;
 import utils.WeightedRandomProvider;
 import widgets.Label;
 
+class LevelingStats implements StatsSet{
+    public var exp(default, null):GameStat<Int>;
+    public var lvl(default, null):GameStat<Int>;
+}
+
 class LevelUpActivity extends GameRunBase implements CheckedActivity {
-    @:once var stats:ProgStats;
+    @:once var stats:LevelingStats;
     // @:once var defs:DungeonDefs; // todo  replace with levelup defs
     @:once var defs:LevelingDef;
     @:once var executor:Executor;
@@ -29,7 +35,7 @@ class LevelUpActivity extends GameRunBase implements CheckedActivity {
     override function init() {
         gui.onChoice.listen(onChoise);
         var etl = defs.get(null).expToLvl;
-        if (etl!=null)
+        if (etl != null)
             expToLvl = etl;
     }
 
@@ -39,6 +45,7 @@ class LevelUpActivity extends GameRunBase implements CheckedActivity {
         var candidatesRo:ReadOnlyArray<LevelUpDesc> = defs.get(null).levelups;
         var candidates = candidatesRo.slice(0).filter(f -> executor.guardsPasses(f.guards));
         var prv:WeightedRandomProvider<LevelUpDesc> = new WeightedRandomProvider(candidates);
+        if (shouldActivate())
         options = [
             for (i in 0...3) {
                 var o = prv.get();
@@ -46,15 +53,21 @@ class LevelUpActivity extends GameRunBase implements CheckedActivity {
                 o;
             }
         ];
+        else
+            options = [];
         gui.initData(options.map(o -> o.name));
     }
 
     function onChoise(n) {
         var o = options[n];
-        stats.getStat("lvl").changeVal(1);
+        stats.lvl.value++;
         for (a in o.actions)
             executor.run(a);
         gameOvered.dispatch();
+    }
+    
+    function levelUp() {
+        
     }
 
     override function reset() {
@@ -62,8 +75,8 @@ class LevelUpActivity extends GameRunBase implements CheckedActivity {
     }
 
     public function shouldActivate():Bool {
-        var exp = stats.getStat("exp").getVal();
-        var curLvl = stats.getStat("lvl").getVal();
+        var exp = stats.exp.value;
+        var curLvl = stats.lvl.value;
         var availLvl = 0;
         for (i in 0...expToLvl.length)
             if (expToLvl[i] > exp) {

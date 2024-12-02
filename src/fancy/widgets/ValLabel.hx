@@ -1,16 +1,16 @@
 package fancy.widgets;
 
-import bootstrap.Data.IntCapValue;
-import bootstrap.Data.ChangingVal;
 import htext.style.TextStyleContext;
 import widgets.Label;
 import a2d.Widget;
+import stset2.Stats.CapGameStat;
+import stset2.Stats.StatRO;
 
 class ValLabel<T:Float> extends Widget {
     var lbl:Label;
     var statName:String;
-    var stat:ChangingVal<T>;
-    var capped:IntCapValue;
+    var stat:StatRO<T>;
+    var capped:CapGameStat<T>;
     var style:TextStyleContext;
 
     public function new(p, s) {
@@ -25,14 +25,14 @@ class ValLabel<T:Float> extends Widget {
             setText();
     }
 
-    public function setup(name:String, stat:ChangingVal<T>) {
+    public function setup(name:String, stat:StatRO<T>) {
         if (this.stat != null)
             throw "resetup not allowed";
         statName = name;
         this.stat = stat;
         stat.onChange.listen(setText);
         capped = null;
-        if (Std.isOfType(stat, IntCapValue))
+        if (Std.isOfType(stat, CapGameStat))
             capped = cast stat;
         setText();
         return this;
@@ -40,8 +40,8 @@ class ValLabel<T:Float> extends Widget {
 
     function setText(?_:T) {
         if (capped != null)
-            lbl?.withText('$statName:<br/>${capped.getVal()}/${capped.max}');
+            lbl?.withText('$statName:<br/>${capped.value}/${capped.max}');
         else
-            lbl?.withText('$statName:<br/>${stat.getVal()}');
+            lbl?.withText('$statName:<br/>${stat.value}');
     }
 }
