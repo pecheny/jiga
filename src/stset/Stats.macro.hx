@@ -1,4 +1,4 @@
-package stset2;
+package stset;
 
 import haxe.ds.ReadOnlyArray;
 import haxe.macro.Context;
@@ -115,7 +115,7 @@ class StatsMacro {
             if (clt == null)
                 return false;
             switch clt {
-                case {module: "stset2.Stats", name: "GameStat"}:
+                case {module: "stset.Stats", name: "GameStat"}:
                     return true;
                 case {superClass: sc}:
                     return isStatClType(sc?.t?.get());

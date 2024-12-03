@@ -1,7 +1,7 @@
 package loops.llevelup;
 
 import bootstrap.Data;
-import stset2.Stats;
+import stset.Stats;
 import a2d.ChildrenPool;
 import al.layouts.PortionLayout;
 import bootstrap.Executor;

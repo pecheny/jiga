@@ -1,14 +1,11 @@
 package fancy.widgets;
 
 import a2d.Widget;
-import bootstrap.Data.ChangingVal;
-import bootstrap.Data.IntPlusTempValue;
-import dungsmpl.DungeonData.BattleStats;
 import fancy.domkit.Dkit;
 import fu.PropStorage;
 import htext.style.TextContextBuilder;
 import htext.style.TextStyleContext;
-import stset2.Stats;
+import stset.Stats;
 
 using al.Builder;
 

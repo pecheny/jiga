@@ -1,46 +1,80 @@
 package stset;
 
-import bootstrap.Data;
+import haxe.ds.ReadOnlyArray;
+import fu.Signal;
 
-@:autoBuild(stset.StatsMacro.build())
-class Stats<TName:String, T:RW<Int>> {
-    public var stats(default, null):Map<String, RW<Int>>;
+@:autoBuild(stset.Stats.StatsMacro.build())
+interface StatsSet {
+    var keys (default, null):ReadOnlyArray<String>;
+}
 
-    public function new(?store:Map<String, RW<Int>>) {
-        stats = if (store != null) store else new Map();
+interface StatRO<T:Float> {
+    var onChange(default, null):Signal<T->Void>;
+    var value(get, null):T;
+}
 
-        createValues();
+class GameStat<T:Float> implements StatRO<T> {
+    public var onChange(default, null):Signal<T->Void> = new Signal();
+    @:isVar public var value(get, set):T;
+
+    function get_value():T {
+        return value;
     }
 
-    function createValues() {}
-
-    public function getStat(name:TName):T {
-        return cast stats.get(name);
+    function set_value(newVal:T):T {
+        var delta = newVal - value;
+        value = newVal;
+        onChange.dispatch(delta);
+        return value;
     }
 
-    public function keys():Array<String> {
-        throw "abstract";
+    public function new(v:T) {
+        this.value = v;
+    }
+}
+
+class CapGameStat<T:Float> extends GameStat<T> {
+    public var max(default, set):T;
+
+    public function new(max:T, val:T = cast 0) {
+        @:bypassAccessor this.max = max;
+        super(val);
     }
 
-    public inline function getShared<T>(cl:Class<T>, name:TName):T {
-        // inline is a workaround of bug in hl when casn obbject from map to its own type make it broken
-        var val = stats.get(name);
-        try {
-            return cast val;
-        } catch (e) {
-            trace("e " + e);
-            return null;
-        }
+    override function set_value(newVal:T):T {
+        if (newVal > max)
+            newVal = max;
+        return super.set_value(newVal);
     }
 
-    public function initAll(desc:Dynamic, dflt = 0) {
-        for (statName in keys()) {
-            var val = if (Reflect.hasField(desc, statName)) Reflect.field(desc, statName) else 0;
-            var stat = stats.get(statName);
-            if (Std.isOfType(stat, IntCapValue)) {
-                cast(stat, IntCapValue).init(val);
-            }
-            stat.setVal(val);
-        }
+    function set_max(val:T):T {
+        max = val;
+        set_value(value);
+        return max;
+    }
+}
+
+class TempIncGameStat<T:Float> extends GameStat<T> {
+    public var prm(default, null):GameStat<T>;
+    public var tmp(default, null):GameStat<T>;
+
+    public function new(val:T, ?prm, ?tmp) {
+        this.prm = prm ?? new GameStat(val);
+        this.tmp = tmp ?? new GameStat(cast 0);
+        super(val);
+        this.prm.onChange.listen(dispatch);
+        this.tmp.onChange.listen(dispatch);
+    }
+
+    function dispatch(d) {
+        onChange.dispatch(d);
+    }
+
+    override function get_value():T {
+        return prm.value + tmp.value;
+    }
+
+    override function set_value(newVal:T):T {
+        return prm.set_value(newVal);
     }
 }

@@ -5,7 +5,7 @@ import bootstrap.Data.IntPlusTempValue;
 import htext.style.TextStyleContext;
 import widgets.Label;
 import a2d.Widget;
-import stset2.Stats;
+import stset.Stats;
 
 class IntPlusTmpLabel extends Widget {
     var lbl:Label;

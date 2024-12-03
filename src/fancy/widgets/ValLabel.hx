@@ -3,8 +3,8 @@ package fancy.widgets;
 import htext.style.TextStyleContext;
 import widgets.Label;
 import a2d.Widget;
-import stset2.Stats.CapGameStat;
-import stset2.Stats.StatRO;
+import stset.Stats.CapGameStat;
+import stset.Stats.StatRO;
 
 class ValLabel<T:Float> extends Widget {
     var lbl:Label;
