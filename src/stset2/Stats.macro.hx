@@ -97,14 +97,12 @@ class StatsMacro {
                     Reflect.setField(this, k, stat);
                     if (data != null)
                         Reflect.setField(data, k, stat);
-                }
-                else if (f == null) {
+                } else if (f == null) {
                     var stat = new $tp(f);
                     Reflect.setField(this, k, stat);
                     if (data != null)
                         Reflect.setField(data, k, stat);
-                }
-                else
+                } else
                     throw 'Wrong value for stat $k: $f';
             });
         }
@@ -126,26 +124,11 @@ class StatsMacro {
             }
         }
         function isStatType(t:ComplexType):StatDesc {
-            switch t {
-                case TPath({pack: ["stset"], name: "Stats", sub: "GameStat"}):
-                    return {
-                        isStat: true,
-                        bType: switch t.toType() {
-                            case TInst(_, [utype]):
-                                utype;
-                            case _:
-                                throw "Wrong";
-                        }
-                    };
-                case TPath(_):
-                    switch t.toType() {
-                        case TInst(_.get() => t, [utype]):
-                            return if (isStatClType(t)) {isStat: true, bType: utype}; else {};
-                        case _:
-                            return {};
-                    }
+            switch t.toType() {
+                case TInst(_.get() => t, [utype]):
+                    return if (isStatClType(t)) {isStat: true, bType: utype}; else {};
                 case _:
-                    throw "wrong";
+                    return {};
             }
         }
         switch f.kind {
