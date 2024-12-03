@@ -66,24 +66,15 @@ class LevelUpActivity extends GameRunBase implements CheckedActivity {
         gameOvered.dispatch();
     }
     
-    function levelUp() {
-        
-    }
-
     override function reset() {
         options = null;
     }
 
     public function shouldActivate():Bool {
+        // see * [2024-12-03 Tue 13:42] jiga leveling
         var exp = stats.exp.value;
-        var curLvl = stats.lvl.value;
-        var availLvl = 0;
-        for (i in 0...expToLvl.length)
-            if (expToLvl[i] > exp) {
-                availLvl = i;
-                break;
-            }
-        return curLvl < availLvl;
+        var nextLvl = stats.lvl.value + 1;
+        return expToLvl.length > nextLvl && expToLvl[nextLvl] <= exp;
     }
 }
 
