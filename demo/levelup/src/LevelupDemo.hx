@@ -1,28 +1,28 @@
 package;
 
-import fancy.widgets.OptionPickerGui;
 import bootstrap.BootstrapMain;
 import bootstrap.Executor;
 import ec.Component;
 import ec.CtxWatcher;
 import ec.Entity;
+import fancy.widgets.OptionPickerGui;
 import gameapi.GameRun;
 import gameapi.GameRunBinder;
 import loops.llevelup.LevelUpActivity;
 import loops.llevelup.LevelupData;
-import shared.ProgStats;
 
+using a2d.transform.LiquidTransformer;
 using al.Builder;
-using a2d.transform.LiquidTransformer;
-using a2d.transform.LiquidTransformer;
 
 class LevelupDemo extends BootstrapMain {
     public function new() {
         super();
+        
+
         var wdg = Builder.widget();
         fui.makeClickInput(wdg);
         var player = new Entity("player");
-        player.addComponent(new ProgStats()).initAll({exp: 100, lvl: 0, gld: 0});
+        var s = player.addComponent(new LevelingStats({exp: 20, lvl: 0, gld: 0}));
         player.addComponent(new LevelingDef("levelups", openfl.utils.Assets.getLibrary("")));
         var entity = player;
         var ctx = entity.addComponent(new ExecCtx(entity));
@@ -42,14 +42,14 @@ class LevelupDemo extends BootstrapMain {
 
 @:keep
 class ExecCtx extends Component {
-    @:once var stats:ProgStats;
+    @:once var stats:LevelingStats;
 
     var ctx:ExecCtx;
 
     @:isVar public var vars(get, null):Dynamic = {};
 
     override function init() {
-        for (k in stats.stats.keys())
+        for (k in stats.keys)
             Reflect.setField(vars, k, k);
         Reflect.setField(vars, "ctx", this);
         ctx = this;
