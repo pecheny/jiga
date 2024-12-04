@@ -43,7 +43,7 @@ class LevelUpActivity extends GameRunBase implements CheckedActivity {
 
     override function startGame() {
         var candidatesRo:ReadOnlyArray<LevelUpDesc> = defs.get(null).levelups;
-        var candidates = candidatesRo.slice(0).filter(f -> executor.guardsPasses(f.guards));
+        var candidates = candidatesRo.filter(f -> executor.guardsPasses(f.guards));
         var prv:WeightedRandomProvider<LevelUpDesc> = new WeightedRandomProvider(candidates);
         if (shouldActivate())
         options = [
