@@ -19,11 +19,11 @@ typedef LevelUpDesc = {
 }
 
 typedef LevelingDesc = {
-    levelups:ReadOnlyArray<LevelUpDesc>,
-    expToLvl:ReadOnlyArray<Int>
+    var levelups (default, null):ReadOnlyArray<LevelUpDesc>;
+    var expToLvl (default, null):ReadOnlyArray<Int>;
 }
 
-class LevelingDef extends DefNode<LevelingDesc> {}
+class LevelingDef extends GenericDef<LevelingDesc> {}
 
 class DefLvlNode<T:Leveled> extends DefNode<T> {
     public function getLvl(path, lvl:Int) {

@@ -5,17 +5,32 @@ import haxe.io.Path;
 import haxe.Json;
 import openfl.Assets;
 
+interface DefProvider<T> {
+    public function get(path:String):T;
+}
+
+class GenericDef<T> implements DefProvider<T> {
+    var getter:String->T;
+
+    public function new(get:String->T) {
+        this.getter = get;
+    }
+
+    public function get(path:String):T {
+        return getter(path);
+    }
+}
+
 /**
     let prefix is directory path relative to the lib root. 
     The directory and all subfolders contain json-s, each of them conforms DefNode.T
 
     If prefix is path to json, it should be object of defId=>T pairs
-
 **/
-class DefNode<T> {
+class DefNode<T> implements DefProvider<T> {
     // var value:{};
     // var lib:AssetLib;
-    var assets:AbAssets;
+    var assets:PathAccess;
     var prefix:String;
 
     public function new(prefix, lib) {
@@ -52,7 +67,11 @@ class DirDesc {
     }
 }
 
-class AbAssets {
+interface PathAccess {
+    function getContent(path:String):Dynamic;
+}
+
+class AbAssets implements PathAccess {
     var lib:AssetLib;
 
     public var root:DirDesc = new DirDesc();
@@ -62,7 +81,8 @@ class AbAssets {
         for (p in lib.getFilePaths())
             procPath(p);
     }
-// TODO dirty impl, not optimized, should be rewrotten and tested
+
+    // TODO dirty impl, not optimized, should be rewrotten and tested
     public function getContent(path:String):Dynamic {
         var split = path.split('/');
         var dir = root;
@@ -87,12 +107,10 @@ class AbAssets {
         var result = {};
         for (subd in dir.subdirs.keys())
             Reflect.setField(result, subd, getContent(Path.join([path, subd])));
-        for(f in dir.files)
+        for (f in dir.files)
             Reflect.setField(result, f.substring(0, f.indexOf(".json")), Json.parse(lib.getText(Path.join([path, f]))));
 
-
         return result;
-
     }
 
     function procPath(p:String) {
