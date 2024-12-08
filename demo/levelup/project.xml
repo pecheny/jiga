@@ -10,7 +10,7 @@
     <source path="src"/>
 
     <haxelib name="openfl"/>
-    <haxelib name="megajiga"/>
+    <haxelib name="jiga"/>
 
     <assets path="Assets" include="*" rename=""/>
 </project>

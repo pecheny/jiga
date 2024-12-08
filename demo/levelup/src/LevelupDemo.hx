@@ -1,5 +1,6 @@
 package;
 
+import bootstrap.DefNode;
 import bootstrap.BootstrapMain;
 import bootstrap.Executor;
 import ec.Component;
@@ -23,7 +24,7 @@ class LevelupDemo extends BootstrapMain {
         fui.makeClickInput(wdg);
         var player = new Entity("player");
         var s = player.addComponent(new LevelingStats({exp: 20, lvl: 0, gld: 0}));
-        player.addComponent(new LevelingDef("levelups", openfl.utils.Assets.getLibrary("")));
+        player.addComponent(new LevelingDef(new DefNode("levelups", openfl.utils.Assets.getLibrary("")).get));
         var entity = player;
         var ctx = entity.addComponent(new ExecCtx(entity));
         entity.addComponent(new Executor(ctx.vars, true));
