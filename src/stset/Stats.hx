@@ -5,7 +5,7 @@ import fu.Signal;
 
 @:autoBuild(stset.Stats.StatsMacro.build())
 interface StatsSet {
-    var keys (default, null):ReadOnlyArray<String>;
+    var keys(default, null):ReadOnlyArray<String>;
 }
 
 interface StatRO<T:Float> {
@@ -13,7 +13,12 @@ interface StatRO<T:Float> {
     var value(get, null):T;
 }
 
-class GameStat<T:Float> implements StatRO<T> {
+interface Serializable {
+    function loadData(d:Dynamic):Void;
+    function getData():Dynamic;
+}
+
+class GameStat<T:Float> implements StatRO<T> implements Serializable {
     public var onChange(default, null):Signal<T->Void> = new Signal();
     @:isVar public var value(get, set):T;
 
@@ -31,6 +36,13 @@ class GameStat<T:Float> implements StatRO<T> {
     public function new(v:T) {
         this.value = v;
     }
+
+    public function loadData(d:Dynamic):Void {
+        value = d;
+    }
+
+    public function getData():Dynamic
+        return value;
 }
 
 class CapGameStat<T:Float> extends GameStat<T> {
@@ -51,6 +63,21 @@ class CapGameStat<T:Float> extends GameStat<T> {
         max = val;
         set_value(value);
         return max;
+        
+    }
+    override function getData():Dynamic {
+        return {value:value, max:max};
+    }
+    override function loadData(d:Dynamic) {
+        trace(d);
+        if (d is Float) {
+            max = d;
+            value = cast 0;
+        } else {
+            value = d.value;
+        }
+        trace(value);
+        
     }
 }
 
