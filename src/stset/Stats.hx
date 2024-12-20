@@ -1,7 +1,7 @@
 package stset;
 
-import haxe.ds.ReadOnlyArray;
 import fu.Signal;
+import haxe.ds.ReadOnlyArray;
 
 @:autoBuild(stset.Stats.StatsMacro.build())
 interface StatsSet {
@@ -63,21 +63,22 @@ class CapGameStat<T:Float> extends GameStat<T> {
         max = val;
         set_value(value);
         return max;
-        
     }
+
     override function getData():Dynamic {
-        return {value:value, max:max};
+        return {value: value, max: max};
     }
+
     override function loadData(d:Dynamic) {
         trace(d);
         if (d is Float) {
             max = d;
             value = cast 0;
         } else {
+            max = d.max;
             value = d.value;
         }
         trace(value);
-        
     }
 }
 
