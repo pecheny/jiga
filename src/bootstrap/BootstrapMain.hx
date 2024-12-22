@@ -113,7 +113,11 @@ class BootstrapMain extends AbstractEngine {
 		Creates and binds GameInput. By default it is OneButton, supposed to override for exact buttons and axis set. 
 	**/
 	function createInput() {
+        var kbd = rootEntity.addComponentByType(ginp.api.KbdDispatcher, new openfl.OflKbd());
 		var input = new OneButtonInput();
+        var gk = input.createKeyMapping([ginp.Keyboard.SPACE => OneButton.button]);
+        kbd.addListener(gk);
+
 		rootEntity.addComponentByType(GameInputUpdater, input);
 		rootEntity.addComponentByType(GameButtons, input);
 		rootEntity.addComponent(input);
