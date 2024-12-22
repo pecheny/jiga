@@ -173,6 +173,7 @@ class BootstrapMain extends AbstractEngine {
 			.build();
 		ts.resetToDefaults();
 		ts.newStyle("center").withAlign(horizontal, Center).build();
+		ts.newStyle(TextContextBuilder.DEFAULT_STYLE).withAlign(horizontal, Center).build();
 		ts.newStyle("fit")
 			.withSize(pfr, .5)
 			.withAlign(horizontal, Forward)
