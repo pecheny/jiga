@@ -158,7 +158,7 @@ class ButtonDkit extends BaseDkit {
 
     override function init() {
         super.init();
-        var btn = new ButtonBase(ph, onClick);
+        var btn = new ButtonBase(ph, _onClick);
         ProxyWidgetTransform.grantInnerTransformPh(ph);
         fui.quad(ph.getInnerPh(), 0);
         btn.addHandler(new InteractiveColors(entity.getComponent(ShapesColorAssigner).setColor).viewHandler);
@@ -166,6 +166,11 @@ class ButtonDkit extends BaseDkit {
         label = new CMSDFLabel(ph.getInnerPh(), fui.s(style));
         new ButtonScale(ph.entity);
         text = text;
+    }
+    
+    function _onClick() {
+        if (onClick!=null)
+            onClick();
     }
 
     function set_text(value:String):String {
