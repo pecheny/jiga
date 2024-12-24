@@ -147,6 +147,7 @@ class ButtonDkit extends BaseDkit {
     public var label:CMSDFLabel;
     public var text(default, set):String = "";
     public var onClick:Void->Void;
+    public var style(default, default):String = "";
 
     @:once var styles:TextContextStorage;
     @:once var props:PropStorage<Dynamic>;
@@ -162,7 +163,8 @@ class ButtonDkit extends BaseDkit {
         ProxyWidgetTransform.grantInnerTransformPh(ph);
         fui.quad(ph.getInnerPh(), 0);
         btn.addHandler(new InteractiveColors(entity.getComponent(ShapesColorAssigner).setColor).viewHandler);
-        var style = props.get(Dkit.TEXT_STYLE);
+        if (style == "")
+            style = props.get(Dkit.TEXT_STYLE);
         label = new CMSDFLabel(ph.getInnerPh(), fui.s(style));
         new ButtonScale(ph.entity);
         text = text;
