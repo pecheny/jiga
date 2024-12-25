@@ -1,9 +1,9 @@
 package bootstrap;
 
-import utils.MathUtil;
-import haxe.io.Path;
 import haxe.Json;
+import haxe.io.Path;
 import openfl.Assets;
+import utils.MathUtil;
 
 interface DefProvider<T> {
     public function get(path:String):T;
@@ -48,6 +48,30 @@ class DefNode<T> implements DefProvider<T> {
         if (path == null)
             return assets.getContent(prefix);
         return assets.getContent(Path.join([prefix, path]));
+    }
+}
+
+typedef Leveled = {
+    levels:Array<Dynamic>,
+    ?curLvl:Int
+}
+
+class DefLvlNode<T:Leveled> extends DefNode<T> {
+    public function getLvl(path, lvl:Int) {
+        var def = get(path);
+        if (def.levels == null)
+            return def;
+        var curLvl = MathUtil.min(lvl + 1, def.levels.length);
+        for (l in 1...curLvl)
+            apply(def, def.levels[l]);
+        def.curLvl = curLvl;
+        return def;
+    }
+
+    function apply(dst, src) {
+        for (k in Reflect.fields(src)) {
+            Reflect.setField(dst, k, Reflect.field(src, k));
+        }
     }
 }
 
