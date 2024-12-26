@@ -14,8 +14,7 @@ import fu.bootstrap.ButtonColors;
 import fu.ui.InteractivePanelBuilder;
 import gameapi.CheckedActivity;
 import haxe.ds.ReadOnlyArray;
-import loops.llevelup.LevelupData.LevelUpDesc;
-import loops.llevelup.LevelupData.LevelingDef;
+import loops.llevelup.LevelupData;
 import utils.WeightedRandomProvider;
 import widgets.Label;
 

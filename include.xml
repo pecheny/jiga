@@ -15,8 +15,8 @@
 
 
     <haxeflag name="--macro" value='domkit.Macros.registerComponentsPath("fancy.domkit.Dkit.$Dkit")'/>
-    <haxedef name = "openfl_disable_context_cache" value = "true" />
-    <haxedef name = "openfl_always_render" value = "true" />
+    <!-- <haxedef name = "openfl_disable_context_cache" value = "true" />
+    <haxedef name = "openfl_always_render" value = "true" /> -->
     <haxeflag name="-D" value="no-deprecation-warnings" />
 
 </project>

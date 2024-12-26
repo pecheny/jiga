@@ -1,5 +1,6 @@
 package loops.llevelup;
 
+import bootstrap.DefNode.GenericDef;
 import hxmath.math.MathUtil;
 import haxe.ds.ReadOnlyArray;
 
@@ -18,4 +19,5 @@ typedef LevelingDesc = {
     var expToLvl (default, null):ReadOnlyArray<Int>;
 }
 
+class LevelingDef extends GenericDef<LevelingDesc> {}
 
