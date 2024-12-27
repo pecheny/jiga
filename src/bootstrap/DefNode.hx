@@ -53,7 +53,8 @@ class DefNode<T> implements DefProvider<T> {
 
 typedef Leveled = {
     levels:Array<Dynamic>,
-    ?curLvl:Int
+    ?curLvl:Int,
+    ?maxLvl:Int
 }
 
 class DefLvlNode<T:Leveled> extends DefNode<T> {
@@ -64,7 +65,8 @@ class DefLvlNode<T:Leveled> extends DefNode<T> {
         var curLvl = MathUtil.min(lvl + 1, def.levels.length);
         for (l in 1...curLvl)
             apply(def, def.levels[l]);
-        def.curLvl = curLvl;
+        def.curLvl = curLvl - 1;
+        def.maxLvl = def.levels.length -1;
         return def;
     }
 
