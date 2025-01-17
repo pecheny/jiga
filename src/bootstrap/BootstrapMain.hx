@@ -1,9 +1,9 @@
 package bootstrap;
 
+import dkit.Dkit.BaseDkit;
 import gl.passes.CmsdfPass;
 import gl.aspects.ExtractionUtils.TextureAspectFactory;
 import htext.FontAspectsFactory;
-import fu.GuiDrawcalls;
 import a2d.Placeholder2D;
 import al.ec.WidgetSwitcher;
 import al.layouts.PortionLayout;
@@ -18,7 +18,6 @@ import ec.Entity;
 import ecbind.MultiInputBinder;
 import a2d.ContainerStyler;
 import fu.PropStorage;
-import fancy.domkit.Dkit;
 import gameapi.GameRun;
 import gameapi.GameRunBinder;
 import ginp.GameButtonsImpl;
@@ -52,9 +51,13 @@ class BootstrapMain extends AbstractEngine {
 
 	public function new() {
 		super();
-		rootEntity = new Entity("root");
+		var root = rootEntity = new Entity("root");
 		setWindowPosition();
-		regDrawcals();
+		// regDrawcals();
+        var uikit = new FlatUikitExtended(fui);
+        uikit.configure(root);
+        uikit.createContainer(root);
+
 		textStyles();
 		createFlashDisplay();
 		initFui();
@@ -80,15 +83,15 @@ class BootstrapMain extends AbstractEngine {
 	}
 
 	function regDrawcals() {
-		var pipeline = fui.pipeline;
-		pipeline.addPass(GuiDrawcalls.BG_DRAWCALL, new FlatColorPass());
-		pipeline.addPass(GuiDrawcalls.TEXT_DRAWCALL, new CmsdfPass());
-		var fontAsp = new FontAspectsFactory(fui.fonts, pipeline.textureStorage);
-		pipeline.addAspectExtractor(GuiDrawcalls.TEXT_DRAWCALL, fontAsp.create, fontAsp.getAlias);
+		// var pipeline = fui.pipeline;
+		// pipeline.addPass(GuiDrawcalls.BG_DRAWCALL, new FlatColorPass());
+		// pipeline.addPass(GuiDrawcalls.TEXT_DRAWCALL, new CmsdfPass());
+		// var fontAsp = new FontAspectsFactory(fui.fonts, pipeline.textureStorage);
+		// pipeline.addAspectExtractor(GuiDrawcalls.TEXT_DRAWCALL, fontAsp.create, fontAsp.getAlias);
 
-		pipeline.addPass(PictureDrawcalls.IMAGE_DRAWCALL, new ImagePass());
-		var picAsp = new TextureAspectFactory(pipeline.textureStorage);
-		pipeline.addAspectExtractor(PictureDrawcalls.IMAGE_DRAWCALL, picAsp.create);
+		// pipeline.addPass(PictureDrawcalls.IMAGE_DRAWCALL, new ImagePass());
+		// var picAsp = new TextureAspectFactory(pipeline.textureStorage);
+		// pipeline.addAspectExtractor(PictureDrawcalls.IMAGE_DRAWCALL, picAsp.create);
 	}
 
 	function setWindowPosition() {
@@ -147,7 +150,7 @@ class BootstrapMain extends AbstractEngine {
 		fui.configureScreen(rootEntity);
 		fui.configureAnimation(rootEntity);
 		rootEntity.addComponent(fui);
-		fui.createContainer(rootEntity, Xml.parse(GuiDrawcalls.DRAWCALLS_LAYOUT).firstElement());
+		// fui.createContainer(rootEntity, Xml.parse(GuiDrawcalls.DRAWCALLS_LAYOUT).firstElement());
 		// var container:Sprite = rootEntity.getComponent(Sprite);
 		// addChild(container);
 		var v = new StageAspectResizer(rw, 2);
@@ -163,8 +166,8 @@ class BootstrapMain extends AbstractEngine {
 	}
 
 	function textStyles() {
-		var font = "Assets/fonts/robo.fnt";
-		fui.addBmFont("", font); // todo
+		// var font = "Assets/fonts/robo.fnt";
+		// fui.addBmFont("", font); // todo
 		var ts = fui.textStyles;
 		ts.newStyle("small-text")
 			.withSize(sfr, .07)
@@ -190,12 +193,12 @@ class BootstrapMain extends AbstractEngine {
 		BaseDkit.inject(fui);
 		var e = rootEntity;
 		var props = e.getOrCreate(PropStorage, () -> new CascadeProps<String>(null, "root-props"));
-		props.set(Dkit.TEXT_STYLE, "small-text");
+		// props.set(Dkit.TEXT_STYLE, "small-text");
 
 		var distributer = new al.layouts.Padding(new FractionSize(.25), new PortionLayout(Center, new FixedSize(0.1)));
-		var contLayouts = new ContainerStyler();
+		var contLayouts = e.getComponent(ContainerStyler);
 		contLayouts.reg(GuiStyles.L_HOR_CARDS, distributer, WholefillLayout.instance);
 		contLayouts.reg(GuiStyles.L_VERT_BUTTONS, WholefillLayout.instance, distributer);
-		e.addComponent(contLayouts);
+		// e.addComponent(contLayouts);
 	}
 }

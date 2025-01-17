@@ -9,6 +9,7 @@
     <haxelib name="taxis"/>
     <haxelib name="fancy"/>
     <haxelib name="alayout"/>
+    <haxelib name="uikit-flat"/>
     <haxelib name="hscript"/>
     <haxelib name="domkit"/>
     <haxelib name="hxmath"/>

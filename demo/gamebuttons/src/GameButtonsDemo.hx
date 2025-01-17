@@ -12,7 +12,6 @@ import ec.CtxWatcher;
 import ec.Entity;
 import ecbind.InputBinder;
 import fu.PropStorage;
-import fancy.domkit.Dkit;
 import gameapi.GameRun;
 import gameapi.GameRunBinder;
 import ginp.KeyToGameButtons;

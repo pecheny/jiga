@@ -53,6 +53,7 @@ class ActionDemo extends BootstrapMain {
         var mapper = input.mapAxisSource(stick).withMapped(Axis2D.horizontal, TGAxis.h);
         rootEntity.addComponent(input);
     }
+
     function createStick() {
         var stick = new OnScreenStick(60);
         var adapter = new DummyOflStickAdapter(stick);
@@ -61,10 +62,10 @@ class ActionDemo extends BootstrapMain {
         // onScreenStick = stick;
     }
 
-    public static final dl = 
-    '<container>
+    public static final dl = '<container>
         <drawcall type="color"/>
     </container>';
+
     //* [2024-05-29 Wed 23:42] Render passes / notes.org
 
     function createRenderLayer(ph:Placeholder2D) {
@@ -74,7 +75,8 @@ class ActionDemo extends BootstrapMain {
         for (a in Axis2D)
             ph.axisStates[a].addSibling(new AnyAxisApplier(projAspect, a));
         fui.pipeline.addAspect(projAspect);
-        fui.createContainer(ph.entity, Xml.parse(dl).firstElement());
+        backends.openfl.DrawcallUtils.createContainer(fui.pipeline, ph.entity, Xml.parse(dl).firstElement());
+        // fui.createContainer(, );
         // var spr:Sprite = ph.entity.getComponent(Sprite);
         // addChild(spr);
     }
@@ -83,7 +85,7 @@ class ActionDemo extends BootstrapMain {
 class GameRenderPass extends FlatColorPass {
     public function new() {
         super();
-        
+
         vertElems.push(ProjectionMatrixElement.instance);
         alias.push(ProjectionMatrixElement.alias);
 

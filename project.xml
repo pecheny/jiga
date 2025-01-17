@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+    <include path="include.xml" />
+    <!-- <include path="demo/levelup/project.xml" /> -->
+    <!-- <include path="demo/actionplay/project.xml" /> -->
+    <!-- <include path="demo/gamebuttons/project.xml" /> -->
+    <!-- <include path="demo/gamecycle/project.xml" /> -->
+    <!-- <include path="demo/localconfig/project.xml" /> -->
+    <!-- <include path="demo/radiogroup/project.xml" /> -->
+</project>

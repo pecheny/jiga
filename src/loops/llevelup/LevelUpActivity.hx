@@ -1,5 +1,6 @@
 package loops.llevelup;
 
+import dkit.Dkit.BaseDkit;
 import bootstrap.Data;
 import stset.Stats;
 import a2d.ChildrenPool;
@@ -7,7 +8,6 @@ import al.layouts.PortionLayout;
 import bootstrap.Executor;
 import bootstrap.GameRunBase;
 import fu.PropStorage;
-import fancy.domkit.Dkit.BaseDkit;
 import fancy.widgets.OptionPickerGui;
 import fu.Signal;
 import fu.bootstrap.ButtonColors;

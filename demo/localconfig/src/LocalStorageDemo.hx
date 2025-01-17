@@ -1,10 +1,11 @@
 package;
 
+import al.ec.WidgetSwitcher;
+import ec.Entity;
+import dkit.Dkit.BaseDkit;
+import openfl.display.Sprite;
 import al.layouts.PortionLayout;
-import a2d.Layouts.ContainerStyler;
 import fu.PropStorage;
-import fu.bootstrap.WidgetTester;
-import fancy.domkit.Dkit;
 import fu.graphics.ColouredQuad;
 import fu.ui.ButtonBase;
 import fu.ui.Properties;
@@ -15,33 +16,25 @@ using a2d.transform.LiquidTransformer;
 using a2d.transform.LiquidTransformer;
 using al.Builder;
 
-class LocalStorageDemo extends WidgetTester {
+class LocalStorageDemo extends Sprite {
     public function new() {
         super();
+        
+        var fui = new FuiBuilder();
+        BaseDkit.inject(fui);
+        var root:Entity = fui.createDefaultRoot();
+        var uikit = new FlatUikitExtended(fui);
+        uikit.configure(root);
+        uikit.createContainer(root);
+
+        var switcher = root.getComponent(WidgetSwitcher);
         var bw = new DomkitSampleWidget(Builder.widget());
-        createStyles();
         bw.entity.addComponentByType(Storage, new LocalStorage());
 
         fui.makeClickInput(bw.ph);
         switcher.switchTo(bw.ph);
     }
 
-    function createStyles() {
-        var default_text_style = "small-text";
-
-        var pcStyle = fui.textStyles.newStyle(default_text_style)
-            .withSize(sfr, .07)
-            .withPadding(horizontal, sfr, 0.1)
-            .withAlign(vertical, Center)
-            .build();
-
-        var props = new DummyProps<String>();
-        props.set(Dkit.TEXT_STYLE, default_text_style);
-        e.addComponentByType(PropStorage, props);
-
-        var contLayouts = new ContainerStyler();
-        e.addComponent(contLayouts);
-    }
 }
 
 class DomkitSampleWidget extends BaseDkit {

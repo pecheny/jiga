@@ -1,5 +1,9 @@
 package;
 
+import ec.Entity;
+import al.ec.WidgetSwitcher;
+import dkit.Dkit.BaseDkit;
+import openfl.display.Sprite;
 import a2d.ChildrenPool.DataChildrenPool;
 import a2d.ContainerStyler;
 import a2d.Placeholder2D;
@@ -9,8 +13,6 @@ import al.core.TWidget;
 import al.layouts.PortionLayout;
 import al.layouts.WholefillLayout;
 import al.layouts.data.LayoutData;
-import fu.bootstrap.WidgetTester;
-import fancy.domkit.Dkit;
 import fu.PropStorage;
 import fu.graphics.ColouredQuad;
 import fu.ui.ButtonBase;
@@ -19,14 +21,24 @@ import fu.ui.Properties;
 using a2d.transform.LiquidTransformer;
 using al.Builder;
 
-class RadiogroupDemo extends WidgetTester {
+class RadiogroupDemo extends Sprite {
     public function new() {
         super();
+        var fui = new FuiBuilder();
+        BaseDkit.inject(fui);
+        var root:Entity = fui.createDefaultRoot();
+        var uikit = new FlatUikitExtended(fui);
+        uikit.configure(root);
+        uikit.createContainer(root);
+
+        var switcher = root.getComponent(WidgetSwitcher);
+        
+
         var wdg = Builder.widget();
         fui.makeClickInput(wdg);
         var wdc = Builder.createContainer(wdg, vertical, Center);
 
-        createStyles();
+        // createStyles();
         var b = new PlaceholderBuilder2D(fui.ar, true);
         b.keepStateAfterBuild = true;
         b.v(sfr, 0.15).h(sfr, 0.7);
@@ -38,24 +50,25 @@ class RadiogroupDemo extends WidgetTester {
         switcher.switchTo(wdg);
     }
 
-    function createStyles() {
-        var default_text_style = "small-text";
 
-        var pcStyle = fui.textStyles.newStyle(default_text_style)
-            .withSize(sfr, .07)
-            .withPadding(horizontal, sfr, 0.1)
-            .withAlign(vertical, Center)
-            .build();
+    // function createStyles() {
+    //     var default_text_style = "small-text";
 
-        var props = new DummyProps<String>();
-        props.set(Dkit.TEXT_STYLE, default_text_style);
-        e.addComponentByType(PropStorage, props);
+    //     var pcStyle = fui.textStyles.newStyle(default_text_style)
+    //         .withSize(sfr, .07)
+    //         .withPadding(horizontal, sfr, 0.1)
+    //         .withAlign(vertical, Center)
+    //         .build();
 
-        var distributer = new al.layouts.Padding(new FractionSize(.25), new PortionLayout(Center, new FixedSize(0.1)));
-        var contLayouts = new ContainerStyler();
-        contLayouts.reg(GuiStyles.L_HOR_CARDS, distributer, WholefillLayout.instance);
-        e.addComponent(contLayouts);
-    }
+    //     var props = new DummyProps<String>();
+    //     props.set(Dkit.TEXT_STYLE, default_text_style);
+    //     e.addComponentByType(PropStorage, props);
+
+    //     var distributer = new al.layouts.Padding(new FractionSize(.25), new PortionLayout(Center, new FixedSize(0.1)));
+    //     var contLayouts = new ContainerStyler();
+    //     contLayouts.reg(GuiStyles.L_HOR_CARDS, distributer, WholefillLayout.instance);
+    //     e.addComponent(contLayouts);
+    // }
 }
 
 class RadioGroup<TData, TWidget:IWidget<Axis2D> & DataView<TData>> extends DataChildrenPool<TData, TWidget> {

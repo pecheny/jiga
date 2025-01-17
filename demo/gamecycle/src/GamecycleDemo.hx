@@ -1,5 +1,6 @@
 package;
 
+import dkit.Dkit.BaseDkit;
 import a2d.Placeholder2D;
 import al.ec.WidgetSwitcher;
 import al.layouts.PortionLayout;
@@ -10,7 +11,6 @@ import bootstrap.SequenceRun;
 import ec.CtxWatcher;
 import ec.Entity;
 import ec.Signal;
-import fancy.domkit.Dkit;
 import gameapi.GameRun;
 import gameapi.GameRunBinder;
 

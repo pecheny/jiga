@@ -1,5 +1,6 @@
 package input.bs.tri;
 
+import dkit.Dkit.BaseDkit;
 import a2d.AspectRatioProvider;
 import a2d.Placeholder2D;
 import al.layouts.PortionLayout;
@@ -7,7 +8,6 @@ import al2d.WidgetHitTester2D;
 import ec.CtxWatcher;
 import ecbind.InputBinder;
 import ecbind.MultiInputBinder;
-import fancy.domkit.Dkit;
 import fancy.widgets.GbuttonView;
 import fu.graphics.ColouredQuad.InteractiveColors;
 import fu.ui.CMSDFLabel;

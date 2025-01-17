@@ -34,7 +34,7 @@ class MarketWidget extends BaseDkit {
 
     // layouts={GuiStyles.L_HOR_CARDS}
     var buttons:DataChildrenPool<MarketItemRecord, MarketCard>;
-    var okButton:Button;
+    // var okButton:Button;
     var maxNumber:Int;
 
     override function init() {

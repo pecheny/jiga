@@ -2,7 +2,7 @@ package fancy.domkit;
 
 import widgets.CMSDFLabel;
 import dungsmpl.WeaponsGui;
-import fancy.domkit.Dkit;
+import dkit.Dkit;
 import al.Builder;
 import fu.bootstrap.WidgetTester;
 
