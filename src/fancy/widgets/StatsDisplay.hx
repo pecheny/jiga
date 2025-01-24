@@ -1,7 +1,7 @@
 package fancy.widgets;
 
+import dkit.Dkit;
 import a2d.Widget;
-import fancy.domkit.Dkit;
 import fu.PropStorage;
 import htext.style.TextContextBuilder;
 import htext.style.TextStyleContext;

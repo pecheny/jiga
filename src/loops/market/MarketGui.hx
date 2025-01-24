@@ -1,12 +1,12 @@
 package loops.market;
 
+import dkit.Dkit.BaseDkit;
 import a2d.ChildrenPool;
 import a2d.Placeholder2D;
 import al.core.DataView;
 import al.layouts.PortionLayout;
 import fu.bootstrap.ButtonScale;
 import fu.ui.InteractivePanelBuilder;
-import fancy.domkit.Dkit.BaseDkit;
 import fu.ui.ButtonEnabled;
 import fu.Signal.IntSignal;
 import fu.ui.Button;

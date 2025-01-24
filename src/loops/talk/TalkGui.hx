@@ -1,5 +1,6 @@
 package loops.talk;
 
+import dkit.Dkit.BaseDkit;
 import al.core.DataView;
 import fu.ui.InteractivePanelBuilder;
 import fu.graphics.ColouredQuad.InteractiveColors;
@@ -9,7 +10,6 @@ import graphics.ShapesColorAssigner;
 import ec.Signal;
 import a2d.ChildrenPool;
 import a2d.Placeholder2D;
-import fancy.domkit.Dkit.BaseDkit;
 import loops.talk.TalkingActivity.ITalkingWidget;
 import shimp.ClicksInputSystem.ClickTargetViewState;
 import a2d.Widget2DContainer;
