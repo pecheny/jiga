@@ -1,0 +1,12 @@
+-lib format
+-lib openfl
+-lib domkit
+-lib slec
+-lib taxis
+-lib alayout
+-lib shimp
+-lib flgl
+-lib htext
+-cp ${SCOPE_DIR}/jigaproject/fancy/src
+-D fancy=1.0.0
+--macro Sys.println("haxe_libraries/fancy.hxml:11: [Warning] Using dev version of library fancy")

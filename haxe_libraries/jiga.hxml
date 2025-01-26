@@ -1,0 +1,15 @@
+-lib format
+-lib openfl
+-lib hxmath
+-lib hscript
+-lib domkit
+-lib slec
+-lib taxis
+-lib alayout
+-lib shimp
+-lib flgl
+-lib ginp
+-lib htext
+-lib fancy
+-cp ${SCOPE_DIR}/src
+-D jiga=0.0.1
