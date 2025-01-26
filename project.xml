@@ -7,4 +7,5 @@
     <!-- <include path="demo/gamecycle/project.xml" /> -->
     <!-- <include path="demo/localconfig/project.xml" /> -->
     <!-- <include path="demo/radiogroup/project.xml" /> -->
+    <include path="demo/roguefloor/project.xml" />
 </project>
