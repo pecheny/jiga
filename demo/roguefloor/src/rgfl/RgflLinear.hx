@@ -23,7 +23,6 @@ class DummyLevel extends Level<DummyMove, DummyRoom> {}
 class DummyRoom extends Room {
     public var pos:Int;
     public var type:DummyRoomType;
-    public var visited:FlagComponent = @:privateAccess new FlagComponent();
 
     public function new(p, t) {
         this.pos = p;
