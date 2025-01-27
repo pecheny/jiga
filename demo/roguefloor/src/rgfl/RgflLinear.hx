@@ -1,5 +1,7 @@
 package rgfl;
 
+import utils.RGBA;
+import ec.PropertyComponent.FlagComponent;
 import al.layouts.PortionLayout;
 import al.layouts.WholefillLayout;
 import al.layouts.data.LayoutData.FractionSize;
@@ -21,6 +23,7 @@ class DummyLevel extends Level<DummyMove, DummyRoom> {}
 class DummyRoom extends Room {
     public var pos:Int;
     public var type:DummyRoomType;
+    public var visited:FlagComponent = @:privateAccess new FlagComponent();
 
     public function new(p, t) {
         this.pos = p;
@@ -28,7 +31,7 @@ class DummyRoom extends Room {
     }
 }
 
-enum abstract DummyRoomType(Int) {
+enum abstract DummyRoomType(Int) to Int {
     var red = 0xa03030;
     var green = 0x30a044;
 }
@@ -37,15 +40,27 @@ enum abstract DummyMove(Int) {
     var forward = 1;
 }
 
-class LinearCellView extends BaseDkit implements DataView<Dynamic> {
+class LinearCellView extends BaseDkit implements DataView<DummyRoom> {
     static var SRC = <linear-cell-view > ${fui.quad(__this__.ph, 0x206020)} </linear-cell-view>
 
     @:once var colors:ShapesColorAssigner<ColorSet>;
+    var data:DummyRoom;
 
-    public function initData(descr:Dynamic) {
-        colors?.setColor(descr.type);
+    public function initData(descr:DummyRoom) {
+        if (data!=null)
+            data.visited.onChange.remove(onVisit);
+        data = descr;
+        data.visited.onChange.listen(onVisit);
+        onVisit();
+
         // use cell coords
         // ph.axisStates[horizontal].position.value = descr.pos * 5;
+    }
+    
+    function onVisit(){
+        var color = new RGBA(data.type);
+        color.a =  data.visited.value ?  255 :120 ;
+        colors?.setColor(color);
     }
 }
 
@@ -72,8 +87,8 @@ class LinearMapView extends Widget {
         // }
         // c.setLayout(horizontal,  InarrangableLayout.instance );
 
-        c.setLayout(horizontal,  new Padding(new FractionSize(0.05), new PortionLayout(Center, new FractionSize(0.5))) );
-        c.setLayout(vertical,  new Padding(new FractionSize(0.3), WholefillLayout.instance) );
+        c.setLayout(horizontal, new Padding(new FractionSize(0.05), new PortionLayout(Center, new FractionSize(0.5))));
+        c.setLayout(vertical, new Padding(new FractionSize(0.3), WholefillLayout.instance));
         rooms = new fu.ui.InteractivePanelBuilder().withContainer(c).withWidget(() -> new LinearCellView(cellPh())).build();
     }
 
@@ -82,5 +97,4 @@ class LinearMapView extends Widget {
         if (level.rooms != null)
             rooms.initData(level.rooms);
     }
-
 }

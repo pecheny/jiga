@@ -14,5 +14,6 @@ class MapActivity extends GameRunBase {
         super.startGame();
         var rooms = [for (i in 0...10) new DummyRoom(i, i%2==0?green:red)];
         level.initLevel(rooms);
+        rooms[2].visited.value = true;
     }
 }
