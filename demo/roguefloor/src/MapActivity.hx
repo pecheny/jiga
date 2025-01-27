@@ -1,3 +1,6 @@
+import ginp.Keyboard;
+import gl.sets.ColorSet;
+import rgfl.PosMarker;
 import rgfl.RogueLevelData.Doorways;
 import rgfl.RgflLinear;
 import rgfl.RogueLevelData.Level;
@@ -5,10 +8,22 @@ import bootstrap.GameRunBase;
 
 class MapActivity extends GameRunBase {
     @:once var level:DummyLevel;
+    var marker:PosMarker;
+    var map:LinearMapView;
+    @:once var fui:FuiBuilder;
 
     public function new(e, ph) {
         super(e, ph);
-        new LinearMapView(ph).watch(e);
+        map = new LinearMapView(ph);
+        map.watch(e);
+        marker = new PosMarker(ColorSet.instance, ph);
+        new utils.KeyBinder().addCommand(Keyboard.SPACE, () -> level.move(DummyMove.forward));
+    }
+
+    override function init() {
+        super.init();
+        fui.lqtr(getView());
+        level.onRoomEntered.listen(onMove);
     }
 
     override function startGame() {
@@ -25,5 +40,9 @@ class MapActivity extends GameRunBase {
         level.initLevel(rooms, doors);
         level.enter(2);
         level.move(DummyMove.forward);
+    }
+
+    function onMove() {
+        marker.setTo(map.ph, map.getCellView(level.current).ph);
     }
 }

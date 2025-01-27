@@ -96,4 +96,8 @@ class LinearMapView extends Widget {
         if (level.rooms != null)
             rooms.initData(level.rooms);
     }
+    
+    public function getCellView(id) {
+        return rooms.pool[id];
+    }
 }
