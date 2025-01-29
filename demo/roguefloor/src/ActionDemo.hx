@@ -2,7 +2,7 @@ package;
 
 import bootstrap.BootstrapMain;
 import ec.Entity;
-import rgfl.RgflLinear.DummyLevel;
+import levelmap.RgflLinear.DummyLevel;
 
 using a2d.transform.LiquidTransformer;
 using al.Builder;

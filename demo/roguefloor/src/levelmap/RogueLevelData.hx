@@ -1,4 +1,4 @@
-package rgfl;
+package levelmap;
 
 import ec.PropertyComponent.FlagComponent;
 import fu.Signal;

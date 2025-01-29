@@ -1,4 +1,4 @@
-package rgfl;
+package levelmap;
 
 import a2d.Placeholder2D;
 import fu.graphics.ShapeWidget;
