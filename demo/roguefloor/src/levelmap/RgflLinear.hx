@@ -12,11 +12,11 @@ import gl.sets.ColorSet;
 import graphics.ShapesColorAssigner;
 import a2d.Placeholder2D;
 import a2d.Widget;
-import levelmap.RogueLevelData.Level;
+import loops.levelmap.RogueLevelData.Level;
 import al.core.DataView;
 import al.Builder;
 import dkit.Dkit.BaseDkit;
-import levelmap.RogueLevelData.Room;
+import loops.levelmap.RogueLevelData.Room;
 
 class DummyLevel extends Level<DummyMove, DummyRoom> {}
 

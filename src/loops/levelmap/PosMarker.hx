@@ -1,4 +1,4 @@
-package levelmap;
+package loops.levelmap;
 
 import a2d.Placeholder2D;
 import fu.graphics.ShapeWidget;

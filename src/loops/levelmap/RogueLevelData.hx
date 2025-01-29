@@ -1,4 +1,4 @@
-package levelmap;
+package loops.levelmap;
 
 import ec.PropertyComponent.FlagComponent;
 import fu.Signal;

@@ -1,9 +1,9 @@
 import ginp.Keyboard;
 import gl.sets.ColorSet;
-import levelmap.PosMarker;
-import levelmap.RogueLevelData.Doorways;
+import loops.levelmap.PosMarker;
+import loops.levelmap.RogueLevelData.Doorways;
 import levelmap.RgflLinear;
-import levelmap.RogueLevelData.Level;
+import loops.levelmap.RogueLevelData.Level;
 import bootstrap.GameRunBase;
 
 class MapActivity extends GameRunBase {
