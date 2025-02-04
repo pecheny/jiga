@@ -1,12 +1,12 @@
--lib format
--lib openfl
+# @install: lix --silent download "gh://github.com/pecheny/fancy#4cd94d300e3be31aaa3ff866f298d9d3b8ac1d45" into fancy/1.0.0/github/4cd94d300e3be31aaa3ff866f298d9d3b8ac1d45
+-lib alayout
 -lib domkit
+-lib flgl
+-lib format
+-lib htext
+-lib openfl
+-lib shimp
 -lib slec
 -lib taxis
--lib alayout
--lib shimp
--lib flgl
--lib htext
--cp ${SCOPE_DIR}/jigaproject/fancy/src
+-cp ${HAXE_LIBCACHE}/fancy/1.0.0/github/4cd94d300e3be31aaa3ff866f298d9d3b8ac1d45/src
 -D fancy=1.0.0
---macro Sys.println("haxe_libraries/fancy.hxml:11: [Warning] Using dev version of library fancy")
