@@ -7,10 +7,12 @@ import bootstrap.Executor;
 import bootstrap.GameRunBase;
 import loops.talk.TalkData;
 
-class TalkingActivity extends GameRunBase implements ActHandler<DialogDesc> {
+class TalkingActivity extends GameRunBase implements ActHandler<DialogUri> {
     @:once var gui:ITalkingWidget;
+    @:once var defs:TalksDefNode;
     @:once var executor:Executor;
     var currentDescr:DialogDesc;
+    var talk:TalkDesc;
 
     override function init() {
         super.init();
@@ -22,17 +24,32 @@ class TalkingActivity extends GameRunBase implements ActHandler<DialogDesc> {
         if (resp.actions != null)
             for (a in resp.actions)
                 executor.run(a);
-        if (!resp.stay)
-            gameOvered.dispatch();
+        switch resp.onDone {
+            case end, null:
+                gameOvered.dispatch();
+            case next:
+                goto(Index(currentDescr.index + 1));
+            case stay:
+            case _.goto() => did if (did != null):
+                goto(did);
+            case _:
+                trace('Unexpected onDone value ${resp.onDone}');
+        }
     }
 
-    public function initDescr(d:DialogDesc):ActHandler<DialogDesc> {
-        currentDescr = d;
-        gui.initDescr(d);
+    function goto(did:DialogId) {
+        currentDescr = talk.getDialog(did);
+        gui.initDescr(currentDescr);
+    }
+
+    public function initDescr(d:DialogUri):ActHandler<DialogUri> {
+        talk = defs.get(d.getTalkId());
+        goto(d.getDialogId());
         return this;
     }
 }
+
 interface ITalkingWidget {
-    public var onChoice(default, null) :IntSignal;
+    public var onChoice(default, null):IntSignal;
     public function initDescr(d:DialogDesc):Void;
 }
