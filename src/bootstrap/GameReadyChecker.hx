@@ -68,6 +68,10 @@ class GameReadyChecker implements GameRun {
     public function getView():Placeholder2D {
         return target.getView();
     }
+    
+    public function injectFrom(e:Entity) {
+        throw "na";
+    }
 }
 
 class GameIsReady extends PropertyComponent<Bool> {}

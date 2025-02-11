@@ -21,11 +21,16 @@ class GameRunBase implements GameRun {
 
     public function reset() {}
 
-    public function init() {}
+    public function init() {
+    }
 
     public function startGame():Void {}
 
     function _init(e:Entity) {}
+    
+    public function injectFrom(e:Entity) {
+        _init(e);
+    }
 
     public function get_entity():Entity {
         return entity;

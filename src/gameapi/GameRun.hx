@@ -12,4 +12,5 @@ interface GameRun extends Updatable {
     public function startGame():Void;
     public function reset():Void;
     public function getView():Placeholder2D;
+    public function injectFrom(e:Entity) :Void;
 }
