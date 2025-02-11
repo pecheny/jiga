@@ -25,18 +25,24 @@ using a2d.transform.LiquidTransformer;
 using a2d.transform.LiquidTransformer;
 
 class TalkingWidget implements ITalkingWidget extends BaseDkit {
-    // var caption:Label;
+    public var onChoice(default, null):IntSignal = new IntSignal();
+
     var container:Widget2DContainer;
     var input:DataChildrenPool<String, ResponceButton>;
     var data:DialogDesc;
-    public var onChoice(default, null):IntSignal = new IntSignal();
     @:once var wc:Widget2DContainer;
-    
+
     static var SRC = <talking-widget vl={PortionLayout.instance}>
         <label(b().v(pfr, 6).b()) id="lbl"  style={"small-text"}  />
         <base(b().v(pfr, 6).b()) id="buttons" vl={PortionLayout.instance}   />
     </talking-widget>
 
+    public function new(p:Placeholder2D, ?parent:BaseDkit) {
+        super(p, parent);
+        initComponent();
+        initDkit();
+        ph.entity.addComponentByType(ITalkingWidget, this);
+    }
 
     public function initDescr(d:DialogDesc) {
         data = d;
@@ -51,13 +57,14 @@ class TalkingWidget implements ITalkingWidget extends BaseDkit {
             var c = new ResponceButton(b().h(pfr, 0.1).v(sfr, 0.1).b());
             c;
         }).withSignal(onChoice).build();
-        if (data!=null)
+        if (data != null)
             initDescr(data);
     }
 }
 
 class ResponceButton extends BaseDkit implements DataView<String> {
     public var onDone:Signal<Void->Void> = new Signal();
+
     @:once var bb:ClickViewProcessor;
 
     static var SRC = <responce-button vl={PortionLayout.instance}>

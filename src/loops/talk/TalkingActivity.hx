@@ -13,6 +13,11 @@ class TalkingActivity extends GameRunBase implements ActHandler<DialogUri> {
     @:once var executor:Executor;
     var currentDescr:DialogDesc;
     var talk:TalkDesc;
+    
+    public function new(ctx, ph) {
+        super(ctx, ph);
+        watch(ph.entity);
+    }
 
     override function init() {
         super.init();
