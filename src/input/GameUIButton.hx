@@ -1,12 +1,12 @@
 package input;
 
-import ginp.api.GameButtonsListener;
 import a2d.Placeholder2D;
-import input.ButtonInputBinder.GameButtonDispatcher;
+import al2d.WidgetHitTester2D;
 import ec.CtxWatcher;
 import ecbind.InputBinder;
+import ginp.api.GameButtonsListener;
+import input.ButtonInputBinder.GameButtonDispatcher;
 import shimp.InputSystem.InputSystemTarget;
-import al2d.WidgetHitTester2D;
 import shimp.Point;
 
 class GameUIButton<TB:Axis<TB>> implements GameButtonDispatcher<TB> implements InputSystemTarget<Point> {
@@ -23,7 +23,7 @@ class GameUIButton<TB:Axis<TB>> implements GameButtonDispatcher<TB> implements I
         new CtxWatcher(InputBinder, w.entity);
     }
 
-    public function setButtonListener(l:GameButtonsListener<TB>) {
+    public function setListener(l:GameButtonsListener<TB>) {
         if (this.l != null && pressed)
             this.l.onButtonUp(b);
         this.l = l;

@@ -1,9 +1,10 @@
 package input;
 
-import ginp.api.GameButtonsListener;
 import ec.CtxWatcher.CtxBinder;
 import ec.Entity;
 import ginp.GameButtonsImpl;
+import ginp.api.GameButtonsDispatcher;
+import ginp.api.GameButtonsListener;
 
 class ButtonInputBinder<TButtons:Axis<TButtons>> implements CtxBinder {
     var input:GameButtonsListener<TButtons>;
@@ -15,16 +16,12 @@ class ButtonInputBinder<TButtons:Axis<TButtons>> implements CtxBinder {
     }
 
     public function bind(e:Entity) {
-        var dispatcher:GameButtonDispatcher<TButtons> = e.getComponentByName(dispatcherAlias);
-        dispatcher.setButtonListener(input);
+        var dispatcher:GameButtonsDispatcher<TButtons> = e.getComponentByName(dispatcherAlias);
+        dispatcher.setListener(input);
     }
 
     public function unbind(e:Entity) {
-        var dispatcher:GameButtonDispatcher<TButtons> = e.getComponentByName(dispatcherAlias);
-        dispatcher.setButtonListener(null);
+        var dispatcher:GameButtonsDispatcher<TButtons> = e.getComponentByName(dispatcherAlias);
+        dispatcher.setListener(null);
     }
-}
-
-interface GameButtonDispatcher<T:Axis<T>> {
-    function setButtonListener(l:GameButtonsListener<T>):Void;
 }
