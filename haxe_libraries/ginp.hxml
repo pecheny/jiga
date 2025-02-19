@@ -1,3 +1,3 @@
-# @install: lix --silent download "gh://github.com/pecheny/ginp#081d1839b17dd56c691edaf6ba10d839188939a1" into ginp/0.0.1/github/081d1839b17dd56c691edaf6ba10d839188939a1
--cp ${HAXE_LIBCACHE}/ginp/0.0.1/github/081d1839b17dd56c691edaf6ba10d839188939a1/src
+# @install: lix --silent download "gh://github.com/pecheny/ginp#1aac7e5541f90bec8abc6c7d28129a23eb622eea" into ginp/0.0.1/github/1aac7e5541f90bec8abc6c7d28129a23eb622eea
+-cp ${HAXE_LIBCACHE}/ginp/0.0.1/github/1aac7e5541f90bec8abc6c7d28129a23eb622eea/src
 -D ginp=0.0.1

@@ -30,7 +30,7 @@ import gl.passes.FlatColorPass;
 import gl.passes.ImagePass;
 import gl.passes.MsdfPass;
 import htext.style.TextContextBuilder;
-import input.ButtonInputBinder;
+import ginp.ButtonInputBinder;
 import loops.bounce.BouncingLoop;
 import loops.bounce.BouncingTimeline.MyWeaponFac;
 import loops.bounce.gui.BouncingWidget;

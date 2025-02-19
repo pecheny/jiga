@@ -5,11 +5,11 @@ import al2d.WidgetHitTester2D;
 import ec.CtxWatcher;
 import ecbind.InputBinder;
 import ginp.api.GameButtonsListener;
-import input.ButtonInputBinder.GameButtonDispatcher;
+import ginp.api.GameButtonsDispatcher;
 import shimp.InputSystem.InputSystemTarget;
 import shimp.Point;
 
-class GameUIButton<TB:Axis<TB>> implements GameButtonDispatcher<TB> implements InputSystemTarget<Point> {
+class GameUIButton<TB:Axis<TB>> implements GameButtonsDispatcher<TB> implements InputSystemTarget<Point> {
     var hittester:WidgetHitTester2D;
     var l:GameButtonsListener<TB>;
     var b:TB;

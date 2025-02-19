@@ -19,7 +19,7 @@ import ginp.api.KbdDispatcher;
 import gl.sets.ColorSet;
 import graphics.ShapesColorAssigner;
 import htext.style.TextContextBuilder.TextContextStorage;
-import input.ButtonInputBinder;
+import ginp.ButtonInputBinder;
 import input.GameUIButton;
 import openfl.OflKbd;
 import shimp.HoverInputSystem;

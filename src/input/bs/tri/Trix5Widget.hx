@@ -17,7 +17,7 @@ import ginp.api.GameButtonsDispatcher;
 import ginp.api.GameInputUpdater;
 import ginp.api.GameInputUpdaterBinder;
 import graphics.ShapesColorAssigner;
-import input.ButtonInputBinder;
+import ginp.ButtonInputBinder;
 import input.GameUIButtonTuple;
 import shimp.MultiInputTarget;
 import shimp.Point;
