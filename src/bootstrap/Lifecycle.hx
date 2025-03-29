@@ -31,7 +31,7 @@ interface Lifecycle {
 
 interface State {
     public function load(state:Dynamic):Void;
-    public function serialize():Dynamic;
+    public function dump():Dynamic;
 }
 
 class LifecycleImpl extends BootstrapMain implements Lifecycle {
@@ -88,7 +88,7 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
 
     public function saveGame():Void {
         #if sys
-        sys.io.File.saveContent("save.json", Json.stringify(rootEntity.getComponent(State).serialize(), null, " "));
+        sys.io.File.saveContent("save.json", Json.stringify(rootEntity.getComponent(State).dump(), null, " "));
         #else
         storage.saveValue("save.json", Json.stringify(rootEntity.getComponent(State).serialize(), null, " "));
         #end
