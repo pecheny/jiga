@@ -7,32 +7,21 @@ class Room {
     public var visited:FlagComponent = @:privateAccess new FlagComponent();
 }
 
-abstract Doorways<TMove>({}) {
-    inline public function new() {
-        this = {};
-    }
-    @:arrayAccess inline public function get(k:TMove):Int {
-        return Reflect.field(this, "" + k);
-    }
+typedef Doorways<TMove> = Map<TMove, Int>;
 
-    inline public function exists(k:TMove):Bool {
-        return Reflect.hasField(this, "" + k);
-    }
-
-    @:arrayAccess inline public function set(k:TMove, room:Int) {
-        return Reflect.setField(this, "" + k, room);
-    }
-}
-
-class Level<TMove, TRoom:Room> {
+class Level<TMove, TRoom:(Room & fu.Serializable)> implements fu.Serializable {
     public var rooms(default, null):Array<TRoom>;
-    public var doors(default, null):Array<Doorways<TMove>>;
+    @:serialize public var doors(default, null):Array<Doorways<TMove>>;
     public var onChange:Signal<Void->Void> = new Signal();
     public var onRoomEntered:Signal<Void->Void> = new Signal();
 
-    public var current (default, null):Int = -1;
+    @:serialize public var current(default, null):Int = -1;
 
-    public function new() {}
+    var roomFactory:Dynamic->TRoom;
+
+    public function new(roomFactory:Dynamic->TRoom) {
+        this.roomFactory = roomFactory;
+    }
 
     public function move(direction:TMove):TRoom {
         if (!canMove(direction))
@@ -64,7 +53,17 @@ class Level<TMove, TRoom:Room> {
         onChange.dispatch();
     }
 
-    public function save() {}
+    public function load(data:Dynamic) {
+        rooms.resize(0);
 
-    public function load(state) {}
+        var roomsSerialized:Array<Dynamic> = data.rooms;
+        for (r in roomsSerialized) {
+            rooms.push(roomFactory(r));
+        }
+    }
+
+    public function dump():Dynamic {
+        var roomsSerialized = [for (r in rooms) r.dump()];
+        Reflect.setField(data, "rooms", roomsSerialized);
+    }
 }

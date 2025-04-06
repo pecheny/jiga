@@ -18,9 +18,18 @@ import al.Builder;
 import dkit.Dkit.BaseDkit;
 import loops.levelmap.RogueLevelData.Room;
 
-class DummyLevel extends Level<DummyMove, DummyRoom> {}
+class DummyLevel extends Level<DummyMove, DummyRoom> {
 
-class DummyRoom extends Room {
+    public function new() {
+        function fac(data) {
+            var r = new DummyRoom(data.pos, data.type);
+            return r;
+        }
+        super(fac);
+    }
+}
+
+class DummyRoom extends Room implements fu.Serializable {
     public var pos:Int;
     public var type:DummyRoomType;
 
