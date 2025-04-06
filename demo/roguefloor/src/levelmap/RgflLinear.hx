@@ -30,8 +30,8 @@ class DummyLevel extends Level<DummyMove, DummyRoom> {
 }
 
 class DummyRoom extends Room implements fu.Serializable {
-    public var pos:Int;
-    public var type:DummyRoomType;
+    @:serialize public var pos:Int;
+    @:serialize public var type:DummyRoomType;
 
     public function new(p, t) {
         this.pos = p;

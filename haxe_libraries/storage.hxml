@@ -1,6 +1,6 @@
-# @install: lix --silent download "gh://github.com/pecheny/storage#dcc1a07465fcadf615a5ac2b14edf13fcbab1a5e" into storage/0.0.1/github/dcc1a07465fcadf615a5ac2b14edf13fcbab1a5e
+# @install: lix --silent download "gh://github.com/pecheny/storage#7469b7a853a2c7d51f24cbf06589fe632b77bcf8" into storage/0.0.1/github/7469b7a853a2c7d51f24cbf06589fe632b77bcf8
 -lib openfl
 -lib slec
 -lib taxis
--cp ${HAXE_LIBCACHE}/storage/0.0.1/github/dcc1a07465fcadf615a5ac2b14edf13fcbab1a5e/src
+-cp ${HAXE_LIBCACHE}/storage/0.0.1/github/7469b7a853a2c7d51f24cbf06589fe632b77bcf8/src
 -D storage=0.0.1
