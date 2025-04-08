@@ -7,9 +7,9 @@ class Room {
     public var visited:FlagComponent = @:privateAccess new FlagComponent();
 }
 
-typedef Doorways<TMove> = Map<TMove, Int>;
+typedef Doorways<TMove:Int> = Map<TMove, Int>;
 
-class Level<TMove, TRoom:(Room & fu.Serializable)> implements fu.Serializable {
+class Level<TMove:Int, TRoom:(Room & fu.Serializable)> implements fu.Serializable {
     public var rooms(default, null):Array<TRoom>;
     @:serialize public var doors(default, null):Array<Doorways<TMove>>;
     public var onChange:Signal<Void->Void> = new Signal();

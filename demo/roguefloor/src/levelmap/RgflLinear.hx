@@ -19,7 +19,6 @@ import dkit.Dkit.BaseDkit;
 import loops.levelmap.RogueLevelData.Room;
 
 class DummyLevel extends Level<DummyMove, DummyRoom> {
-
     public function new() {
         function fac(data) {
             var r = new DummyRoom(data.pos, data.type);
@@ -44,7 +43,7 @@ enum abstract DummyRoomType(Int) to Int {
     var green = 0x30a044;
 }
 
-enum abstract DummyMove(Int) {
+enum abstract DummyMove(Int) to Int {
     var forward = 1;
 }
 
@@ -55,7 +54,7 @@ class LinearCellView extends BaseDkit implements DataView<DummyRoom> {
     var data:DummyRoom;
 
     public function initData(descr:DummyRoom) {
-        if (data!=null)
+        if (data != null)
             data.visited.onChange.remove(onVisit);
         data = descr;
         data.visited.onChange.listen(onVisit);
@@ -64,10 +63,10 @@ class LinearCellView extends BaseDkit implements DataView<DummyRoom> {
         // use cell coords
         // ph.axisStates[horizontal].position.value = descr.pos * 5;
     }
-    
-    function onVisit(){
+
+    function onVisit() {
         var color = new RGBA(data.type);
-        color.a =  data.visited.value ?  255 :120 ;
+        color.a = data.visited.value ? 255 : 120;
         colors?.setColor(color);
     }
 }
@@ -105,7 +104,7 @@ class LinearMapView extends Widget {
         if (level.rooms != null)
             rooms.initData(level.rooms);
     }
-    
+
     public function getCellView(id) {
         return rooms.pool[id];
     }
