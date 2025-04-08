@@ -90,7 +90,7 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
         #if sys
         sys.io.File.saveContent("save.json", Json.stringify(rootEntity.getComponent(State).dump(), null, " "));
         #else
-        storage.saveValue("save.json", Json.stringify(rootEntity.getComponent(State).serialize(), null, " "));
+        storage.saveValue("save.json", Json.stringify(rootEntity.getComponent(State).dump(), null, " "));
         #end
     }
 
