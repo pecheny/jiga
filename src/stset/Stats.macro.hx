@@ -73,7 +73,7 @@ class StatsMacro {
                         type: macro :String,
                     }
                 ],
-                ret: macro :GameStat<Float>,
+                ret: macro :GameStat<Int>,
                 expr: macro return Reflect.field(this, id)
             }),
             access: [APublic]
@@ -92,13 +92,13 @@ class StatsMacro {
                 var f:Dynamic = Reflect.field(data, k);
                 if (Std.isOfType(f, $i{sTypeName}))
                     Reflect.setField(this, k, f);
-                else if (Std.isOfType(f, Float)) {
+                else if (Std.isOfType(f, Int)) {
                     var stat = new $tp(f);
                     Reflect.setField(this, k, stat);
                     if (data != null)
                         Reflect.setField(data, k, stat);
                 } else if (f == null) {
-                    var stat = new $tp(f);
+                    var stat = new $tp(0);
                     Reflect.setField(this, k, stat);
                     if (data != null)
                         Reflect.setField(data, k, stat);
