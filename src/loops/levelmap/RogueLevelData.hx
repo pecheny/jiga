@@ -58,12 +58,18 @@ class Level<TMove:Int, TRoom:(Room & fu.Serializable)> implements fu.Serializabl
 
         var roomsSerialized:Array<Dynamic> = data.rooms;
         for (r in roomsSerialized) {
-            rooms.push(roomFactory(r));
+            var ri = roomFactory(r);
+            ri.visited.value = r.visited;
+            rooms.push(ri);
         }
     }
 
     public function dump():Dynamic {
-        var roomsSerialized = [for (r in rooms) r.dump()];
+        var roomsSerialized = [for (r in rooms) {
+            var d = r.dump();
+            d.visited = r.visited.value;
+            d;
+        }];
         Reflect.setField(data, "rooms", roomsSerialized);
     }
 }
