@@ -80,7 +80,7 @@ class BouncingWidget extends Widget implements BouncingGui {
         if (weights.length > regions.length)
             throw "Not enaugh regions inited";
         for (i in 0...regions.length) {
-            var w = weights[i];
+            var w = weights.length > i ? weights[i] : 0;
             var r = regions[i];
             @:privateAccess r.size.value = w;
             var def = regionsData.getRegionDef(i);
