@@ -38,6 +38,7 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
     var run:GameRun;
     var storage:BrowserStorage;
     var menu:Placeholder2D = Builder.widget();
+    var gameOver:Placeholder2D = Builder.widget();
     var pause:Pause;
 
     public function new() {
@@ -54,7 +55,7 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
         kbinder.addCommand(Keyboard.ESCAPE, () -> {
             showMenu();
         });
-        
+
         kbinder.addCommand(Keyboard.A, () -> {
             ec.DebugInit.initCheck.dispatch(rootEntity);
         });
@@ -64,15 +65,34 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
         storage = new BrowserStorage();
         #end
     }
-    
+
     function bindRun(run:GameRun) {
+        var goScreen = gameOver.entity.getComponent(SelfClosingScreen);
+        if (goScreen == null) {
+            fui.makeClickInput(gameOver);
+            goScreen = new GameOverScreen(gameOver);
+            gameOver.entity.addComponentByType(SelfClosingScreen, goScreen);
+            goScreen.onDone.listen(showMenu);
+        }
+        if (this.run != null) {
+            this.run.gameOvered.remove(onGameOver);
+        }
+
         this.run = run;
+        this.run.gameOvered.listen(onGameOver);
+
         new PauseRunUpdater(run);
         rootEntity.addChild(run.entity);
     }
 
+    public function onGameOver() {
+        rootEntity.getComponent(WidgetSwitcher).switchTo(gameOver);
+    }
+
     public function newGame() {
-        rootEntity.getComponent(State).load(Json.parse(openfl.utils.Assets.getText("state.json")));
+        var data = Json.parse(openfl.utils.Assets.getText("state.json"));
+        trace(data);
+        rootEntity.getComponent(State).load(data);
         run.reset();
         launch();
     }
@@ -106,7 +126,7 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
         #end
         launch();
     }
-    
+
     function launch() {
         resume();
         run.startGame();
@@ -130,7 +150,7 @@ class PauseRunUpdater implements Updatable extends ec.Component {
     }
 
     public function update(dt:Float) {
-        if(pause.paused)
+        if (pause.paused)
             return;
         run.update(dt);
     }
