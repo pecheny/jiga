@@ -10,8 +10,8 @@ class Room {
 typedef Doorways<TMove:Int> = Map<TMove, Int>;
 
 class Level<TMove:Int, TRoom:(Room & fu.Serializable)> implements fu.Serializable {
-    public var rooms(default, null):Array<TRoom>;
-    @:serialize public var doors(default, null):Array<Doorways<TMove>>;
+    public var rooms(default, null):Array<TRoom> = [];
+    @:serialize public var doors(default, null):Array<Doorways<TMove>> = [];
     public var onChange:Signal<Void->Void> = new Signal();
     public var onRoomEntered:Signal<Void->Void> = new Signal();
 
@@ -55,13 +55,13 @@ class Level<TMove:Int, TRoom:(Room & fu.Serializable)> implements fu.Serializabl
 
     public function load(data:Dynamic) {
         rooms.resize(0);
-
         var roomsSerialized:Array<Dynamic> = data.rooms;
         for (r in roomsSerialized) {
             var ri = roomFactory(r);
             ri.visited.value = r.visited;
             rooms.push(ri);
         }
+        onChange.dispatch();
     }
 
     public function dump():Dynamic {
