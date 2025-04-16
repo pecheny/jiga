@@ -68,6 +68,8 @@ class BouncingLoop extends GameRunBase implements ActHandler<LoopConfig> {
         loopCount = d.numOfHits;
         fsm.numBounces = d.numOfBounces;
         fsm.periodDuration = d.periodDuration;
+        var rps:ResultPresentation = cast @:privateAccess fsm.states.get(ResultPresentation);
+        rps.duration = d.afterHitDelay;
 
         entity.getComponent(BouncingTimeline).init(d.regions);
         return this;
@@ -165,10 +167,10 @@ class BouncingState extends BouncingStateBase {
 }
 
 class ResultPresentation extends BouncingStateBase {
-    var duration = 1.;
+    public var duration = 1.;
 
     override function onEnter() {
-        t = 0.5;
+        t = duration;
     }
 
     override function onExit() {
