@@ -45,6 +45,18 @@ class GameStat<T:Int> implements StatRO<Int> implements Serializable {
         return value;
 }
 
+class ZeroCapGameStat<T:Float> extends CapGameStat<Int> {
+    override function load(d:Dynamic) {
+        if (d is Float) {
+            max = d;
+            value = cast 0;
+        } else {
+            max = d.max;
+            value = d.value;
+        }
+    }
+}
+
 class CapGameStat<T:Float> extends GameStat<Int> {
     public var max(default, set):Int;
 
@@ -70,15 +82,13 @@ class CapGameStat<T:Float> extends GameStat<Int> {
     }
 
     override function load(d:Dynamic) {
-        trace(d);
         if (d is Float) {
             max = d;
-            value = cast 0;
+            value = max;
         } else {
             max = d.max;
             value = d.value;
         }
-        trace(value);
     }
 }
 
