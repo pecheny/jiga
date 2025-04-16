@@ -14,7 +14,7 @@ interface StatRO<T:Float> {
 }
 
 interface Serializable {
-    function loadData(d:Dynamic):Void;
+    function load(d:Dynamic):Void;
     function getData():Dynamic;
 }
 
@@ -37,7 +37,7 @@ class GameStat<T:Int> implements StatRO<Int> implements Serializable {
         this.value = v;
     }
 
-    public function loadData(d:Dynamic):Void {
+    public function load(d:Dynamic):Void {
         value = d;
     }
 
@@ -69,7 +69,7 @@ class CapGameStat<T:Float> extends GameStat<Int> {
         return {value: value, max: max};
     }
 
-    override function loadData(d:Dynamic) {
+    override function load(d:Dynamic) {
         trace(d);
         if (d is Float) {
             max = d;
@@ -104,5 +104,12 @@ class TempIncGameStat<T:Float> extends GameStat<Int> {
 
     override function set_value(newVal:Int):Int {
         return prm.set_value(newVal);
+    }
+
+    override function load(d:Dynamic) {
+        if (!Std.isOfType(d, Float))
+            throw 'Cant load $d to TempIncGameStat';
+        tmp.value = 0;
+        value = d;
     }
 }

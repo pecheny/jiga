@@ -79,6 +79,30 @@ class StatsMacro {
             access: [APublic]
         });
 
+        fields.push({
+            pos: Context.currentPos(),
+            name: 'load',
+            kind: FFun({
+                args: [
+                    {
+                        name: "data",
+                        type: macro :Dynamic,
+                    }
+                ],
+                ret: macro :Void,
+                expr: macro {
+                    for (k in keys) {
+                        var stat = get(k);
+                        if (Reflect.hasField(data, k)) {
+                            stat.load(Reflect.field(data, k));
+                        } else
+                            stat.load(0);
+                    }
+                }
+            }),
+            access: [APublic]
+        });
+
         #if display
         return fields;
         #end
