@@ -57,6 +57,8 @@ class BootstrapMain extends AbstractEngine {
         var uikit = new FlatUikitExtended(fui);
         uikit.configure(root);
         uikit.createContainer(root);
+        root.addComponentByType(fu.Uikit, uikit);
+
 
 		textStyles();
 		createFlashDisplay();
