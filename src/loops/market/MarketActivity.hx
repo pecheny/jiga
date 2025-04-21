@@ -2,27 +2,34 @@ package loops.market;
 
 import bootstrap.Activitor.ActHandler;
 import bootstrap.GameRunBase;
+import bootstrap.SelfClosingScreen;
 import dungsmpl.DungeonData;
 import dungsmpl.DungeonGame.ExecCtx;
+import fancy.widgets.OptionPickerGui;
 import loops.market.MarketData;
-import loops.market.MarketGui;
+
+interface MarketGui extends OptionPickerGui<MarketItemRecord> extends SelfClosingScreen {}
 
 class MarketActivity extends GameRunBase implements ActHandler<MarketDesc> {
     @:once var stats:ProgStats;
     @:once var exec:ExecCtx;
-    var gui:MarketWidget;
+    @:once var gui:MarketGui;
     var data:MarketDesc;
     var items:Array<MarketItemRecord>;
 
     public function new(ctx, w) {
-        gui = new MarketWidget(w);
-        gui.onChoise.listen(onChoise);
-        gui.onDone.listen(onDone);
         super(ctx, w);
+        watch(w.entity);
+    }
+
+    override function init() {
+        super.init();
+        gui.onChoice.listen(onChoise);
+        gui.onDone.listen(onDone);
     }
 
     override function startGame() {
-        gui.initState(items);
+        gui.initData(items);
     }
 
     function onDone() {

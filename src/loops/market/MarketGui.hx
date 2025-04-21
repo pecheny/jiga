@@ -1,5 +1,6 @@
 package loops.market;
 
+import loops.market.MarketActivity.MarketGui;
 import dkit.Dkit.BaseDkit;
 import a2d.ChildrenPool;
 import a2d.Placeholder2D;
@@ -17,24 +18,18 @@ import utils.Signal;
 using al.Builder;
 using a2d.ProxyWidgetTransform;
 
-
-class MarketWidget extends BaseDkit {
-    public var onDone:Signal<Void->Void> = new Signal();
-    public var onChoise(default, null) = new IntSignal();
+class MarketWidget extends BaseDkit implements MarketGui {
+    public var onDone:ec.Signal<Void->Void> = new ec.Signal();
+    public var onChoice(default, null) = new IntSignal();
 
     static var SRC = <market-widget vl={PortionLayout.instance}>
         <label(b().v(pfr, .2).b()) id="lbl"  text={ "Do you want to buy smth?" }  >
-        //  ${fui.quad(__this__.ph, 0x6c3e44)}
         </label>
-        <base(b().v(pfr, 0.7).b()) id="cardsContainer"  layouts={GuiStyles.L_HOR_CARDS} >
-            // ${fui.quad(__this__.ph, 0x79ff0000)}
-        </base>
+        <base(b().v(pfr, 0.7).b()) id="cardsContainer"  layouts={GuiStyles.L_HOR_CARDS} />
         <button(b().v(pfr, .1).b())   text={ "Ok" } onClick={onOkClick}  />
     </market-widget>;
 
-    // layouts={GuiStyles.L_HOR_CARDS}
     var buttons:DataChildrenPool<MarketItemRecord, MarketCard>;
-    // var okButton:Button;
     var maxNumber:Int;
 
     override function init() {
@@ -44,8 +39,8 @@ class MarketWidget extends BaseDkit {
                 new ButtonScale(mc.entity);
                 mc;
             })
-            .withSignal(onChoise)
-            .withInput((ph, n) -> new ButtonEnabled(ph, onChoise.dispatch.bind(n)))
+            .withSignal(onChoice)
+            .withInput((ph, n) -> new ButtonEnabled(ph, onChoice.dispatch.bind(n)))
             .build();
     }
 
@@ -53,7 +48,7 @@ class MarketWidget extends BaseDkit {
         onDone.dispatch();
     }
 
-    public function initState(items:Array<MarketItemRecord>) {
+    public function initData(items:Array<MarketItemRecord>) {
         buttons.initData(items);
     }
 }
@@ -63,8 +58,7 @@ class MarketCard extends BaseDkit implements DataView<MarketItemRecord> {
     var descr:MarketItemRecord;
 
     static var SRC = <market-card vl={PortionLayout.instance} >
-        // ${new ColorBgToggleComponent(__this__.ph.getInnerPh())}
-        <label(b().v(pfr, 1).b()) id="lbl"  color={ 0xecb7b7 } text={ "Region" }  />
+        <label(b().v(pfr, 1).b()) id="lbl"  color={ 0xecb7b7 } />
     </market-card>;
 
     public function initData(descr:MarketItemRecord) {
@@ -84,4 +78,3 @@ class MarketCard extends BaseDkit implements DataView<MarketItemRecord> {
         return d.weapon + " " + d.lvl + " for " + d.price + " gld";
     }
 }
-
