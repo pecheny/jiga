@@ -58,7 +58,11 @@ class MarketCard extends BaseDkit implements DataView<MarketItemRecord> {
     var descr:MarketItemRecord;
 
     static var SRC = <market-card vl={PortionLayout.instance} >
-        <label(b().v(pfr, 1).b()) id="lbl"  color={ 0xecb7b7 } />
+        <switcher(b().v(pfr, 1).b()) id="content"   >
+            <label(b().v(pfr, 0.2).b()) id="soldCard" text={"X"}  />
+            <label(b().v(pfr, 0.2).b()) id="card"   />
+        </switcher>
+        <label(b().v(pfr, 0.2).b()) id="lbl"   />
     </market-card>;
 
     public function initData(descr:MarketItemRecord) {
@@ -71,10 +75,18 @@ class MarketCard extends BaseDkit implements DataView<MarketItemRecord> {
 
     function onChange(s:MarketItemState) {
         toggle.enabled = s == MarketItemState.available;
-        lbl.text = s == sold ? "Sold out!" : getCaption(descr.data);
+        if (s == sold) {
+            lbl.text = "Sold out!";
+            content.switchTo(soldCard.ph);
+        } else {
+            lbl.text = getCaption(descr.data);
+            card.text = "" + descr.data.weapon;
+            content.switchTo(card.ph);
+        }
     }
 
     function getCaption(d:MarketItem) {
-        return d.weapon + " " + d.lvl + " for " + d.price + " gld";
+        // return d.weapon + " " + d.lvl + " for " + d.price + " gld";
+        return d.price + " gld";
     }
 }
