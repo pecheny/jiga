@@ -26,7 +26,7 @@ class MarketWidget extends BaseDkit implements MarketGui {
         <data-container(b().v(pfr, 1).b()) id="cardsContainer"   itemFactory={cardFactory} inputFactory={inputFactory} layouts={GuiStyles.L_HOR_CARDS }  />
 
         <base(b().v(pfr, .24).b()) />
-        <button(b().h(sfr, .36).v(sfr, .12).b())   text={ "Done" } onClick={onOkClick} style={"center"} />
+        <button(b().h(sfr, .36).v(sfr, .12).b())   text={ "Done" } onClick={onOkClick} style={"small-text-center"} />
     </market-widget>;
 
     var maxNumber:Int;

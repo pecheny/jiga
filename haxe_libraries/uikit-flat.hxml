@@ -1,9 +1,9 @@
--lib domkit
--lib slec
+# @install: lix --silent download "gh://github.com/pecheny/uikit-flat#df6c749a9e3e53ab7cd1855c2e06573e52a071cb" into uikit-flat/1.0.0/github/df6c749a9e3e53ab7cd1855c2e06573e52a071cb
 -lib alayout
+-lib domkit
+-lib fancy
 -lib flgl
 -lib htext
--lib fancy
--cp ${SCOPE_DIR}/jigaproject/uikit-flat/src
+-lib slec
+-cp ${HAXE_LIBCACHE}/uikit-flat/1.0.0/github/df6c749a9e3e53ab7cd1855c2e06573e52a071cb/src
 -D uikit-flat=1.0.0
---macro Sys.println("haxe_libraries/uikit-flat.hxml:8: [Warning] Using dev version of library uikit-flat")
