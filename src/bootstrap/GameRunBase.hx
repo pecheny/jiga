@@ -5,7 +5,9 @@ import ec.Entity;
 import ec.Signal;
 import gameapi.GameRun;
 
+#if (!macro && !completion && !display)
 @:autoBuild(ec.macros.InitMacro.build())
+#end
 class GameRunBase implements GameRun {
     @:isVar public var entity(get, set):Entity;
     public var gameOvered(default, null):Signal<() -> Void> = new Signal();
