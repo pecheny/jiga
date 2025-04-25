@@ -36,6 +36,11 @@ class Activitor {
     }
 }
 
+interface StatefullActHandler {
+    var onChange:fu.Signal<Void->Void>;
+    function dump():Dynamic;
+}
+
 interface ActHandler<T> extends GameRun {
     public function initDescr(d:T):ActHandler<T>;
 }

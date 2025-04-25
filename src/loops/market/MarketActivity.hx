@@ -1,6 +1,7 @@
 package loops.market;
 
-import bootstrap.Activitor.ActHandler;
+import fu.Signal;
+import bootstrap.Activitor;
 import bootstrap.GameRunBase;
 import bootstrap.SelfClosingScreen;
 import dungsmpl.DungeonData;
@@ -10,7 +11,9 @@ import loops.market.MarketData;
 
 interface MarketGui extends OptionPickerGui<MarketItemRecord> extends SelfClosingScreen {}
 
-class MarketActivity extends GameRunBase implements ActHandler<MarketDesc> {
+class MarketActivity extends GameRunBase implements ActHandler<MarketDesc> implements StatefullActHandler {
+    public var onChange:Signal<Void->Void> = new Signal();
+
     @:once var stats:ProgStats;
     @:once var exec:ExecCtx;
     @:once var gui:MarketGui;
@@ -47,6 +50,7 @@ class MarketActivity extends GameRunBase implements ActHandler<MarketDesc> {
         for (mi in items)
             if (mi.state != sold)
                 mi.setState(isAvailable(mi.data) ? available : na);
+        onChange.dispatch();
     }
 
     override function reset() {
@@ -61,5 +65,9 @@ class MarketActivity extends GameRunBase implements ActHandler<MarketDesc> {
 
     function isAvailable(item:MarketItem) {
         return (item.price <= stats.gld.value);
+    }
+
+    public function dump():Dynamic {
+        return items.filter(i -> i.state != sold).map(i -> i.data);
     }
 }
