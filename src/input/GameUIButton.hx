@@ -1,5 +1,7 @@
 package input;
 
+import shimp.ClicksInputSystem.ClickTargetViewState;
+import fu.ui.ButtonBase.ClickViewProcessor;
 import a2d.Placeholder2D;
 import al2d.WidgetHitTester2D;
 import ec.CtxWatcher;
@@ -9,10 +11,12 @@ import ginp.api.GameButtonsDispatcher;
 import shimp.InputSystem.InputSystemTarget;
 import shimp.Point;
 
-class GameUIButton<TB:Axis<TB>> implements GameButtonsDispatcher<TB> implements InputSystemTarget<Point> {
+class GameUIButton<TB:Axis<TB>> implements GameButtonsDispatcher<TB> implements InputSystemTarget<Point> implements ClickViewProcessor {
     var hittester:WidgetHitTester2D;
     var l:GameButtonsListener<TB>;
     var b:TB;
+
+    var interactives:Array<ClickTargetViewState->Void> = [];
 
     public function new(w:Placeholder2D, b:TB, basisName) {
         this.b = b;
@@ -46,11 +50,23 @@ class GameUIButton<TB:Axis<TB>> implements GameButtonsDispatcher<TB> implements 
     }
 
     public function setActive(val:Bool) {
-        if (!val && pressed) 
+        if (!val && pressed)
             release();
+        var state = val ? Hovered:Idle;
+        changeViewState(state);
     }
 
     public function isUnder(pos:Point):Bool {
         return hittester.isUnder(pos);
     }
+
+    public function addHandler(h:ClickTargetViewState->Void):Void {
+        interactives.push(h);
+    }
+    
+    public function changeViewState(st:ClickTargetViewState):Void {
+        for (iv in interactives)
+            iv(st);
+    }
+
 }
