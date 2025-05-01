@@ -22,8 +22,6 @@ class BouncingLoop extends GameRunBase implements ActHandler<LoopConfig> {
     @:once public var input:GameButtons<OneButton>;
     public var gui:BouncingGui;
 
-    var loopsRemains = 0;
-
     public var loopCount = 1;
 
     var fsm:BouncingLoopFsm;
@@ -39,12 +37,11 @@ class BouncingLoop extends GameRunBase implements ActHandler<LoopConfig> {
 
     override public function startGame():Void {
         fsm.changeState(BouncingState);
-        gui.setHitsRemain(loopsRemains);
     }
 
     override function reset() {
         fsm.reset();
-        loopsRemains = loopCount;
+        fsm.loopsRemains = loopCount;
     }
 
     override function update(dt:Float) {
@@ -53,14 +50,7 @@ class BouncingLoop extends GameRunBase implements ActHandler<LoopConfig> {
     }
 
     public function gameOver() {
-        loopsRemains--;
-        // trace("game over " + loopsRemains);
-        if (loopsRemains == 0)
-            gameOvered.dispatch();
-        else {
-            gui.setHitsRemain(loopsRemains);
-            fsm.changeState(BouncingState);
-        }
+        gameOvered.dispatch();
     }
 
     public function initDescr(d:LoopConfig):ActHandler<LoopConfig> {
@@ -70,7 +60,6 @@ class BouncingLoop extends GameRunBase implements ActHandler<LoopConfig> {
         fsm.periodDuration = d.periodDuration;
         var rps:ResultPresentation = cast @:privateAccess fsm.states.get(ResultPresentation);
         rps.duration = d.afterHitDelay;
-
         entity.getComponent(BouncingTimeline).init(d.regions);
         return this;
     }
@@ -83,6 +72,7 @@ class BouncingLoopFsm extends StateMachine {
     public var periodDuration:Void->Float;
     public var numBounces:Int = -1;
     public var bounceCount:Int = 0;
+    public var loopsRemains(default, set) = 0;
 
     var actionState:BouncingState;
     var onDone:Void->Void;
@@ -104,6 +94,11 @@ class BouncingLoopFsm extends StateMachine {
 
     public function gameOver() {
         onDone();
+    }
+
+    function set_loopsRemains(value) {
+        gui.setHitsRemain(value);
+        return loopsRemains = value;
     }
 }
 
@@ -155,6 +150,7 @@ class BouncingState extends BouncingStateBase {
         var weights = timeline.getWeights();
         var regId = 0;
         var regEnd = 0.;
+        fsm.loopsRemains--;
         for (i in 0...weights.length) {
             regEnd += weights[i];
             regId = i;
@@ -182,8 +178,12 @@ class ResultPresentation extends BouncingStateBase {
     override function update(dt:Float) {
         t -= dt;
         var tp = (t / duration);
-        if (t <= 0)
-            // fsm.changeState(SplittingGameState);
-            fsm.gameOver();
+        if (t <= 0) {
+            if (fsm.loopsRemains == 0)
+                fsm.gameOver();
+            else {
+                fsm.changeState(BouncingState);
+            }
+        }
     }
 }
