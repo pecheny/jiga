@@ -6,9 +6,9 @@ import a2d.Widget;
 import stset.Stats.CapGameStat;
 import stset.Stats.StatRO;
 
-class ValLabel<T:Float> extends Widget {
+class ValLabel<T:Float> extends Widget implements IStatLabel {
+    public var statName (default, set):String;
     var lbl:Label;
-    var statName:String;
     var stat:StatRO<T>;
     var capped:CapGameStat<T>;
     var style:TextStyleContext;
@@ -28,20 +28,25 @@ class ValLabel<T:Float> extends Widget {
     public function setup(name:String, stat:StatRO<T>) {
         if (this.stat != null)
             throw "resetup not allowed";
-        statName = name;
         this.stat = stat;
         stat.onChange.listen(setText);
         capped = null;
         if (Std.isOfType(stat, CapGameStat))
             capped = cast stat;
-        setText();
+        statName = name;
         return this;
     }
 
     function setText(?_:T) {
         if (capped != null)
-            lbl?.withText('$statName:<br/>${capped.value}/${capped.max}');
+            lbl?.withText('$statName ${capped.value}/${capped.max}');
         else
-            lbl?.withText('$statName:<br/>${stat.value}');
+            lbl?.withText('$statName ${stat.value}');
+    }
+
+    function set_statName(value:String):String {
+        statName = value;
+        setText();
+        return value;
     }
 }

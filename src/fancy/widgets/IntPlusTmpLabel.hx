@@ -11,9 +11,9 @@ import update.Updatable;
 import update.UpdateBinder;
 import widgets.Label;
 
-class IntPlusTmpLabel extends Widget implements Updatable {
+class IntPlusTmpLabel extends Widget implements Updatable implements IStatLabel {
+    public var statName (default, set):String;
     var lbl:Label;
-    var statName:String;
     var stat:TempIncGameStat<Int>;
     var style:TextStyleContext;
     var scale:ScaleComponent;
@@ -40,17 +40,16 @@ class IntPlusTmpLabel extends Widget implements Updatable {
     public function setup(name:String, stat) {
         if (this.stat != null)
             throw "resetup not allowed";
-        statName = name;
         this.stat = stat;
         stat.onChange.listen(setText);
-        setText();
+        statName = name;
         return this;
     }
 
     function setText(?_:Int) {
         var tmpVal = stat.tmp.value;
         var delta = if (tmpVal == 0) "" else if (tmpVal > 0) ' +$tmpVal' else ' -$tmpVal';
-        lbl?.withText('$statName:<br/>${stat.prm.value}$delta');
+        lbl?.withText('$statName ${stat.prm.value}$delta');
         t = duration;
     }
 
@@ -65,5 +64,11 @@ class IntPlusTmpLabel extends Widget implements Updatable {
             t = 0;
             scale.value = 1;
         }
+    }
+    
+    function set_statName(value:String):String {
+        statName = value;
+        setText();
+        return value;
     }
 }
