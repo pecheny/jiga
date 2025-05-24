@@ -1,5 +1,6 @@
 package bootstrap;
 
+import fu.Uikit;
 import dkit.Dkit.BaseDkit;
 import gl.passes.CmsdfPass;
 import gl.aspects.ExtractionUtils.TextureAspectFactory;
@@ -54,7 +55,7 @@ class BootstrapMain extends AbstractEngine {
 		var root = rootEntity = new Entity("root");
 		setWindowPosition();
 		// regDrawcals();
-        var uikit = new FlatUikitExtended(fui);
+        var uikit = new Uikit(fui);
         uikit.configure(root);
         uikit.createContainer(root);
         root.addComponentByType(fu.Uikit, uikit);
