@@ -81,15 +81,17 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
         this.run = run;
         this.run.gameOvered.listen(onGameOver);
 
+        // TODO rebinding same run would fail on readd updater
         new PauseRunUpdater(run);
-        rootEntity.addChild(run.entity);
     }
 
     public function onGameOver() {
+        rootEntity.removeChild(run.entity); // to prevent update() call on inconsistent run state.
         rootEntity.getComponent(WidgetSwitcher).switchTo(gameOver);
     }
 
     public function newGame() {
+        rootEntity.addChild(run.entity);
         var data = Json.parse(openfl.utils.Assets.getText("state.json"));
         trace(data);
         rootEntity.getComponent(State).load(data);
