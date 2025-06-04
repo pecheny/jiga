@@ -43,6 +43,8 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
 
     public function new() {
         super();
+        fui.makeClickInput(gameOver);
+
         pause = rootEntity.addComponent(new Pause());
         pause.pause(true);
         fui.makeClickInput(menu);
@@ -69,11 +71,10 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
     function bindRun(run:GameRun) {
         var goScreen = gameOver.entity.getComponent(SelfClosingScreen);
         if (goScreen == null) {
-            fui.makeClickInput(gameOver);
             goScreen = new GameOverScreen(gameOver);
             gameOver.entity.addComponentByType(SelfClosingScreen, goScreen);
-            goScreen.onDone.listen(showMenu);
         }
+        goScreen.onDone.listen(showMenu);
         if (this.run != null) {
             this.run.gameOvered.remove(onGameOver);
         }
