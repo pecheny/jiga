@@ -43,6 +43,8 @@ class Level<TMove:Int, TRoom:(Room & fu.Serializable)> implements fu.Serializabl
     }
 
     public function canMove(dir:TMove) {
+        if (current < 0 || current > doors.length -1)
+            return false;
         return doors[current].exists(dir);
     }
 
