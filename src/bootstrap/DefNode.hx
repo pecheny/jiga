@@ -58,16 +58,33 @@ typedef Leveled = {
 }
 
 class DefLvlNode<T:Leveled> extends DefNode<T> {
+    /**
+        Levels should start from 1. If zero passed, the result would be equivalent of 1.
+    **/
     public function getLvl(path, lvl:Int) {
-        var def = get(path);
-        if (def.levels == null)
+        var def = super.get(path);
+        if (def.levels == null) {
+            def.curLvl = 1;
+            def.maxLvl = 1;
             return def;
-        var curLvl = MathUtil.min(lvl + 1, def.levels.length);
-        for (l in 1...curLvl)
+        }
+        def.maxLvl = def.levels.length - 1;
+        def.curLvl = MathUtil.clamp(lvl, 1, def.maxLvl);
+        for (l in 1...def.curLvl)
             apply(def, def.levels[l]);
-        def.curLvl = curLvl - 1;
-        def.maxLvl = def.levels.length -1;
         return def;
+    }
+    
+    // public static function extractLevel(path:String) {
+    //     var colI = path.lastIndexOf(":");
+    //     return if (colI > -1) Std.parseInt(path.substring(colI + 1, path.length)) else 1;
+    // }
+    
+    override function get(path:Null<String>):T {
+        var colI = path.lastIndexOf(":");
+        if (colI > -1)
+            return getLvl(path.substring(0, colI), Std.parseInt(path.substring(colI+1, path.length)));
+        return getLvl(path, 1);
     }
 
     function apply(dst, src) {
