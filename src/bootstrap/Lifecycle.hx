@@ -1,5 +1,6 @@
 package bootstrap;
 
+import ec.PropertyComponent.FlagComponent;
 import update.UpdateBinder;
 import ec.CtxWatcher;
 import update.Updatable;
@@ -25,8 +26,9 @@ interface Lifecycle {
     function newGame():Void;
     function saveGame():Void;
     function loadGame():Void;
-    function resume():Void;
-    function showMenu():Void;
+    // function resume():Void;
+    function toggleMenu():Void;
+    var hasActiveSession:FlagComponent;
 }
 
 interface State {
@@ -40,6 +42,7 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
     var menu:Placeholder2D = Builder.widget();
     var gameOver:Placeholder2D = Builder.widget();
     var pause:Pause;
+    public var hasActiveSession:FlagComponent = @:privateAccess new FlagComponent();
 
     public function new() {
         super();
@@ -55,7 +58,7 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
             pause.pause(!pause.paused);
         });
         kbinder.addCommand(Keyboard.ESCAPE, () -> {
-            showMenu();
+            toggleMenu();
         });
 
         kbinder.addCommand(Keyboard.A, () -> {
@@ -87,6 +90,7 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
     }
 
     public function onGameOver() {
+        hasActiveSession.value = false;
         rootEntity.removeChild(run.entity); // to prevent update() call on inconsistent run state.
         rootEntity.getComponent(WidgetSwitcher).switchTo(gameOver);
     }
@@ -98,15 +102,6 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
         rootEntity.getComponent(State).load(data);
         run.reset();
         launch();
-    }
-
-    public function resume() {
-        // if(rootEntity.getComponent(State).items.value ==null){
-        //     newGame();
-        //     return;
-        // }
-        rootEntity.getComponent(WidgetSwitcher).switchTo(run.getView());
-        rootEntity.getComponent(Pause).pause(false);
     }
 
     public function saveGame():Void {
@@ -131,13 +126,32 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
     }
 
     function launch() {
-        resume();
+        hideMenu();
+        hasActiveSession.value = true;
         run.startGame();
     }
 
-    public function showMenu():Void {
+    var inMenu = true;
+
+    public function toggleMenu():Void {
+        if (!hasActiveSession.value)
+            return;
+        if (inMenu)
+            hideMenu();
+        else
+            showMenu();
+    }
+
+    function showMenu() {
+        inMenu = true;
         rootEntity.getComponent(Pause).pause(true);
         rootEntity.getComponent(WidgetSwitcher).switchTo(menu);
+    }
+
+    function hideMenu() {
+        inMenu = false;
+        rootEntity.getComponent(WidgetSwitcher).switchTo(run.getView());
+        rootEntity.getComponent(Pause).pause(false);
     }
 }
 
