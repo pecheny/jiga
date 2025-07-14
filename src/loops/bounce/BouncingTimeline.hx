@@ -28,7 +28,7 @@ class MyWeaponFac {
 class RegionPreset {
     public var size:NormVal;
     // public var regionType:Int = 1;
-    public var regionDef (default, null):Dynamic;
+    public var regionDef(default, null):Dynamic;
     // how much times this region can be executed in a run
     public var activationsNumber:Int = 1;
 
@@ -46,6 +46,7 @@ typedef PresetId = Int;
 
 class BouncingTimeline implements RegionStateProvider {
     public var onChange:Signal<Void->Void> = new Signal();
+
     var presets:Array<RegionPreset>;
     var weights:Array<Weight>;
     // number of region executions
@@ -121,7 +122,8 @@ class BouncingTimeline implements RegionStateProvider {
     public function execRegionHit(id:RegionId) {
         var defId = idMap[id];
         if (defId == GAP_ID) {
-            onGap();
+            if (onGap != null)
+                onGap();
         } else {
             var execCount = execCounts[defId];
             var preset = presets[defId];

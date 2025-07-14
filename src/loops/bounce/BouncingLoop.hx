@@ -60,7 +60,9 @@ class BouncingLoop extends GameRunBase implements ActHandler<LoopConfig> {
         fsm.periodDuration = d.periodDuration;
         var rps:ResultPresentation = cast @:privateAccess fsm.states.get(ResultPresentation);
         rps.duration = d.afterHitDelay;
-        entity.getComponent(BouncingTimeline).init(d.regions);
+        var tl = entity.getComponent(BouncingTimeline);
+        tl.init(d.regions);
+        tl.onGap = d.onMiss;
         return this;
     }
 }

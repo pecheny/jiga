@@ -18,6 +18,8 @@ typedef LoopConfig = {
     var timeFunction:String;
     // Float normalized values of 'hit' regions, order refered to id of each region and doesnt affect visual representation order
     var regions:Array<RegionPreset>;
+    //
+    var ?onMiss:Void->Void;
     // For presenting results of hit, before pointer starts move again or the activity ends
     var afterHitDelay:Float;
 }
