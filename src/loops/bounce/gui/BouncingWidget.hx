@@ -95,8 +95,6 @@ class BouncingWidget extends Widget implements BouncingGui {
     }
 }
 
-typedef RegionType = Int;
-
 interface RegionColorMap {
     function getColor(def:Dynamic, isActive:Bool):Int;
 }
