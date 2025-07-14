@@ -135,7 +135,8 @@ class BouncingState extends BouncingStateBase {
             if (fsm.numBounces > -1) {
                 fsm.bounceCount++;
                 if (fsm.bounceCount >= fsm.numBounces) {
-                    fsm.gameOver();
+                    fsm.loopsRemains = 0;
+                    fsm.changeState(ResultPresentation);
                     return;
                 }
             }
