@@ -56,6 +56,10 @@ class BootstrapMain extends AbstractEngine {
         setWindowPosition();
         // regDrawcals();
 
+        var contLayouts = new ContainerStyler();
+        root.addComponent(contLayouts);
+        dkitDefaultStyles();
+
         regTextProcessor();
         var uikit = new Uikit(fui);
         uikit.configure(root);
@@ -65,10 +69,10 @@ class BootstrapMain extends AbstractEngine {
         textStyles();
         createFlashDisplay();
         initFui();
-        dkitDefaultStyles();
         createInput();
         iniUpdater();
 
+        BaseDkit.inject(fui);
         // rootEntity.dispatchContext(rootEntity);
         createRunWrapper();
         createRun();
@@ -196,7 +200,6 @@ class BootstrapMain extends AbstractEngine {
     }
 
     function dkitDefaultStyles() {
-        BaseDkit.inject(fui);
         var e = rootEntity;
         var props = e.getOrCreate(PropStorage, () -> new CascadeProps<String>(null, "root-props"));
         // props.set(Dkit.TEXT_STYLE, "small-text");
