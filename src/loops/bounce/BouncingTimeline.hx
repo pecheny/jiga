@@ -131,7 +131,8 @@ class BouncingTimeline implements RegionStateProvider {
                 execCounts[defId]++;
                 preset.onHit(1.);
             } else {
-                onGap();
+                if (onGap != null)
+                    onGap();
             }
         }
         onChange.dispatch();
