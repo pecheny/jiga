@@ -21,11 +21,11 @@ class MarketWidget extends BaseDkit implements MarketGui {
 
     static var SRC = <market-widget vl={PortionLayout.instance}>
         <label(b().v(pfr, .24).b()) id="lbl"  text={ "Do you want to buy smth?" } align={Align.Center}/>
-        <base(b().v(pfr, .24).b()) />
+        <base(b().v(pfr, .1).b()) />
 
-        <data-container(b().v(pfr, 1).b()) id="cardsContainer"   itemFactory={cardFactory} inputFactory={inputFactory} layouts={GuiStyles.L_HOR_CARDS }  />
+        <data-container(b().v(pfr, 1).b()) scroll={true} id="cardsContainer"   itemFactory={cardFactory} inputFactory={inputFactory} layouts={GuiStyles.L_HOR_CARDS }  />
 
-        <base(b().v(pfr, .24).b()) />
+        <base(b().v(pfr, .1).b()) />
         <button(b().h(sfr, .36).v(sfr, .12).b())   text={ "Done" } onClick={onOkClick} style={"small-text-center"} />
     </market-widget>;
 
@@ -55,6 +55,7 @@ class MarketCard extends BaseDkit implements DataView<MarketItemRecord> {
     var descr:MarketItemRecord;
 
     static var SRC = <market-card vl={PortionLayout.instance} >
+        <base(b().v(pfr, 0.2).b()) />
         <switcher(b().v(pfr, 1).b()) id="content"   >
             <label(b().v(pfr, 0.2).b()) id="soldCard" text={"X"} align={Align.Center} />
             <label(b().v(pfr, 0.2).b()) public id="card"   />
