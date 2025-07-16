@@ -1,5 +1,8 @@
 package loops.market;
 
+import fu.ui.scroll.ScrollboxInput;
+import shimp.InputSystem.InputSystemTarget;
+import fu.ui.scroll.ScrollableContent.Scrollable;
 import htext.Align;
 import a2d.Placeholder2D;
 import al.core.DataView;
@@ -36,6 +39,22 @@ class MarketWidget extends BaseDkit implements MarketGui {
         new ButtonScale(mc.entity);
         return mc;
     }
+    
+    override function init() {
+        super.init();
+        openfl.Lib.current.stage.addEventListener(openfl.events.MouseEvent.MOUSE_WHEEL, onWheel);
+    }
+    
+    function onWheel(e:openfl.events.MouseEvent) {
+        var scrollable = cardsContainer.entity.getComponent(Scrollable);
+        var input = cardsContainer.entity.getComponent(InputSystemTarget);
+        var sinput:ScrollboxInput=null;
+        if (Std.isOfType(input, ScrollboxInput))
+            sinput = cast input;
+        if (sinput!=null && @:privateAccess sinput.enabled)
+            scrollable.setOffset(horizontal, scrollable.getOffset(horizontal) + e.delta * 0.1);
+    }
+
 
     function inputFactory(ph, n) {
         new ButtonEnabled(ph, onChoice.dispatch.bind(n));
