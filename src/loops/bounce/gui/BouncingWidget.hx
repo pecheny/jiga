@@ -1,7 +1,7 @@
 package loops.bounce.gui;
 
 import fu.graphics.ShapeWidget;
-import loops.bounce.BouncingLoop.BouncingGui;
+import loops.bounce.BouncingLoop;
 import widgets.Label;
 import loops.bounce.BouncingTimeline.RegionStateProvider;
 import a2d.Widget2DContainer;
@@ -24,6 +24,7 @@ class BouncingWidget extends Widget implements BouncingGui {
     var inited = false;
     var maxRegions = 15;
     var hitRemains:Label;
+    var colors:ShapesColorAssigner<ColorSet>;
 
     @:once public var regionsData:RegionStateProvider;
     @:once public var fui:FuiBuilder;
@@ -58,12 +59,20 @@ class BouncingWidget extends Widget implements BouncingGui {
         var poin = new SlidingTriPointer(attrs);
         shw.addChild(poin);
         ph.entity.addChild(poinWdg.entity);
-        var colors = new ShapesColorAssigner(attrs, 0, shw.getBuffer());
+        colors = new ShapesColorAssigner(attrs, 0, shw.getBuffer());
         return poin;
     }
 
     public function setT(t:Float) {
         poiter.t = t;
+    }
+    
+    public function setState(state:BouncingWidgetState) {
+        colors.setColor(
+        switch state {
+            case bouncing: 0;
+            case presenting: 0xffffff;
+        });
     }
 
     public function initRegions(weights:ReadOnlyArray<Float>) {
@@ -94,6 +103,7 @@ class BouncingWidget extends Widget implements BouncingGui {
         cont.refresh();
     }
 }
+
 
 interface RegionColorMap {
     function getColor(def:Dynamic, isActive:Bool):Int;

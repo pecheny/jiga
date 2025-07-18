@@ -12,8 +12,14 @@ import loops.bounce.Data;
 import ec.Entity;
 import states.States;
 
+enum abstract BouncingWidgetState(Int) {
+    var bouncing;
+    var presenting;
+}
+
 interface BouncingGui {
     public function setT(t:Float):Void;
+    public function setState(state:BouncingWidgetState):Void;
     public function initRegions(weights:haxe.ds.ReadOnlyArray<Float>):Void;
     public function setHitsRemain(n:Int):Void;
 }
@@ -118,6 +124,11 @@ class BouncingStateBase extends State {
 class BouncingState extends BouncingStateBase {
     var direction:Sign;
     var timeline:BouncingTimeline;
+    
+    override function onEnter() {
+        super.onEnter();
+        fsm.gui.setState(bouncing);
+    }
 
     public function reset() {
         t = 0;
@@ -170,6 +181,7 @@ class ResultPresentation extends BouncingStateBase {
 
     override function onEnter() {
         t = duration;
+        fsm.gui.setState(presenting);
     }
 
     override function onExit() {
