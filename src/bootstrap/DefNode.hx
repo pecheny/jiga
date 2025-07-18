@@ -68,7 +68,7 @@ class DefLvlNode<T:Leveled> extends DefNode<T> {
             def.maxLvl = 1;
             return def;
         }
-        def.maxLvl = def.levels.length - 1;
+        def.maxLvl = def.levels.length;
         def.curLvl = MathUtil.clamp(lvl, 1, def.maxLvl);
         for (l in 1...def.curLvl)
             apply(def, def.levels[l]);
