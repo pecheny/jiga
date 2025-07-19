@@ -1,5 +1,6 @@
 package loops.market;
 
+import fu.ui.scroll.WheelHandler;
 import fu.ui.scroll.ScrollboxInput;
 import shimp.InputSystem.InputSystemTarget;
 import fu.ui.scroll.ScrollableContent.Scrollable;
@@ -26,7 +27,9 @@ class MarketWidget extends BaseDkit implements MarketGui {
         <label(b().v(pfr, .24).b()) id="lbl"  text={ "Do you want to buy smth?" } align={Align.Center}/>
         <base(b().v(pfr, .1).b()) />
 
-        <data-container(b().v(pfr, 1).b()) scroll={true} id="cardsContainer"   itemFactory={cardFactory} inputFactory={inputFactory} layouts={GuiStyles.L_HOR_CARDS }  />
+        <data-container(b().v(pfr, 1).b()) scroll={true} id="cardsContainer"   itemFactory={cardFactory} inputFactory={inputFactory} layouts={GuiStyles.L_HOR_CARDS }>
+            ${new WheelHandler(__this__.ph, horizontal)}
+        </data-container>
 
         <base(b().v(pfr, .1).b()) />
         <button(b().h(sfr, .36).v(sfr, .12).b())   text={ "Done" } onClick={onOkClick} style={"small-text-center"} />
@@ -42,19 +45,7 @@ class MarketWidget extends BaseDkit implements MarketGui {
     
     override function init() {
         super.init();
-        openfl.Lib.current.stage.addEventListener(openfl.events.MouseEvent.MOUSE_WHEEL, onWheel);
     }
-    
-    function onWheel(e:openfl.events.MouseEvent) {
-        var scrollable = cardsContainer.entity.getComponent(Scrollable);
-        var input = cardsContainer.entity.getComponent(InputSystemTarget);
-        var sinput:ScrollboxInput=null;
-        if (Std.isOfType(input, ScrollboxInput))
-            sinput = cast input;
-        if (sinput!=null && @:privateAccess sinput.enabled)
-            scrollable.setOffset(horizontal, scrollable.getOffset(horizontal) + e.delta * 0.1);
-    }
-
 
     function inputFactory(ph, n) {
         new ButtonEnabled(ph, onChoice.dispatch.bind(n));
