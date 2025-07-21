@@ -83,10 +83,10 @@ class CapGameStat<T:Float> extends GameStat<Int> {
 
     override function load(d:Dynamic) {
         if (d is Float) {
-            max = d;
+            @:bypassAccessor max = d;
             value = max;
         } else {
-            max = d.max;
+            @:bypassAccessor max = d.max;
             value = d.value;
         }
     }
