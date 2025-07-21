@@ -109,6 +109,7 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
     }
 
     function launch() {
+        rootEntity.addChild(run.entity); // on gameOver entity was removed so it should be readded.
         hideMenu();
         hasActiveSession.value = true;
         run.reset();
