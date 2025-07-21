@@ -57,6 +57,9 @@ class Level<TMove:Int, TRoom:(Room & fu.Serializable)> implements fu.Serializabl
 
     public function load(data:Dynamic) {
         rooms.resize(0);
+        if (data?.rooms?.length < 1)
+            return;
+
         var roomsSerialized:Array<Dynamic> = data.rooms;
         for (r in roomsSerialized) {
             var ri = roomFactory(r);
@@ -64,6 +67,10 @@ class Level<TMove:Int, TRoom:(Room & fu.Serializable)> implements fu.Serializabl
             rooms.push(ri);
         }
         onChange.dispatch();
+    }
+    
+    public function isEmpty() {
+        return rooms.length == 0;
     }
 
     public function dump():Dynamic {
