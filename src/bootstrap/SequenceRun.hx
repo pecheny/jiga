@@ -51,7 +51,9 @@ class SequenceRun extends GameRunBase {
         current = -1;
         for (run in activities)
             switch run {
-                // case Ac
+                case Activity(gr):
+                    gr.reset();
+                case Function(f):
             }
         super.reset();
         afterReset();
