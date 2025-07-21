@@ -87,6 +87,7 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
 
         // TODO rebinding same run would fail on readd updater
         new PauseRunUpdater(run);
+        rootEntity.addChild(run.entity);
     }
 
     public function onGameOver() {
@@ -96,7 +97,6 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
     }
 
     public function newGame() {
-        rootEntity.addChild(run.entity);
         var data = Json.parse(openfl.utils.Assets.getText("state.json"));
         trace(data);
         rootEntity.getComponent(State).load(data);
