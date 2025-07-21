@@ -24,12 +24,18 @@ class PosMarker extends ShapeWidget<ColorSet> {
         if (!inited)
             return;
         for (a in Axis2D) {
+            var ref = RectWeights.weights;
+            if (target == null) {
+                for (i in 0...ref[a].length) {
+                    quad.weights[a][i] = 0;
+                }
+                return;
+            }
             var mgn = 0.01;
             var pa = parent.axisStates[a];
             var ta = target.axisStates[a];
             var lpos = (ta.getPos() - pa.getPos()) / pa.getSize() - mgn;
 
-            var ref = RectWeights.weights;
             for (i in 0...ref[a].length) {
                 quad.weights[a][i] = lpos + ref[a][i] * (ta.getSize() / pa.getSize() + mgn * 2);
             }
