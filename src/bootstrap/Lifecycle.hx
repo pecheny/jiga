@@ -102,15 +102,9 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
     }
 
     public function loadGame():Void {
-        #if sys
-        if (!sys.FileSystem.exists("save.json"))
-            return;
-        rootEntity.getComponent(State).load(Json.parse(sys.io.File.getContent("save.json")));
-        #else
         var stdata = storage.getValue("save.json", null);
         var state = Json.parse(stdata ?? openfl.utils.Assets.getText("state.json"));
         rootEntity.getComponent(State).load(state);
-        #end
         launch();
     }
 
