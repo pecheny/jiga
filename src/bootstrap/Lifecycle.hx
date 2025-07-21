@@ -117,6 +117,7 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
     function launch() {
         hideMenu();
         hasActiveSession.value = true;
+        run.reset();
         run.startGame();
     }
 
