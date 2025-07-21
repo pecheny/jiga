@@ -11,16 +11,11 @@ import ginp.Keyboard;
 import gameapi.GameRun;
 import al.ec.WidgetSwitcher;
 import haxe.Json;
-#if js
-import storage.BrowserStorage;
-#end
+import storage.LocalStorage;
 
 using a2d.transform.LiquidTransformer;
 using al.Builder;
 
-#if !js
-typedef BrowserStorage = {}
-#end
 
 interface Lifecycle {
     function newGame():Void;
@@ -38,7 +33,7 @@ interface State {
 
 class LifecycleImpl extends BootstrapMain implements Lifecycle {
     var run:GameRun;
-    var storage:BrowserStorage;
+    var storage:LocalStorage;
     var menu:Placeholder2D = Builder.widget();
     var gameOver:Placeholder2D = Builder.widget();
     var pause:Pause;
@@ -66,9 +61,7 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
         });
 
         var entity = rootEntity;
-        #if js
-        storage = new BrowserStorage();
-        #end
+        storage = new LocalStorage();
     }
 
     function bindRun(run:GameRun) {
@@ -105,11 +98,7 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
     }
 
     public function saveGame():Void {
-        #if sys
-        sys.io.File.saveContent("save.json", Json.stringify(rootEntity.getComponent(State).dump(), null, " "));
-        #else
         storage.saveValue("save.json", Json.stringify(rootEntity.getComponent(State).dump(), null, " "));
-        #end
     }
 
     public function loadGame():Void {
