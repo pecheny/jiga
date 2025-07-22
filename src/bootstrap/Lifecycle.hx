@@ -49,7 +49,7 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
         rootEntity.addComponentByType(Lifecycle, this);
         var kbinder = new utils.KeyBinder();
 
-        kbinder.addCommand(Keyboard.SPACE, () -> {
+        kbinder.addCommand(Keyboard.P, () -> {
             pause.pause(!pause.paused);
         });
         kbinder.addCommand(Keyboard.ESCAPE, () -> {
