@@ -1,5 +1,6 @@
 package loops.market;
 
+import bootstrap.Executor;
 import fu.Signal;
 import bootstrap.Activitor;
 import bootstrap.GameRunBase;
@@ -16,6 +17,7 @@ class MarketActivity extends GameRunBase implements ActHandler<MarketDesc> imple
 
     @:once var stats:ProgStats;
     @:once var exec:ExecCtx;
+    @:once var executor:Executor;
     @:once var gui:MarketGui;
     var data:MarketDesc;
     var items:Array<MarketItemRecord>;
@@ -46,6 +48,9 @@ class MarketActivity extends GameRunBase implements ActHandler<MarketDesc> imple
         stats.gld.value -= item.data.price;
         item.setState(sold);
         exec.addItem(item.data);
+        if (item.data.actions!=null)
+            for (act in item.data.actions)
+                executor.run(act);
         // todo this check available right in gui now, put it there
         for (mi in items)
             if (mi.state != sold)

@@ -17,10 +17,11 @@ interface MarketGuiModel {
 
 typedef MarketItem = {
     ?weapon:String,
-    ?lvl:Int,
     price:Int,
     ?actions:Array<CommandCall>,
     ?guards:Array<CommandCall>,
+    ?descr:String,
+    ?title:String
 }
 
 class MarketItemRecord {
