@@ -1,5 +1,6 @@
 package bootstrap;
 
+import openfl.ui.KeyLocation;
 import ec.PropertyComponent.FlagComponent;
 import update.UpdateBinder;
 import ec.CtxWatcher;
@@ -15,7 +16,6 @@ import storage.LocalStorage;
 
 using a2d.transform.LiquidTransformer;
 using al.Builder;
-
 
 interface Lifecycle {
     function newGame():Void;
@@ -37,6 +37,7 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
     var menu:Placeholder2D = Builder.widget();
     var gameOver:Placeholder2D = Builder.widget();
     var pause:Pause;
+
     public var hasActiveSession:FlagComponent = @:privateAccess new FlagComponent();
 
     public function new() {
@@ -59,9 +60,21 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
         kbinder.addCommand(Keyboard.A, () -> {
             ec.DebugInit.initCheck.dispatch(rootEntity);
         });
+        openfl.Lib.current.stage.addEventListener(openfl.events.KeyboardEvent.KEY_UP, onKeyUp);
 
         var entity = rootEntity;
         storage = new LocalStorage();
+    }
+
+    inline static var APP_CONTROL_BACK = 0x4000010E;
+
+    private function onKeyUp(e:openfl.events.KeyboardEvent):Void {
+        if (e.keyCode == APP_CONTROL_BACK) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            e.stopPropagation();
+            toggleMenu();
+        }
     }
 
     function bindRun(run:GameRun) {
