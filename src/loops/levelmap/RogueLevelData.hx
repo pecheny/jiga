@@ -43,7 +43,7 @@ class Level<TMove:Int, TRoom:(Room & fu.Serializable)> implements fu.Serializabl
     }
 
     public function canMove(dir:TMove) {
-        if (current < 0 || current > doors.length -1)
+        if (current < 0 || current > doors.length - 1)
             return false;
         return doors[current].exists(dir);
     }
@@ -57,7 +57,8 @@ class Level<TMove:Int, TRoom:(Room & fu.Serializable)> implements fu.Serializabl
 
     public function load(data:Dynamic) {
         rooms.resize(0);
-        if (data?.rooms?.length < 1)
+        var len = data?.rooms?.length;
+        if (len == null || len < 1)
             return;
 
         var roomsSerialized:Array<Dynamic> = data.rooms;
@@ -68,17 +69,19 @@ class Level<TMove:Int, TRoom:(Room & fu.Serializable)> implements fu.Serializabl
         }
         onChange.dispatch();
     }
-    
+
     public function isEmpty() {
         return rooms.length == 0;
     }
 
     public function dump():Dynamic {
-        var roomsSerialized = [for (r in rooms) {
-            var d = r.dump();
-            d.visited = r.visited.value;
-            d;
-        }];
+        var roomsSerialized = [
+            for (r in rooms) {
+                var d = r.dump();
+                d.visited = r.visited.value;
+                d;
+            }
+        ];
         Reflect.setField(data, "rooms", roomsSerialized);
     }
 }
