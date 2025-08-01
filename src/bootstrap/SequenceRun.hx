@@ -13,24 +13,18 @@ enum Runnable {
     Function(f:Void->Void);
 }
 
-class SequenceRun extends GameRunBase {
+class SequenceRun extends RunSwitcher {
     var checkers:Array<Void->CheckerResult> = [];
     var activities:Array<Runnable> = [];
     var current = 0;
-    var activitViewyTarget:WidgetSwitcher<Axis2D>;
-    var currentActivity:GameRun;
 
-    public function new(ctx, w, vtarg) {
-        super(ctx, w);
-        this.activitViewyTarget = vtarg;
-    }
 
     public function addChecker(ch:Void->CheckerResult) {
         checkers.push(ch);
     }
 
-    public function addActivity(a:GameRun) {
-        entity.addChild(a.entity);
+    public function addActivity(a:GameRunBase) {
+        a.injectFrom(entity);
         a.gameOvered.listen(turn);
         activities.push(Activity(a));
     }
@@ -77,8 +71,7 @@ class SequenceRun extends GameRunBase {
     function turn() {
         if (stop == check())
             return;
-
-        currentActivity = null;
+        switchTo(null);
         current++;
         if (current == activities.length)
             current = 0;
@@ -86,15 +79,11 @@ class SequenceRun extends GameRunBase {
 
         switch runnable {
             case Activity(activity):
-                currentActivity = activity;
-                activitViewyTarget.switchTo(activity.getView());
-                activity.reset();
-                activity.startGame();
+                switchTo(activity);
             case Function(f):
                 f();
                 turn();
         }
-
         // ?? listen forgot or listen all at add
     }
 
@@ -103,7 +92,7 @@ class SequenceRun extends GameRunBase {
     override function update(dt:Float) {
         if (current == -1)
             return;
-        currentActivity.update(dt);
+        super.update(dt);
         if (interruptFlag) {
             check();
             interruptFlag = false;
