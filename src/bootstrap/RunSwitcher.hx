@@ -7,29 +7,29 @@ class RunSwitcher extends GameRunBase {
     var activitViewyTarget:WidgetSwitcher<Axis2D>;
     var activity:GameRun;
 
+    public var relaunchAtBind:Bool = true;
+
     public function new(ctx, w, vtarg) {
         super(ctx, w);
         this.activitViewyTarget = vtarg;
     }
 
-    // должны быть варианты с ресетами и без
-    // main menu w/o reset
-    // ? property flag
-    
     public function switchTo(activity:GameRun) {
         unbind();
-        if(activity!=null)
+        if (activity != null)
             bind(activity);
     }
-    
+
     function bind(act:GameRun) {
         this.activity = act;
         entity.addChild(act.entity);
         activitViewyTarget.switchTo(activity.getView());
-        activity.reset();
-        activity.startGame();
+        if (relaunchAtBind) {
+            activity.reset();
+            activity.startGame();
+        }
     }
-    
+
     function unbind() {
         if (activity == null)
             return;
@@ -38,7 +38,7 @@ class RunSwitcher extends GameRunBase {
         this.activity = null;
         activitViewyTarget.switchTo(null);
     }
-    
+
     override function reset() {
         activity?.reset();
     }

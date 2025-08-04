@@ -48,7 +48,8 @@ using al.Builder;
 class BootstrapMain extends AbstractEngine {
     var fui = new FuiBuilder();
     var rootEntity:Entity;
-    var stateSwitcher:StateSwitcher;
+    var stateSwitcher:StateSwitcher; // there is a entry loop, check if it is actual
+    var runSwitcher:RunSwitcher;
 
     public function new() {
         super();
@@ -74,20 +75,30 @@ class BootstrapMain extends AbstractEngine {
 
         BaseDkit.inject(fui);
         // rootEntity.dispatchContext(rootEntity);
+
+        var wsw = rootEntity.getComponent(WidgetSwitcher);
+        runSwitcher = new RunSwitcher(rootEntity, wsw.ph, wsw);
+        runSwitcher.relaunchAtBind = false;
+        // todo maybe bind updater or make it accessible other way
+        @:privateAccess rootEntity.getComponent(UpdateBinder).updater.addUpdatable(runSwitcher);
+
         createRunWrapper();
         createRun();
     }
 
     function regTextProcessor() {}
 
+    @:deprecated
     function createRun() {}
 
+    @:deprecated
     function enterRun(run:GameRun) {
         run.entity.addComponentByType(GameRun, run);
         new CtxWatcher(GameRunBinder, run.entity);
         rootEntity.addChild(run.entity);
     }
 
+    @:deprecated
     function createRunWrapper() {
         new SimpleRunBinder(rootEntity, null);
     }
