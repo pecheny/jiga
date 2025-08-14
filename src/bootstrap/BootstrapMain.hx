@@ -59,21 +59,19 @@ class BootstrapMain extends AbstractEngine {
 
         var contLayouts = new ContainerStyler();
         root.addComponent(contLayouts);
-        dkitDefaultStyles();
-
+        BaseDkit.inject(fui);
         regTextProcessor();
         var uikit = new Uikit(fui);
         uikit.configure(root);
+        dkitDefaultStyles();
         uikit.createContainer(root);
         root.addComponentByType(fu.Uikit, uikit);
-
         textStyles();
         createFlashDisplay();
         initFui();
         createInput();
         iniUpdater();
 
-        BaseDkit.inject(fui);
         // rootEntity.dispatchContext(rootEntity);
 
         var wsw = rootEntity.getComponent(WidgetSwitcher);
