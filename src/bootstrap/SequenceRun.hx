@@ -34,9 +34,7 @@ class SequenceRun extends RunSwitcher {
     }
 
     override function startGame() {
-        // reset();
         turn();
-        trace("started");
     }
 
     public dynamic function afterReset() {}
