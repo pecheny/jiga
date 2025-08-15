@@ -11,7 +11,7 @@ import shimp.Point;
 
 class GameUIButtonTuple<TB:Axis<TB>> implements GameButtonsDispatcher<TB> implements InputSystemTarget<Point> {
     var hittester:WidgetHitTester2D;
-    var l:GameButtonsListener<TB>;
+    var targets:GameButtonsListeners<TB> = new GameButtonsListeners();
     var bts:Array<TB>;
 
     public function new(w:Placeholder2D, b:Array<TB>, basisName) {
@@ -23,22 +23,26 @@ class GameUIButtonTuple<TB:Axis<TB>> implements GameButtonsDispatcher<TB> implem
         new CtxWatcher(InputBinder, w.entity);
     }
 
-    public function setListener(l:GameButtonsListener<TB>) {
-        if (this.l != null && pressed)
-            onChange(false);
-        this.l = l;
-        if (this.l != null && pressed)
-            onChange(true);
+    public function addListener(l:GameButtonsListener<TB>) {
+        targets.push(l);
+        if (pressed)
+            onButtonDown(l);
     }
 
-    inline function onChange(v) {
-        if (this.l == null)
-            return;
+    public function removeListener(l:GameButtonsListener<TB>) {
+        targets.remove(l);
+        if (pressed)
+            onButtonUp(l);
+    }
+
+    inline function onButtonUp(l) {
         for (b in bts)
-            if (v)
-                l.onButtonDown(b);
-            else
-                l.onButtonUp(b);
+            targets.onButtonUp(b);
+    }
+
+    inline function onButtonDown(l) {
+        for (b in bts)
+            targets.onButtonDown(b);
     }
 
     public function setPos(pos:Point) {}
@@ -47,12 +51,14 @@ class GameUIButtonTuple<TB:Axis<TB>> implements GameButtonsDispatcher<TB> implem
 
     public function press() {
         pressed = true;
-        onChange(pressed);
+        for (l in targets.asArray())
+            onButtonDown(l);
     }
 
     public function release() {
         pressed = false;
-        onChange(pressed);
+        for (l in targets.asArray())
+            onButtonUp(l);
     }
 
     public function setActive(val:Bool) {

@@ -13,7 +13,7 @@ import shimp.Point;
 
 class GameUIButton<TB:Axis<TB>> implements GameButtonsDispatcher<TB> implements InputSystemTarget<Point> implements ClickViewProcessor {
     var hittester:WidgetHitTester2D;
-    var l:GameButtonsListener<TB>;
+    var targets:GameButtonsListeners<TB> = new GameButtonsListeners();
     var b:TB;
 
     var interactives:Array<ClickTargetViewState->Void> = [];
@@ -27,12 +27,16 @@ class GameUIButton<TB:Axis<TB>> implements GameButtonsDispatcher<TB> implements 
         new CtxWatcher(InputBinder, w.entity);
     }
 
-    public function setListener(l:GameButtonsListener<TB>) {
-        if (this.l != null && pressed)
-            this.l.onButtonUp(b);
-        this.l = l;
-        if (this.l != null && pressed)
-            this.l.onButtonDown(b);
+    public function addListener(l:GameButtonsListener<TB>) {
+        targets.push(l);
+        if (pressed)
+            l.onButtonDown(b);
+    }
+
+    public function removeListener(l:GameButtonsListener<TB>) {
+        targets.remove(l);
+        if (pressed)
+            l.onButtonUp(b);
     }
 
     public function setPos(pos:Point) {}
@@ -41,18 +45,18 @@ class GameUIButton<TB:Axis<TB>> implements GameButtonsDispatcher<TB> implements 
 
     public function press() {
         pressed = true;
-        l?.onButtonDown(b);
+        targets.onButtonDown(b);
     }
 
     public function release() {
         pressed = false;
-        l?.onButtonUp(b);
+        targets.onButtonUp(b);
     }
 
     public function setActive(val:Bool) {
         if (!val && pressed)
             release();
-        var state = val ? Hovered:Idle;
+        var state = val ? Hovered : Idle;
         changeViewState(state);
     }
 
@@ -63,10 +67,9 @@ class GameUIButton<TB:Axis<TB>> implements GameButtonsDispatcher<TB> implements 
     public function addHandler(h:ClickTargetViewState->Void):Void {
         interactives.push(h);
     }
-    
+
     public function changeViewState(st:ClickTargetViewState):Void {
         for (iv in interactives)
             iv(st);
     }
-
 }
