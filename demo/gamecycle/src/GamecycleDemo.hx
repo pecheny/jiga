@@ -1,5 +1,9 @@
 package;
 
+import fu.Serializable;
+import persistent.State;
+import al.core.DataView;
+import shell.MenuView;
 import dkit.Dkit.BaseDkit;
 import a2d.Placeholder2D;
 import al.ec.WidgetSwitcher;
@@ -13,34 +17,37 @@ import ec.Entity;
 import ec.Signal;
 import gameapi.GameRun;
 import gameapi.GameRunBinder;
+import shell.MenuItem.MenuData;
+import utils.MacroGenericAliasConverter as MGA;
 
 using al.Builder;
 using a2d.transform.LiquidTransformer;
 using a2d.transform.LiquidTransformer;
 
-
 class GamecycleDemo extends BootstrapMain {
     public function new() {
         super();
 
-        var ph = Builder.widget();
-        fui.makeClickInput(ph);
-
         var e = new Entity("run");
-        var sw = new WidgetSwitcher(ph);
-        var run = new SequenceRun(e, sw.widget(), sw);
-        run.addActivity(new OneButtonActivity(new Entity("wlc"), new WelcomeWidget(Builder.widget()))) ;
-        run.addActivity(new OneButtonActivity(new Entity("go"), new GameoverWidget(Builder.widget()))) ;
-        run.entity.addComponentByType(GameRun, run);
-        new CtxWatcher(GameRunBinder, run.entity);
-        rootEntity.addChild(run.entity);
+        var view = new GameView(Builder.widget());
+        var run = new Gameplay(e, view.ph);
+        run.entity.addComponent(view);
+        var state = new DemoState();
+        run.entity.addComponentByType(State, state);
+        run.entity.addComponent(state);
+
+        fui.makeClickInput(rootEntity.getComponent(WidgetSwitcher).ph);
+        var full = new shell.FullGame(new Entity(), Builder.widget(), rootEntity.getComponent(WidgetSwitcher), run);
+        full.menu.entity.addComponentByName(MGA.toAlias(DataView, MenuData), new MenuView(full.menu));
+        runSwitcher.switchTo(full);
+        full.reset();
+        full.startGame();
     }
 }
 
-
-
 class WelcomeWidget extends BaseDkit implements SelfClosingScreen {
     public var onDone:Signal<Void->Void> = new Signal();
+
     static var SRC = <welcome-widget vl={PortionLayout.instance}>
         <label(b().v(pfr, .2).b()) id="lbl"  text={ "Lets play!1" }  >
         </label>
@@ -54,6 +61,7 @@ class WelcomeWidget extends BaseDkit implements SelfClosingScreen {
 
 class GameoverWidget extends BaseDkit implements SelfClosingScreen {
     public var onDone:Signal<Void->Void> = new Signal();
+
     static var SRC = <gameover-widget vl={PortionLayout.instance}>
         <label(b().v(pfr, .2).b()) id="lbl"  text={ "Game Over" }  >
         </label>
