@@ -1,18 +1,18 @@
 package bootstrap;
 
-import openfl.ui.KeyLocation;
-import ec.PropertyComponent.FlagComponent;
-import update.UpdateBinder;
-import ec.CtxWatcher;
-import update.Updatable;
 import a2d.Placeholder2D;
-import bootstrap.SimpleRunBinder;
-import bootstrap.BootstrapMain;
-import ginp.Keyboard;
-import gameapi.GameRun;
 import al.ec.WidgetSwitcher;
+import bootstrap.BootstrapMain;
+import ec.CtxWatcher;
+import ec.PropertyComponent.FlagComponent;
+import gameapi.GameRun;
+import ginp.Keyboard;
 import haxe.Json;
+import openfl.ui.KeyLocation;
+import persistent.State;
 import storage.LocalStorage;
+import update.Updatable;
+import update.UpdateBinder;
 
 using a2d.transform.LiquidTransformer;
 using al.Builder;
@@ -24,11 +24,6 @@ interface Lifecycle {
     // function resume():Void;
     function toggleMenu():Void;
     var hasActiveSession:FlagComponent;
-}
-
-interface State {
-    public function load(state:Dynamic):Void;
-    public function dump():Dynamic;
 }
 
 class LifecycleImpl extends BootstrapMain implements Lifecycle {
@@ -98,7 +93,7 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
 
     public function onGameOver() {
         hasActiveSession.value = false;
-        rootEntity.removeChild(run.entity); // to prevent update() call on inconsistent run state.
+        // rootEntity.removeChild(run.entity); // to prevent update() call on inconsistent run state.
         rootEntity.getComponent(WidgetSwitcher).switchTo(gameOver);
     }
 
