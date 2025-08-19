@@ -12,4 +12,5 @@
     <haxelib name="openfl"/>
     <haxelib name="jiga"/>
 
+    <assets path="Assets" include="*" rename=""/>
 </project>

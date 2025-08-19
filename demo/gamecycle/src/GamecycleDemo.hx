@@ -1,28 +1,24 @@
 package;
 
-import fu.Serializable;
-import persistent.State;
 import al.core.DataView;
-import shell.MenuView;
-import dkit.Dkit.BaseDkit;
-import a2d.Placeholder2D;
 import al.ec.WidgetSwitcher;
-import al.layouts.PortionLayout;
 import bootstrap.BootstrapMain;
-import bootstrap.OneButtonActivity;
-import bootstrap.SelfClosingScreen;
-import bootstrap.SequenceRun;
-import ec.CtxWatcher;
 import ec.Entity;
-import ec.Signal;
-import gameapi.GameRun;
-import gameapi.GameRunBinder;
+import ginp.ButtonInputBinder;
+import ginp.ButtonOutputBinder;
+import ginp.ButtonSignals;
+import ginp.ButtonsMapper;
+import ginp.Keyboard;
+import ginp.presets.BasicGamepad;
+import ginp.presets.NavigationButtons;
+import persistent.State;
 import shell.MenuItem.MenuData;
+import shell.MenuView;
 import utils.MacroGenericAliasConverter as MGA;
 
+using a2d.transform.LiquidTransformer;
+using a2d.transform.LiquidTransformer;
 using al.Builder;
-using a2d.transform.LiquidTransformer;
-using a2d.transform.LiquidTransformer;
 
 class GamecycleDemo extends BootstrapMain {
     public function new() {
@@ -38,37 +34,25 @@ class GamecycleDemo extends BootstrapMain {
 
         fui.makeClickInput(rootEntity.getComponent(WidgetSwitcher).ph);
         var full = new shell.FullGame(new Entity(), Builder.widget(), rootEntity.getComponent(WidgetSwitcher), run);
+        createVerticalNavigation(full.menu.entity);
         full.menu.entity.addComponentByName(MGA.toAlias(DataView, MenuData), new MenuView(full.menu));
         runSwitcher.switchTo(full);
         full.reset();
         full.startGame();
     }
-}
-
-class WelcomeWidget extends BaseDkit implements SelfClosingScreen {
-    public var onDone:Signal<Void->Void> = new Signal();
-
-    static var SRC = <welcome-widget vl={PortionLayout.instance}>
-        <label(b().v(pfr, .2).b()) id="lbl"  text={ "Lets play!1" }  >
-        </label>
-        <button(b().v(pfr, .1).b())   text={ "Go!1" } onClick={onOkClick}  />
-    </welcome-widget>
-
-    function onOkClick() {
-        onDone.dispatch();
+    
+    override function createInput(){
+        var basic = new BasicGamepadInput();
+        basic.createKeyMapping([Keyboard.ESCAPE => start, Keyboard.LEFT => left, Keyboard.RIGHT => right, Keyboard.UP => up, Keyboard.DOWN =>down, Keyboard.SPACE => a]);
+		rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, BasicGamepadButtons), new ButtonInputBinder(MGA.toString(BasicGamepadButtons), basic));
+		rootEntity.addComponentByName(MGA.toAlias(ButtonOutputBinder, BasicGamepadButtons), new ButtonOutputBinder(MGA.toString(BasicGamepadButtons), basic));
     }
-}
-
-class GameoverWidget extends BaseDkit implements SelfClosingScreen {
-    public var onDone:Signal<Void->Void> = new Signal();
-
-    static var SRC = <gameover-widget vl={PortionLayout.instance}>
-        <label(b().v(pfr, .2).b()) id="lbl"  text={ "Game Over" }  >
-        </label>
-        <button(b().v(pfr, .1).b())   text={ "again" } onClick={onOkClick}  />
-    </gameover-widget>
-
-    function onOkClick() {
-        onDone.dispatch();
+    
+    function createVerticalNavigation(e:Entity) {
+        var input:ButtonsMapper<BasicGamepadButtons, NavigationButtons> = new ButtonsMapper([down => forward, up => backward, a=>confirm, start=>cancel]);
+        ButtonInputBinder.addListener(BasicGamepadButtons, e, input);
+        var buttonsToSignals = new ButtonSignals();
+        input.addListener(buttonsToSignals);
+        e.addComponentByName(MGA.toAlias(ButtonSignals, NavigationButtons), buttonsToSignals);
     }
 }
