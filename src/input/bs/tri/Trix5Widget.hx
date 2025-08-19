@@ -17,7 +17,7 @@ import ginp.api.GameButtonsDispatcher;
 import ginp.api.GameInputUpdater;
 import ginp.api.GameInputUpdaterBinder;
 import graphics.ShapesColorAssigner;
-import ginp.ButtonInputBinder;
+import ginp.ButtonOutputBinder;
 import input.GameUIButtonTuple;
 import shimp.MultiInputTarget;
 import shimp.Point;
@@ -51,9 +51,9 @@ class Trix5Widget extends BaseDkit {
     override public function initDkit() {
         super.initDkit();
         gb = new GameButtonsImpl<TriButtons>(TriButtons.aliases.length);
-        var bb = new ButtonInputBinder(MacroGenericAliasConverter.toString(TriButtons), gb);
+        var bb = new ButtonOutputBinder(MacroGenericAliasConverter.toString(TriButtons), gb);
         new CtxWatcher(GameInputUpdaterBinder, entity);
-        entity.addComponentByName(MacroGenericAliasConverter.toAlias(ButtonInputBinder, TriButtons), bb);
+        entity.addComponentByName(MacroGenericAliasConverter.toAlias(ButtonOutputBinder, TriButtons), bb);
         entity.addComponentByType(GameInputUpdater, gb);
         entity.addComponentByType(GameButtons, gb);
     }

@@ -1,5 +1,6 @@
 package input;
 
+import ginp.ButtonOutputBinder;
 import shimp.ClicksInputSystem.ClickTargetViewState;
 import fu.ui.ButtonBase.ClickViewProcessor;
 import a2d.Placeholder2D;
@@ -20,10 +21,12 @@ class GameUIButton<TB:Axis<TB>> implements GameButtonsDispatcher<TB> implements 
 
     public function new(w:Placeholder2D, b:TB, basisName) {
         this.b = b;
-        hittester = new WidgetHitTester2D(w); // share with possible view processor
+        hittester = new WidgetHitTester2D(w); //todo share with possible view processor
         w.entity.addComponentByType(InputSystemTarget, this);
-        w.entity.addComponentByName("GameButtonDispatcher_" + basisName, this);
-        new CtxWatcherBase("ButtonInputBinder_" + basisName, w.entity);
+        // ButtonOutputBinder.addDispatcher(TB, w.entity, this);
+        // todo waiting for generic axis type support
+        w.entity.addComponentByName(ButtonOutputBinder.DISPATCHER_PREFIX + basisName, this);
+        new CtxWatcherBase("ButtonOutputBinder_" + basisName, w.entity);
         new CtxWatcher(InputBinder, w.entity);
     }
 

@@ -10,7 +10,7 @@ import ecbind.MultiInputBinder;
 import fancy.widgets.GbuttonView;
 import fu.graphics.ColouredQuad.InteractiveColors;
 import fu.ui.CMSDFLabel;
-import ginp.ButtonInputBinder;
+import ginp.ButtonOutputBinder;
 import ginp.GameButtonsImpl;
 import ginp.api.GameButtons;
 import ginp.api.GameButtonsDispatcher;
@@ -54,9 +54,9 @@ class SimpleGpad extends BaseDkit {
     override public function initDkit() {
         super.initDkit();
         gb = new GameButtonsImpl<TriButtons>(TriButtons.aliases.length);
-        var bb = new ButtonInputBinder(MacroGenericAliasConverter.toString(TriButtons), gb);
+        var bb = new ButtonOutputBinder(MacroGenericAliasConverter.toString(TriButtons), gb);
         new CtxWatcher(GameInputUpdaterBinder, entity);
-        entity.addComponentByName(MacroGenericAliasConverter.toAlias(ButtonInputBinder, TriButtons), bb);
+        entity.addComponentByName(MacroGenericAliasConverter.toAlias(ButtonOutputBinder, TriButtons), bb);
         entity.addComponentByType(GameInputUpdater, gb);
         entity.addComponentByType(GameButtons, gb);
         createTouchSystem(ph);

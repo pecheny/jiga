@@ -4,6 +4,7 @@ import a2d.Placeholder2D;
 import al2d.WidgetHitTester2D;
 import ec.CtxWatcher;
 import ecbind.InputBinder;
+import ginp.ButtonOutputBinder;
 import ginp.api.GameButtonsDispatcher;
 import ginp.api.GameButtonsListener;
 import shimp.InputSystem.InputSystemTarget;
@@ -18,8 +19,10 @@ class GameUIButtonTuple<TB:Axis<TB>> implements GameButtonsDispatcher<TB> implem
         this.bts = b;
         hittester = new WidgetHitTester2D(w); // share with possible view processor
         w.entity.addComponentByType(InputSystemTarget, this);
-        w.entity.addComponentByName("GameButtonDispatcher_" + basisName, this);
-        new CtxWatcherBase("ButtonInputBinder_" + basisName, w.entity);
+        // ButtonOutputBinder.addDispatcher(TB, w.entity, this);
+        // todo waiting for generic axis type support
+        w.entity.addComponentByName(ButtonOutputBinder.DISPATCHER_PREFIX + basisName, this);
+        new CtxWatcherBase("ButtonOutputBinder_" + basisName, w.entity);
         new CtxWatcher(InputBinder, w.entity);
     }
 

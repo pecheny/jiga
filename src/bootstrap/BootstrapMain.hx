@@ -31,7 +31,7 @@ import gl.passes.FlatColorPass;
 import gl.passes.ImagePass;
 import gl.passes.MsdfPass;
 import htext.style.TextContextBuilder;
-import ginp.ButtonInputBinder;
+import ginp.ButtonOutputBinder;
 import loops.bounce.BouncingLoop;
 import loops.bounce.BouncingTimeline.MyWeaponFac;
 import loops.bounce.gui.BouncingWidget;
@@ -144,7 +144,7 @@ class BootstrapMain extends AbstractEngine {
         rootEntity.addComponentByType(GameButtons, input);
         rootEntity.addComponent(input);
         // listen for gui buttons dispatchers
-        rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, OneButton), new ButtonInputBinder(MGA.toString(OneButton), input.buttonListener));
+        rootEntity.addComponentByName(MGA.toAlias(ButtonOutputBinder, OneButton), new ButtonOutputBinder(MGA.toString(OneButton), input.buttonListener));
     }
 
     function createGameplaySimple() {
