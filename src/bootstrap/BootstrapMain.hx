@@ -1,5 +1,6 @@
 package bootstrap;
 
+import backends.lime.MouseRoot;
 import fu.Uikit;
 import dkit.Dkit.BaseDkit;
 import gl.passes.CmsdfPass;
@@ -127,7 +128,7 @@ class BootstrapMain extends AbstractEngine {
         var ar = fui.ar;
         var mibinder = new MultiInputBinder();
         var mroot = new MultitouchRoot(mibinder, ar.getAspectRatio());
-        var root = new InputRoot(new InputToMultiTarget(mibinder, -1), ar.getAspectRatio());
+        var root = new MouseRoot(new InputToMultiTarget(mibinder, -1), ar);
         rootEntity.addComponent(mibinder);
     }
 
