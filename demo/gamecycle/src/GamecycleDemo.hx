@@ -1,5 +1,6 @@
 package;
 
+import input.FocusManager.LinearFocusManager;
 import input.ClickEmulator;
 import al.core.DataView;
 import al.ec.WidgetSwitcher;
@@ -58,6 +59,7 @@ class GamecycleDemo extends BootstrapMain {
     }
 
     function createVerticalNavigation(e:Entity) {
+        new LinearFocusManager(e);
         var input:ButtonsMapper<BasicGamepadButtons, NavigationButtons> = new ButtonsMapper([down => forward, up => backward, a => confirm, start => cancel]);
         ButtonInputBinder.addListener(BasicGamepadButtons, e, input);
         var buttonsToSignals = new ButtonSignals();

@@ -13,7 +13,9 @@ class WidgetFocus extends Widget implements FocusDispatcher {
     public function new(ph) {
         super(ph);
         ph.entity.addComponentByType(FocusDispatcher, this);
+        ph.entity.addComponent(this);
         new CtxWatcher(FocusInputRoot, entity);
+        new CtxWatcher(FocusManager, entity);
     }
     
     public function focus() {
