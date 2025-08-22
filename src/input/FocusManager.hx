@@ -9,6 +9,8 @@ import ginp.presets.NavigationButtons;
 interface FocusManager extends CtxBinder {}
 
 class LinearFocusManager implements FocusManager extends Component {
+    public var loop:Bool = true;
+
     var buttons:Array<WidgetFocus> = [];
     @:once(gen) var input:ButtonSignals<NavigationButtons>;
 
@@ -36,7 +38,10 @@ class LinearFocusManager implements FocusManager extends Component {
 
     function gotoButton(delta:Int) {
         activeButton += delta;
-        activeButton = utils.Mathu.clamp(activeButton, 0, buttons.length - 1);
+        if (loop)
+            activeButton = (activeButton + buttons.length) % buttons.length; // assuming delta magnitude not greater number of buttons, sum for cases activeButton < 0 
+        else
+            activeButton = utils.Mathu.clamp(activeButton, 0, buttons.length - 1);
         buttons[activeButton].focus();
     }
 
