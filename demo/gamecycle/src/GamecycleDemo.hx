@@ -1,6 +1,6 @@
 package;
 
-import input.FocusManager.LinearFocusManager;
+import fu.input.FocusManager.LinearFocusManager;
 import input.ClickEmulator;
 import al.core.DataView;
 import al.ec.WidgetSwitcher;
@@ -8,11 +8,8 @@ import bootstrap.BootstrapMain;
 import ec.Entity;
 import ginp.ButtonInputBinder;
 import ginp.ButtonOutputBinder;
-import ginp.ButtonSignals;
-import ginp.ButtonsMapper;
 import ginp.Keyboard;
 import ginp.presets.BasicGamepad;
-import ginp.presets.NavigationButtons;
 import persistent.State;
 import shell.MenuItem.MenuData;
 import shell.MenuView;
@@ -38,7 +35,7 @@ class GamecycleDemo extends BootstrapMain {
         rootEntity.addChild(createClickEmulator(new Entity("click emulator")));
 
         var full = new shell.FullGame(new Entity(), Builder.widget(), rootEntity.getComponent(WidgetSwitcher), run);
-        createVerticalNavigation(full.menu.entity);
+        fui.createVerticalNavigation(full.menu.entity);
         full.menu.entity.addComponentByName(MGA.toAlias(DataView, MenuData), new MenuView(full.menu));
         runSwitcher.switchTo(full);
         full.reset();
@@ -58,12 +55,4 @@ class GamecycleDemo extends BootstrapMain {
         return e;
     }
 
-    function createVerticalNavigation(e:Entity) {
-        new LinearFocusManager(e);
-        var input:ButtonsMapper<BasicGamepadButtons, NavigationButtons> = new ButtonsMapper([down => forward, up => backward, a => confirm, start => cancel]);
-        ButtonInputBinder.addListener(BasicGamepadButtons, e, input);
-        var buttonsToSignals = new ButtonSignals();
-        input.addListener(buttonsToSignals);
-        e.addComponentByName(MGA.toAlias(ButtonSignals, NavigationButtons), buttonsToSignals);
-    }
 }

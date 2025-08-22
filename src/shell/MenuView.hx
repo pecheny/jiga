@@ -2,7 +2,7 @@ package shell;
 
 import fu.Signal;
 import fu.input.FocusInputRoot.ClickDispatcher;
-import input.WidgetFocus;
+import fu.input.WidgetFocus;
 import shell.MenuItem;
 import fu.ui.ButtonEnabled;
 import dkit.Dkit.BaseDkit;
