@@ -1,4 +1,4 @@
-# @install: lix --silent download "gh://github.com/pecheny/fancy#169b7a5364e2612c4f0715568d67568da5f8fdd2" into fancy/1.0.0/github/169b7a5364e2612c4f0715568d67568da5f8fdd2
+# @install: lix --silent download "gh://github.com/pecheny/fancy#fb515f745f56726350befd31d1e9d5955171b142" into fancy/1.0.0/github/fb515f745f56726350befd31d1e9d5955171b142
 -lib alayout
 -lib domkit
 -lib flgl
@@ -8,5 +8,5 @@
 -lib shimp
 -lib slec
 -lib taxis
--cp ${HAXE_LIBCACHE}/fancy/1.0.0/github/169b7a5364e2612c4f0715568d67568da5f8fdd2/src
+-cp ${HAXE_LIBCACHE}/fancy/1.0.0/github/fb515f745f56726350befd31d1e9d5955171b142/src
 -D fancy=1.0.0

@@ -35,7 +35,9 @@ class GamecycleDemo extends BootstrapMain {
         rootEntity.addChild(createClickEmulator(new Entity("click emulator")));
 
         var full = new shell.FullGame(new Entity(), Builder.widget(), rootEntity.getComponent(WidgetSwitcher), run);
-        fui.createVerticalNavigation(full.menu.entity);
+        new LinearFocusManager(full.menu.entity);
+        fui.createVerticalNavigationSignals(full.menu.entity);
+
         full.menu.entity.addComponentByName(MGA.toAlias(DataView, MenuData), new MenuView(full.menu));
         runSwitcher.switchTo(full);
         full.reset();
@@ -44,7 +46,14 @@ class GamecycleDemo extends BootstrapMain {
 
     override function createInput() {
         var basic = new BasicGamepadInput();
-        basic.createKeyMapping([Keyboard.ESCAPE => start, Keyboard.LEFT => left, Keyboard.RIGHT => right, Keyboard.UP => up, Keyboard.DOWN =>down, Keyboard.SPACE => a]);
+        basic.createKeyMapping([
+            Keyboard.ESCAPE => start,
+            Keyboard.LEFT => left,
+            Keyboard.RIGHT => right,
+            Keyboard.UP => up,
+            Keyboard.DOWN => down,
+            Keyboard.SPACE => a
+        ]);
         rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, BasicGamepadButtons), new ButtonInputBinder(MGA.toString(BasicGamepadButtons), basic));
         rootEntity.addComponentByName(MGA.toAlias(ButtonOutputBinder, BasicGamepadButtons), new ButtonOutputBinder(MGA.toString(BasicGamepadButtons), basic));
     }
@@ -54,5 +63,4 @@ class GamecycleDemo extends BootstrapMain {
         ButtonInputBinder.addListener(BasicGamepadButtons, e, clicks);
         return e;
     }
-
 }

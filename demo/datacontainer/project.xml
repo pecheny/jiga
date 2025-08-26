@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+
+    <meta title="Sample" package="shoo.demo" version="1.0.0" company="shoo"/>
+    <app main="DataContainerDemo" />
+
+    <window antialiasing="4"/>
+    <window background="#303030" fps="60" />
+    <window background="#303030" fps="60" width="800" height="400" unless="html5"/>
+    <source path="src"/>
+
+    <haxelib name="openfl"/>
+    <haxelib name="jiga"/>
+</project>
