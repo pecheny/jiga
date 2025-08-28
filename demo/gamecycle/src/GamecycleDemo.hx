@@ -35,10 +35,8 @@ class GamecycleDemo extends BootstrapMain {
         rootEntity.addChild(createClickEmulator(new Entity("click emulator")));
 
         var full = new shell.FullGame(new Entity(), Builder.widget(), rootEntity.getComponent(WidgetSwitcher), run);
-        new LinearFocusManager(full.menu.entity);
-        fui.createVerticalNavigationSignals(full.menu.entity);
 
-        full.menu.entity.addComponentByName(MGA.toAlias(DataView, MenuData), new MenuView(full.menu));
+
         runSwitcher.switchTo(full);
         full.reset();
         full.startGame();
