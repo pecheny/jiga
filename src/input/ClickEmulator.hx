@@ -10,6 +10,7 @@ import fu.input.FocusInputRoot.ClickDispatcher;
 class ClickEmulator<T:Axis<T>> implements ClickDispatcher implements GameButtonsListener<T> {
     public var press(default, null):Signal<Void->Void> = new Signal();
     public var release(default, null):Signal<Void->Void> = new Signal();
+    var pressed = false;
 
     var button:T;
 
@@ -22,12 +23,16 @@ class ClickEmulator<T:Axis<T>> implements ClickDispatcher implements GameButtons
     public function reset() {}
 
     public function onButtonDown(b:T) {
-        if (button == b)
+        if (button == b) {
+            pressed = true;
             press.dispatch();
+        }
     }
     public function onButtonUp(b:T) {
-        if (button == b)
+        if (button == b && pressed) {
+            pressed = false;
             release.dispatch();
+        }
     }
 
 }
