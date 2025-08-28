@@ -8,7 +8,7 @@ import ginp.presets.NavigationButtons;
 import shell.MenuItem.MenuData;
 
 class MenuActivity extends GameRunBase {
-    @:once(gen) var view:DataView<MenuData>;
+    @:once(gen) public var view:DataView<MenuData>;
     @:once var fui:FuiBuilder;
     var data:MenuData;
 
@@ -19,7 +19,6 @@ class MenuActivity extends GameRunBase {
 
     override function init() {
         super.init();
-        fui.makeClickInput(w);
         if (data != null)
             initData(data);
     }

@@ -1,57 +1,73 @@
 package shell;
 
 import al.Builder;
-import fu.Signal;
-import shell.MenuItem.MenuData;
-import persistent.State;
-import ec.Entity;
-import gameapi.GameRun;
-import a2d.Placeholder2D;
-import bootstrap.SequenceRun;
-import storage.Storage;
-import storage.LocalStorage;
-import persistent.StorageStateManager;
-import persistent.AssetStateLoader;
 import bootstrap.GameRunBase;
+import bootstrap.RunSwitcher;
+import ec.Component;
+import ec.Entity;
+import fu.Signal;
+import gameapi.GameRun;
+import input.EscButton.EscGameButton;
+import openfl.system.System;
+import persistent.AssetStateLoader;
+import persistent.State;
+import shell.MenuBuilder;
 
-// activity, containing main menu and game session
-class FullGame extends SequenceRun {
-    public var menu(default, null):Placeholder2D;
+class FullGame extends RunSwitcher {
     public var onNewLoaded(default, null):Signal<Void->Void> = new Signal();
+    public var gameMenu(default, null):MenuBuilder;
+    public var mainMenu(default, null):MenuBuilder;
+    public var gameplay(default, null):GameRun;
 
-    var ma:MenuActivity;
-    var menuData:MenuData = [];
+    var presets:AssetStateLoader;
 
     public function new(ctx, w, vtarg, gameplay:GameRunBase) {
         super(ctx, w, vtarg);
-        menu = Builder.widget();
-        ma = new MenuActivity(new Entity("main menu"), menu);
-        addActivity(ma);
-        addActivity(gameplay);
+        this.gameplay = gameplay;
+        initPersistentStorage();
+        initMainMenu();
+        initGameMenu();
+        new EscGameButton(gameplay.entity, gameMenu.show);
+    }
+
+    override function startGame() {
+        mainMenu.show();
+    }
+
+    function initPersistentStorage() {
         var state = gameplay.entity.getComponent(State);
         entity.addComponentByType(State, state);
-        createManagement();
-    }
-
-    public function createManagement() {
-        entity.addComponentByType(Storage, new LocalStorage());
-        var presets = new AssetStateLoader(entity);
+        presets = new AssetStateLoader(entity);
         presets.onLoaded.listen(onNewStateLoaded);
-        menuData.push({caption: "New game", handler: () -> presets.load()});
-        var saves = new StorageStateManager(entity);
-        saves.onLoaded.listen(onStateLoaded);
-        menuData.push({caption: "Load game", handler: () -> saves.load()});
-        ma.initData(menuData);
     }
 
-    // state loaded from template after call newGame()
+    function initMainMenu() {
+        mainMenu = new MenuBuilder(this, new MenuActivity(new Entity("main menu"), Builder.widget()));
+        mainMenu.addButton({caption: "new game", handler: () -> presets.load()});
+        #if sys
+        mainMenu.addButton({caption: "exit", handler: () -> System.exit(0)});
+        #end
+    }
+
+    function initGameMenu() {
+        gameMenu = new MenuBuilder(this, new MenuActivity(new Entity("main menu"), Builder.widget()));
+        gameMenu.addButton({caption: "back to game", handler: () -> switchTo(gameplay)});
+        gameMenu.addButton({caption: "exit to menu", handler: quitGameplay});
+        new EscGameButton(gameMenu.activity.entity, () -> switchTo(gameplay));
+    }
+
+    function quitGameplay() {
+        mainMenu.show();
+    }
+
+    function initSavesFacility() {}
+
     function onNewStateLoaded() {
         onNewLoaded.dispatch();
-        ma.gameOvered.dispatch();
+        launch();
     }
 
-    // after loadGame
-    function onStateLoaded() {
-        ma.gameOvered.dispatch();
+    function launch() {
+        switchTo(gameplay);
     }
 }
