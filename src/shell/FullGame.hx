@@ -3,7 +3,6 @@ package shell;
 import al.Builder;
 import bootstrap.GameRunBase;
 import bootstrap.RunSwitcher;
-import ec.Component;
 import ec.Entity;
 import fu.Signal;
 import gameapi.GameRun;
@@ -24,26 +23,26 @@ class FullGame extends RunSwitcher {
     public function new(ctx, w, vtarg, gameplay:GameRunBase) {
         super(ctx, w, vtarg);
         this.gameplay = gameplay;
-        initPersistentStorage();
         initMainMenu();
         initGameMenu();
         new EscGameButton(gameplay.entity, gameMenu.show);
+    }
+
+    public function addStateLoader(loader:StateLoader) {
+        loader.onLoaded.listen(launch);
     }
 
     override function startGame() {
         mainMenu.show();
     }
 
-    function initPersistentStorage() {
-        var state = gameplay.entity.getComponent(State);
-        entity.addComponentByType(State, state);
-        presets = new AssetStateLoader(entity);
-        presets.onLoaded.listen(onNewStateLoaded);
+    public dynamic function newGame() {
+        launch();
     }
 
     function initMainMenu() {
         mainMenu = new MenuBuilder(this, new MenuActivity(new Entity("main menu"), Builder.widget()));
-        mainMenu.addButton({caption: "new game", handler: () -> presets.load()});
+        mainMenu.addButton({caption: "new game", handler: newGame});
         #if sys
         mainMenu.addButton({caption: "exit", handler: () -> System.exit(0)});
         #end
@@ -58,13 +57,6 @@ class FullGame extends RunSwitcher {
 
     function quitGameplay() {
         mainMenu.show();
-    }
-
-    function initSavesFacility() {}
-
-    function onNewStateLoaded() {
-        onNewLoaded.dispatch();
-        launch();
     }
 
     function launch() {

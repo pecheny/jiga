@@ -1,5 +1,6 @@
 package;
 
+import persistent.AssetStateLoader;
 import fu.input.FocusManager.LinearFocusManager;
 import input.ClickEmulator;
 import al.core.DataView;
@@ -30,17 +31,26 @@ class GamecycleDemo extends BootstrapMain {
         var state = new DemoState();
         run.entity.addComponentByType(State, state);
         run.entity.addComponent(state);
-
+        
         fui.makeClickInput(rootEntity.getComponent(WidgetSwitcher).ph);
         rootEntity.addChild(createClickEmulator(new Entity("click emulator")));
 
         var full = new shell.FullGame(new Entity(), Builder.widget(), rootEntity.getComponent(WidgetSwitcher), run);
 
+        // ==== load data preset for new game
+        var presetLoader = new AssetStateLoader(state);
+        // presetLoader.dataLoadedHook = data -> {
+        //     data.started = true;
+        //     data;
+        // }
+        full.addStateLoader(presetLoader);
+        full.newGame = () -> presetLoader.load;
 
         runSwitcher.switchTo(full);
         full.reset();
         full.startGame();
     }
+    
 
     override function createInput() {
         var basic = new BasicGamepadInput();
