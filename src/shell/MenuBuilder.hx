@@ -14,8 +14,11 @@ class MenuBuilder {
         this.activity = run;
     }
 
-    public function addButton(desc:MenuItem) {
-        data.push(desc);
+    public function addButton(desc:MenuItem, at = -1) {
+        if (at > -1)
+            data.insert(at, desc);
+        else
+            data.push(desc);
     }
 
     function initMenu() {

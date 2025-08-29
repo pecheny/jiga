@@ -51,8 +51,8 @@ class GamecycleDemo extends BootstrapMain {
         var storage = new LocalStorage();
         var saves = new StorageStateManager(storage, state);
         full.addStateLoader(saves);
-        full.mainMenu.addButton({caption:"load", handler:saves.load, enabled:saves.hasValue});
-        full.gameMenu.addButton({caption:"save", handler:saves.save});
+        full.mainMenu.addButton({caption:"load", handler:saves.load, enabled:saves.hasValue}, 1);
+        full.gameMenu.addButton({caption:"save", handler:saves.save}, 0);
         var gameOver = full.gameOver;
         full.gameOver = () -> {
             trace("del");
