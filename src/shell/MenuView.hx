@@ -15,12 +15,12 @@ class MenuView extends BaseDkit implements DataView<MenuData> {
     static var SRC = <menu-view>
         <data-container(b().v(pfr, 1).b()) public  id="cardsContainer"   itemFactory={cardFactory} layouts={GuiStyles.L_VERT_BUTTONS }/>
     </menu-view>
-    
+
     override function initDkit() {
         super.initDkit();
         new LinearFocusManager(entity);
         fui.createVerticalNavigationSignals(entity);
-        entity.addComponentByName(MGA.toAlias(DataView, MenuData),this);
+        entity.addComponentByName(MGA.toAlias(DataView, MenuData), this);
     }
 
     public function initData(descr:Array<MenuItem>) {
@@ -44,10 +44,9 @@ class MenuButton extends BaseDkit implements DataView<MenuItem> {
     public function initData(descr:MenuItem) {
         btn.text = descr.caption;
         btn.onClick = descr.handler;
-        EnabledProp.getOrCreate(btn.entity).value =
-        if (descr.enabled!=null)
-            descr.enabled()
-        else
-            true;
+        var ep = EnabledProp.getOrCreate(btn.entity);
+        if (!entity.hasComponent(EnabledProp))
+            entity.addComponent(ep);
+        ep.value = if (descr.enabled != null) descr.enabled() else true;
     }
 }
