@@ -1,5 +1,6 @@
 package shell;
 
+import fu.ui.Properties.EnabledProp;
 import fu.input.FocusManager.LinearFocusManager;
 import fu.Signal;
 import fu.input.FocusInputRoot.ClickDispatcher;
@@ -37,11 +38,16 @@ class MenuButton extends BaseDkit implements DataView<MenuItem> {
 
     static var SRC = <menu-button >
         ${focus = new WidgetFocus(__this__.ph)}
-        <button(b().b()) public id="btn" />
+        <button(b().b()) enabled={false} public id="btn" />
     </menu-button>
 
     public function initData(descr:MenuItem) {
         btn.text = descr.caption;
         btn.onClick = descr.handler;
+        EnabledProp.getOrCreate(btn.entity).value =
+        if (descr.enabled!=null)
+            descr.enabled()
+        else
+            true;
     }
 }

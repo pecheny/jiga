@@ -2,7 +2,8 @@ package shell;
 
 typedef MenuItem = {
     caption:String,
-    handler:Void->Void
+    handler:Void->Void,
+    ?enabled:Void->Bool,
 }
 
 typedef MenuData = Array<MenuItem>
