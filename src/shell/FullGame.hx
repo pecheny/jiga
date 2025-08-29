@@ -23,6 +23,7 @@ class FullGame extends RunSwitcher {
     public function new(ctx, w, vtarg, gameplay:GameRunBase) {
         super(ctx, w, vtarg);
         this.gameplay = gameplay;
+        gameplay.gameOvered.listen(() -> gameOver());
         initMainMenu();
         initGameMenu();
         new EscGameButton(gameplay.entity, gameMenu.show);
@@ -38,6 +39,10 @@ class FullGame extends RunSwitcher {
 
     public dynamic function newGame() {
         launch();
+    }
+
+    public dynamic function gameOver() {
+        mainMenu.show();
     }
 
     function initMainMenu() {
