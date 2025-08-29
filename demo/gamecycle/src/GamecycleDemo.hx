@@ -1,5 +1,7 @@
 package;
 
+import storage.LocalStorage;
+import persistent.StorageStateManager;
 import persistent.AssetStateLoader;
 import fu.input.FocusManager.LinearFocusManager;
 import input.ClickEmulator;
@@ -45,6 +47,18 @@ class GamecycleDemo extends BootstrapMain {
         // }
         full.addStateLoader(presetLoader);
         full.newGame = () -> presetLoader.load;
+        
+        var storage = new LocalStorage();
+        var saves = new StorageStateManager(storage, state);
+        full.addStateLoader(saves);
+        full.mainMenu.addButton({caption:"load", handler:saves.load, enabled:saves.hasValue});
+        full.gameMenu.addButton({caption:"save", handler:saves.save});
+        var gameOver = full.gameOver;
+        full.gameOver = () -> {
+            trace("del");
+            saves.delete();
+            gameOver();
+        }
 
         runSwitcher.switchTo(full);
         full.reset();
