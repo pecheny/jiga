@@ -34,7 +34,6 @@ class StorageStateManager implements StateLoader {
 
     public function hasValue() {
         var stdata = storage.getValue(name, null);
-        trace("check", stdata);
         return stdata != null;
     }
 }

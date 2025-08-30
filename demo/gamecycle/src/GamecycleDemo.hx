@@ -18,8 +18,6 @@ import shell.MenuItem.MenuData;
 import shell.MenuView;
 import utils.MacroGenericAliasConverter as MGA;
 
-using a2d.transform.LiquidTransformer;
-using a2d.transform.LiquidTransformer;
 using al.Builder;
 
 class GamecycleDemo extends BootstrapMain {
@@ -46,7 +44,7 @@ class GamecycleDemo extends BootstrapMain {
         //     data;
         // }
         full.addStateLoader(presetLoader);
-        full.newGame = () -> presetLoader.load;
+        full.newGame = () -> presetLoader.load();
 
         // ==== add game saves
         var storage = new LocalStorage();
@@ -65,9 +63,4 @@ class GamecycleDemo extends BootstrapMain {
         full.startGame();
     }
 
-    function createClickEmulator(e) {
-        var clicks = new ClickEmulator(e, BasicGamepadButtons.a);
-        ButtonInputBinder.addListener(BasicGamepadButtons, e, clicks);
-        return e;
-    }
 }

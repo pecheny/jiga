@@ -1,14 +1,6 @@
 package bootstrap;
 
-import ginp.ButtonsMapper;
-import ginp.Keyboard;
-import ginp.presets.BasicGamepad.BasicGamepadInput;
-import backends.lime.MouseRoot;
-import fu.Uikit;
-import dkit.Dkit.BaseDkit;
-import gl.passes.CmsdfPass;
-import gl.aspects.ExtractionUtils.TextureAspectFactory;
-import htext.FontAspectsFactory;
+import a2d.ContainerStyler;
 import a2d.Placeholder2D;
 import al.ec.WidgetSwitcher;
 import al.layouts.PortionLayout;
@@ -16,31 +8,27 @@ import al.layouts.WholefillLayout;
 import al.layouts.data.LayoutData;
 import al.openfl.StageAspectResizer;
 import al.openfl.display.FlashDisplayRoot;
+import backends.lime.MouseRoot;
 import backends.lime.MultitouchRoot;
-import backends.openfl.OpenflBackend;
+import dkit.Dkit.BaseDkit;
 import ec.CtxWatcher;
 import ec.Entity;
 import ecbind.MultiInputBinder;
-import a2d.ContainerStyler;
 import fu.PropStorage;
+import fu.Uikit;
 import gameapi.GameRun;
 import gameapi.GameRunBinder;
-import ginp.GameButtonsImpl;
-import ginp.presets.BasicGamepad;
-
-import ginp.api.GameButtons;
 import ginp.ButtonInputBinder;
 import ginp.ButtonOutputBinder;
-
-import ginp.api.GameInputUpdater;
+import ginp.ButtonsMapper;
+import ginp.GameButtonsImpl;
+import ginp.Keyboard;
+import ginp.api.GameButtons;
 import ginp.api.GameInputUpdaterBinder;
+import ginp.presets.BasicGamepad;
 import ginp.presets.OneButton;
-import ginp.presets.OneButtonInput;
-import gl.passes.FlatColorPass;
-import gl.passes.ImagePass;
-import gl.passes.MsdfPass;
 import htext.style.TextContextBuilder;
-import ginp.ButtonOutputBinder;
+import input.ClickEmulator;
 import loops.bounce.BouncingLoop;
 import loops.bounce.BouncingTimeline.MyWeaponFac;
 import loops.bounce.gui.BouncingWidget;
@@ -53,6 +41,7 @@ import utils.MacroGenericAliasConverter as MGA;
 
 using a2d.transform.LiquidTransformer;
 using al.Builder;
+
 
 class BootstrapMain extends AbstractEngine {
     var fui = new FuiBuilder();
@@ -169,6 +158,12 @@ class BootstrapMain extends AbstractEngine {
         // listen for gui buttons dispatchers
         rootEntity.addComponentByName(MGA.toAlias(ButtonOutputBinder, OneButton), new ButtonOutputBinder(OneButton.basisTypeName(), oneButton));
         rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, OneButton), new ButtonInputBinder(OneButton.basisTypeName(), oneButton));
+    }
+    
+    function createClickEmulator(e) {
+        var clicks = new ClickEmulator(e, BasicGamepadButtons.a);
+        ButtonInputBinder.addListener(BasicGamepadButtons, e, clicks);
+        return e;
     }
 
     function createGameplaySimple() {

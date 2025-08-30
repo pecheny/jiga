@@ -44,12 +44,6 @@ class DataContainerDemo extends BootstrapMain {
         rootEntity.addComponentByName(MGA.toAlias(ButtonOutputBinder, BasicGamepadButtons), new ButtonOutputBinder(MGA.toString(BasicGamepadButtons), basic));
     }
 
-    function createClickEmulator(e) {
-        var clicks = new ClickEmulator(e, BasicGamepadButtons.a);
-        ButtonInputBinder.addListener(BasicGamepadButtons, e, clicks);
-        return e;
-    }
-
 }
 
 class DomkitSampleWidget extends BaseDkit {
