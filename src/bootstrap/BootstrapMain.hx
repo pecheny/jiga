@@ -1,5 +1,8 @@
 package bootstrap;
 
+import ginp.ButtonsMapper;
+import ginp.Keyboard;
+import ginp.presets.BasicGamepad.BasicGamepadInput;
 import backends.lime.MouseRoot;
 import fu.Uikit;
 import dkit.Dkit.BaseDkit;
@@ -23,7 +26,12 @@ import fu.PropStorage;
 import gameapi.GameRun;
 import gameapi.GameRunBinder;
 import ginp.GameButtonsImpl;
+import ginp.presets.BasicGamepad;
+
 import ginp.api.GameButtons;
+import ginp.ButtonInputBinder;
+import ginp.ButtonOutputBinder;
+
 import ginp.api.GameInputUpdater;
 import ginp.api.GameInputUpdaterBinder;
 import ginp.presets.OneButton;
@@ -56,6 +64,7 @@ class BootstrapMain extends AbstractEngine {
         super();
         var root = rootEntity = new Entity("root");
         setWindowPosition();
+        // lime.app.Application.current.window.onRenderContextLost.add(() -> trace("lime app context lost")); -- doesnt work
         // regDrawcals();
 
         var contLayouts = new ContainerStyler();
@@ -136,16 +145,30 @@ class BootstrapMain extends AbstractEngine {
         Creates and binds GameInput. By default it is OneButton, supposed to override for exact buttons and axis set. 
     **/
     function createInput() {
-        var kbd = rootEntity.addComponentByType(ginp.api.KbdDispatcher, new openfl.OflKbd());
-        var input = new OneButtonInput();
-        var gk = input.createKeyMapping([ginp.Keyboard.SPACE => OneButton.button]);
-        kbd.addListener(gk);
+        var basic = new BasicGamepadInput();
+        basic.createKeyMapping([
+            Keyboard.ESCAPE => start,
+            Keyboard.LEFT => left,
+            Keyboard.RIGHT => right,
+            Keyboard.UP => up,
+            Keyboard.DOWN => down,
+            Keyboard.SPACE => a
+        ]);
+        rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, BasicGamepadButtons), new ButtonInputBinder(BasicGamepadButtons.basisTypeName(), basic));
+        rootEntity.addComponentByName(MGA.toAlias(ButtonOutputBinder, BasicGamepadButtons), new ButtonOutputBinder(BasicGamepadButtons.basisTypeName(), basic));
+        rootEntity.addComponentByName(MGA.toAlias(GameButtons, BasicGamepadButtons), basic);
 
-        rootEntity.addComponentByType(GameInputUpdater, input);
-        rootEntity.addComponentByType(GameButtons, input);
-        rootEntity.addComponent(input);
+
+        var oneButtonMapper = new ButtonsMapper([BasicGamepadButtons.a => OneButton.button]);
+        basic.addListener(oneButtonMapper);
+        var oneButton = new GameButtonsImpl(OneButton.aliases.length);
+        oneButtonMapper.addListener(oneButton);
+        
+        rootEntity.addComponentByName(MGA.toAlias(GameButtons, OneButton), oneButton);
+        
         // listen for gui buttons dispatchers
-        rootEntity.addComponentByName(MGA.toAlias(ButtonOutputBinder, OneButton), new ButtonOutputBinder(MGA.toString(OneButton), input.buttonListener));
+        rootEntity.addComponentByName(MGA.toAlias(ButtonOutputBinder, OneButton), new ButtonOutputBinder(OneButton.basisTypeName(), oneButton));
+        rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, OneButton), new ButtonInputBinder(OneButton.basisTypeName(), oneButton));
     }
 
     function createGameplaySimple() {

@@ -33,7 +33,7 @@ class GamecycleDemo extends BootstrapMain {
         var state = new DemoState();
         run.entity.addComponentByType(State, state);
         run.entity.addComponent(state);
-        
+
         fui.makeClickInput(rootEntity.getComponent(WidgetSwitcher).ph);
         rootEntity.addChild(createClickEmulator(new Entity("click emulator")));
 
@@ -47,13 +47,13 @@ class GamecycleDemo extends BootstrapMain {
         // }
         full.addStateLoader(presetLoader);
         full.newGame = () -> presetLoader.load;
-        
+
         // ==== add game saves
         var storage = new LocalStorage();
         var saves = new StorageStateManager(storage, state);
         full.addStateLoader(saves);
-        full.mainMenu.addButton({caption:"load", handler:saves.load, enabled:saves.hasValue}, 1);
-        full.gameMenu.addButton({caption:"save", handler:saves.save}, 0);
+        full.mainMenu.addButton({caption: "load", handler: saves.load, enabled: saves.hasValue}, 1);
+        full.gameMenu.addButton({caption: "save", handler: saves.save}, 0);
         var gameOver = full.gameOver;
         full.gameOver = () -> {
             saves.delete();
@@ -63,21 +63,6 @@ class GamecycleDemo extends BootstrapMain {
         runSwitcher.switchTo(full);
         full.reset();
         full.startGame();
-    }
-    
-
-    override function createInput() {
-        var basic = new BasicGamepadInput();
-        basic.createKeyMapping([
-            Keyboard.ESCAPE => start,
-            Keyboard.LEFT => left,
-            Keyboard.RIGHT => right,
-            Keyboard.UP => up,
-            Keyboard.DOWN => down,
-            Keyboard.SPACE => a
-        ]);
-        rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, BasicGamepadButtons), new ButtonInputBinder(MGA.toString(BasicGamepadButtons), basic));
-        rootEntity.addComponentByName(MGA.toAlias(ButtonOutputBinder, BasicGamepadButtons), new ButtonOutputBinder(MGA.toString(BasicGamepadButtons), basic));
     }
 
     function createClickEmulator(e) {

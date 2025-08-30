@@ -25,7 +25,7 @@ interface BouncingGui {
 }
 
 class BouncingLoop extends GameRunBase implements ActHandler<LoopConfig> {
-    @:once public var input:GameButtons<OneButton>;
+    @:once(gen) public var input:GameButtons<OneButton>;
     public var gui:BouncingGui;
 
     public var loopCount = 1;
