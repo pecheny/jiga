@@ -1,22 +1,19 @@
 package fancy.widgets;
 
-import fu.ui.ButtonBase.ClickViewProcessor;
 import a2d.Placeholder2D;
 import a2d.Widget;
-import ec.CtxWatcher;
-import ginp.api.GameButtons;
+import fu.ui.ButtonBase.ClickViewProcessor;
+import ginp.ButtonInputBinder;
+import ginp.api.GameButtonsListener;
 import shimp.ClicksInputSystem.ClickTargetViewState;
-import update.Updatable;
-import update.UpdateBinder;
 
-class GbuttonView<TB:Axis<TB>> extends Widget implements Updatable implements ClickViewProcessor {
+class GbuttonView<TB:Axis<TB>> extends Widget implements GameButtonsListener<TB> implements ClickViewProcessor {
     var interactives:Array<ClickTargetViewState->Void> = [];
-    var lastState:Bool;
     var gameButton:TB;
-    @:once var inp:GameButtons<TB>;
 
-    public function new(ph:Placeholder2D, gb:TB) {
+    public function new(ph:Placeholder2D, gb:TB, buttonsAlias) {
         super(ph);
+        ButtonInputBinder.addListenerByAlias(buttonsAlias, entity, this);
         gameButton = gb;
     }
 
@@ -24,18 +21,26 @@ class GbuttonView<TB:Axis<TB>> extends Widget implements Updatable implements Cl
         interactives.push(h);
     }
 
-    public function update(dt:Float) {
-        var val = (inp.pressed(gameButton));
-        if (val == lastState)
-            return;
-        lastState = val;
-        for (h in interactives)
-            h(val ? Pressed : Idle);
+    override function init() {
+        super.init();
     }
 
-    override function init() {
-        ph.entity.addComponentByType(Updatable, this);
-        new CtxWatcher(UpdateBinder, entity);
-        super.init();
+    public function reset() {
+        for (h in interactives)
+            h(Idle);
+    }
+
+    public function onButtonUp(b:TB) {
+        if (b != gameButton)
+            return;
+        for (h in interactives)
+            h(Idle);
+    }
+
+    public function onButtonDown(b:TB) {
+        if (b != gameButton)
+            return;
+        for (h in interactives)
+            h(Pressed);
     }
 }
