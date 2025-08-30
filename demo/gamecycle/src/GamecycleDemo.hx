@@ -48,6 +48,7 @@ class GamecycleDemo extends BootstrapMain {
         full.addStateLoader(presetLoader);
         full.newGame = () -> presetLoader.load;
         
+        // ==== add game saves
         var storage = new LocalStorage();
         var saves = new StorageStateManager(storage, state);
         full.addStateLoader(saves);
@@ -55,7 +56,6 @@ class GamecycleDemo extends BootstrapMain {
         full.gameMenu.addButton({caption:"save", handler:saves.save}, 0);
         var gameOver = full.gameOver;
         full.gameOver = () -> {
-            trace("del");
             saves.delete();
             gameOver();
         }
