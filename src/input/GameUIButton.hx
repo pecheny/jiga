@@ -2,7 +2,7 @@ package input;
 
 import ginp.ButtonOutputBinder;
 import shimp.ClicksInputSystem.ClickTargetViewState;
-import fu.ui.ButtonBase.ClickViewProcessor;
+import shimp.ClicksInputSystem.ClickViewProcessor;
 import a2d.Placeholder2D;
 import al2d.WidgetHitTester2D;
 import ec.CtxWatcher;

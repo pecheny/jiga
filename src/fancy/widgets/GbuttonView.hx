@@ -2,7 +2,7 @@ package fancy.widgets;
 
 import a2d.Placeholder2D;
 import a2d.Widget;
-import fu.ui.ButtonBase.ClickViewProcessor;
+import shimp.ClicksInputSystem.ClickViewProcessor;
 import ginp.ButtonInputBinder;
 import ginp.api.GameButtonsListener;
 import shimp.ClicksInputSystem.ClickTargetViewState;

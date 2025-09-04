@@ -1,5 +1,6 @@
 package loops.talk;
 
+import shimp.ClicksInputSystem.ClickViewProcessor;
 import dkit.Dkit.BaseDkit;
 import al.core.DataView;
 import fu.ui.InteractivePanelBuilder;
