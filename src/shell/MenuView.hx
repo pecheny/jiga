@@ -1,14 +1,10 @@
 package shell;
 
-import fu.ui.Properties.EnabledProp;
-import fu.input.FocusManager.LinearFocusManager;
-import fu.Signal;
-import fu.input.FocusInputRoot.ClickDispatcher;
-import fu.input.WidgetFocus;
-import shell.MenuItem;
-import fu.ui.ButtonEnabled;
-import dkit.Dkit.BaseDkit;
 import al.core.DataView;
+import dkit.Dkit.BaseDkit;
+import fu.input.FocusManager.LinearFocusManager;
+import fu.ui.Properties.EnabledProp;
+import shell.MenuItem;
 import utils.MacroGenericAliasConverter as MGA;
 
 class MenuView extends BaseDkit implements DataView<MenuData> {
@@ -34,19 +30,14 @@ class MenuView extends BaseDkit implements DataView<MenuData> {
 }
 
 class MenuButton extends BaseDkit implements DataView<MenuItem> {
-    public var focus(default, null):WidgetFocus;
-
     static var SRC = <menu-button >
-        ${focus = new WidgetFocus(__this__.ph)}
-        <button(b().b()) enabled={false} public id="btn" />
+        <button(b().b()) enabled={false} focus={true} public id="btn" />
     </menu-button>
 
     public function initData(descr:MenuItem) {
         btn.text = descr.caption;
         btn.onClick = descr.handler;
         var ep = EnabledProp.getOrCreate(btn.entity);
-        if (!entity.hasComponent(EnabledProp))
-            entity.addComponent(ep);
         ep.value = if (descr.enabled != null) descr.enabled() else true;
     }
 }
