@@ -139,6 +139,7 @@ class BootstrapMain extends AbstractEngine {
             Keyboard.ESCAPE => start,
             Keyboard.LEFT => left,
             Keyboard.RIGHT => right,
+            Keyboard.TAB => tright,
             Keyboard.UP => up,
             Keyboard.DOWN => down,
             Keyboard.SPACE => a
