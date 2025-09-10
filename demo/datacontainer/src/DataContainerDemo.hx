@@ -49,7 +49,7 @@ class DataContainerDemo extends BootstrapMain {
 class DomkitSampleWidget extends BaseDkit {
     public var focus:DataContainerFocus;
     static var SRC = <domkit-sample-widget vl={PortionLayout.instance}>
-        <data-container(b().v(pfr, 1).b()) scroll={true} public id="cardsContainer"   itemFactory={cardFactory} inputFactory={inputFactory} hl={PortionLayout.instance}>
+        <data-container(b().v(pfr, 1).b()) scroll={true} public id="cardsContainer"   itemFactory={cardFactory} inputFactory={inputFactory} layouts={GuiStyles.L_HOR_CARDS} hl={PortionLayout.instance}>
             ${new WheelHandler(__this__.ph, horizontal)}
             ${focus = new DataContainerFocus(__this__)}
         </data-container>
