@@ -1,24 +1,21 @@
 package loops.llevelup;
 
-import dkit.Dkit.BaseDkit;
-import bootstrap.Data;
-import stset.Stats;
-import a2d.ChildrenPool;
-import al.layouts.PortionLayout;
 import bootstrap.Executor;
 import bootstrap.GameRunBase;
-import fu.PropStorage;
+import dkit.Dkit.BaseDkit;
 import fancy.widgets.OptionPickerGui;
+import fu.PropStorage;
 import fu.Signal;
 import fu.bootstrap.ButtonColors;
-import fu.ui.InteractivePanelBuilder;
+import fu.input.WidgetFocus;
 import gameapi.CheckedActivity;
 import haxe.ds.ReadOnlyArray;
 import loops.llevelup.LevelupData;
+import stset.Stats;
 import utils.WeightedRandomProvider;
 import widgets.Label;
 
-class LevelingStats implements StatsSet{
+class LevelingStats implements StatsSet {
     public var exp(default, null):GameStat<Int>;
     public var lvl(default, null):GameStat<Int>;
 }
@@ -45,13 +42,13 @@ class LevelUpActivity extends GameRunBase implements CheckedActivity {
         var candidates = candidatesRo.filter(f -> executor.guardsPasses(f.guards));
         var prv:WeightedRandomProvider<LevelUpDesc> = new WeightedRandomProvider(candidates);
         if (shouldActivate())
-        options = [
-            for (i in 0...3) {
-                var o = prv.get();
-                candidates.remove(o);
-                o;
-            }
-        ];
+            options = [
+                for (i in 0...3) {
+                    var o = prv.get();
+                    candidates.remove(o);
+                    o;
+                }
+            ];
         else
             options = [];
         gui.initData(options.map(o -> o.name));
@@ -64,7 +61,7 @@ class LevelUpActivity extends GameRunBase implements CheckedActivity {
             executor.run(a);
         gameOvered.dispatch();
     }
-    
+
     override function reset() {
         options = null;
     }
@@ -81,26 +78,30 @@ class LevelupGui extends BaseDkit implements OptionPickerGui<String> {
     public var onChoice(default, null) = new IntSignal();
 
     @:once var props:PropStorage<Dynamic>;
-    var input:DataChildrenPool<String, DataLabel>;
 
     static var SRC = <levelup-gui>
-        <base(b().v(pfr, 1).b()) id="cardsContainer"  vl={PortionLayout.instance} />
+    <data-container(b().v(pfr, 1).b()) id="cardsContainer"  layouts={GuiStyles.L_HOR_CARDS} dispatch={true} itemFactory={cardFactory}>
+        // ${new DataContainerFocus(__this__)}
+        // ${fui.createHorizontalNavigationSignals(__this__.entity);}
+    </data-container>
+
+        // <base(b().v(pfr, 1).b()) id="cardsContainer"  vl={PortionLayout.instance} />
     </levelup-gui>;
+
+    function cardFactory() {
+        var ph = b().h(sfr, 0.3).v(sfr, 0.3).b();
+        var bc = new ButtonColors(ph.entity);
+        fui.quad(ph, 0);
+        new WidgetFocus(ph);
+        return new DataLabel(ph, fui.s());
+    }
 
     override function init() {
         super.init();
-        input = new InteractivePanelBuilder().withContainer(cardsContainer.c)
-            .withWidget(() -> {
-                var ph = b().h(sfr, 0.3).v(sfr, 0.1).b();
-                var bc = new ButtonColors(ph.entity);
-                fui.quad(ph, 0);
-                new DataLabel(ph, fui.s());
-            })
-            .withSignal(onChoice)
-            .build();
+        cardsContainer.onChoice.listen(n -> onChoice.dispatch(n));
     }
 
     public function initData(captions:Array<String>) {
-        input.initData(captions);
+        cardsContainer.initData(captions);
     }
 }

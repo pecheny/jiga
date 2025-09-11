@@ -1,18 +1,16 @@
 package loops.market;
 
-import fu.ui.scroll.WheelHandler;
-import fu.ui.scroll.ScrollboxInput;
-import shimp.InputSystem.InputSystemTarget;
-import fu.ui.scroll.ScrollableContent.Scrollable;
-import htext.Align;
-import a2d.Placeholder2D;
 import al.core.DataView;
 import al.layouts.PortionLayout;
 import dkit.Dkit.BaseDkit;
 import fu.Signal.IntSignal;
 import fu.bootstrap.ButtonScale;
+import fu.input.DataContainerFocus;
+import fu.input.WidgetFocus;
 import fu.ui.ButtonEnabled;
 import fu.ui.Properties;
+import fu.ui.scroll.WheelHandler;
+import htext.Align;
 import loops.market.MarketActivity.MarketGui;
 import loops.market.MarketData;
 
@@ -29,22 +27,21 @@ class MarketWidget extends BaseDkit implements MarketGui {
 
         <data-container(b().v(pfr, 1).b()) scroll={true} id="cardsContainer"   itemFactory={cardFactory} inputFactory={inputFactory} layouts={GuiStyles.L_HOR_CARDS }>
             ${new WheelHandler(__this__.ph, horizontal)}
+            ${new DataContainerFocus(__this__)}
+            ${fui.createHorizontalNavigationSignals(__this__.entity);}
         </data-container>
 
         <base(b().v(pfr, .1).b()) />
-        <button(b().h(sfr, .36).v(sfr, .12).b())   text={ "Done" } onClick={onOkClick} style={"small-text-center"} />
+        <button(b().h(sfr, .36).v(sfr, .12).b()) focus={true} text={ "Done" } onClick={onOkClick} style={"small-text-center"} />
     </market-widget>;
 
     var maxNumber:Int;
 
     function cardFactory() {
         var mc = new MarketCard(b().v(sfr, 0.3).h(sfr, 0.3).t(1).b("card"));
+        new WidgetFocus(mc.ph);
         new ButtonScale(mc.entity);
         return mc;
-    }
-    
-    override function init() {
-        super.init();
     }
 
     function inputFactory(ph, n) {

@@ -1,29 +1,23 @@
 package loops.talk;
 
-import shimp.ClicksInputSystem.ClickViewProcessor;
-import dkit.Dkit.BaseDkit;
-import al.core.DataView;
-import fu.ui.InteractivePanelBuilder;
-import fu.graphics.ColouredQuad.InteractiveColors;
-import al.layouts.PortionLayout;
-import gl.sets.ColorSet;
-import graphics.ShapesColorAssigner;
-import ec.Signal;
 import a2d.ChildrenPool;
 import a2d.Placeholder2D;
+import a2d.Widget2DContainer;
+import al.core.DataView;
+import al.layouts.PortionLayout;
+import dkit.Dkit.BaseDkit;
+import ec.Signal;
+import fu.Signal.IntSignal;
+import fu.input.WidgetFocus;
+import fu.ui.InteractivePanelBuilder;
+import loops.talk.TalkData;
 import loops.talk.TalkingActivity.ITalkingWidget;
 import shimp.ClicksInputSystem.ClickTargetViewState;
-import a2d.Widget2DContainer;
-import loops.talk.TalkData;
-import htext.style.TextStyleContext;
-import fu.Signal.IntSignal;
-import fu.ui.ButtonBase;
-import widgets.Label;
-import a2d.Widget;
+import shimp.ClicksInputSystem.ClickViewProcessor;
 
+using a2d.transform.LiquidTransformer;
 using al.Builder;
-using a2d.transform.LiquidTransformer;
-using a2d.transform.LiquidTransformer;
+
 
 class TalkingWidget implements ITalkingWidget extends BaseDkit {
     public var onChoice(default, null):IntSignal = new IntSignal();
@@ -56,6 +50,7 @@ class TalkingWidget implements ITalkingWidget extends BaseDkit {
     override function init() {
         input = new InteractivePanelBuilder().withContainer(buttons.c).withWidget(() -> {
             var c = new ResponceButton(b().h(pfr, 0.1).v(sfr, 0.1).b());
+            new WidgetFocus(c.ph);
             c;
         }).withSignal(onChoice).build();
         if (data != null)
