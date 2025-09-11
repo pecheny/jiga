@@ -1,5 +1,6 @@
 package bootstrap;
 
+import a2d.Placeholder2D;
 import al.ec.WidgetSwitcher;
 import gameapi.GameRun;
 
@@ -18,6 +19,11 @@ class RunSwitcher extends GameRunBase {
         unbind();
         if (activity != null)
             bind(activity);
+    }
+    
+    public function show(ph:Placeholder2D) {
+        unbind();
+        activitViewyTarget.switchTo(ph);
     }
 
     function bind(act:GameRun) {
