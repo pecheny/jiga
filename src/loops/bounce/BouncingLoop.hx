@@ -193,7 +193,7 @@ class ResultPresentation extends BouncingStateBase {
     override function update(dt:Float) {
         t -= dt;
         var tp = (t / duration);
-        if (t <= 0) {
+        if (t <= 0 || fsm.input.justPressed(button)) {
             if (fsm.loopsRemains == 0)
                 fsm.gameOver();
             else {
