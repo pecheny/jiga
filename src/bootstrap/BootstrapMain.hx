@@ -152,6 +152,9 @@ class BootstrapMain extends AbstractEngine {
         var oneButtonMapper = new ButtonsMapper([BasicGamepadButtons.a => OneButton.button]);
         basic.addListener(oneButtonMapper);
         var oneButton = new GameButtonsImpl(OneButton.aliases.length);
+        var oneCtx = new Entity("one button");
+        oneButton.bind(oneCtx);
+        rootEntity.addChild(oneCtx);
         oneButtonMapper.addListener(oneButton);
         
         rootEntity.addComponentByName(MGA.toAlias(GameButtons, OneButton), oneButton);
