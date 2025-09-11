@@ -32,9 +32,9 @@ class SlidingTriPointer <T:AttribSet> implements Shape {
         setx(0, t-wd);
         setx(1, t);
         setx(2, t+wd);
-        sety(0, 0);
-        sety(1, 1);
-        sety(2, 0);
+        sety(0, 1);
+        sety(1, 0);
+        sety(2, 1);
     }
 
     public function writePostions(target:Bytes,  vertOffset = 0, transformer) {
