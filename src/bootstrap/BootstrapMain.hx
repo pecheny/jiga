@@ -139,10 +139,15 @@ class BootstrapMain extends AbstractEngine {
             Keyboard.ESCAPE => start,
             Keyboard.LEFT => left,
             Keyboard.RIGHT => right,
-            Keyboard.TAB => tright,
             Keyboard.UP => up,
             Keyboard.DOWN => down,
-            Keyboard.SPACE => a
+            Keyboard.TAB => tright,
+            Keyboard.SPACE => a,
+            Keyboard.A => left,
+            Keyboard.D => right,
+            Keyboard.W => up,
+            Keyboard.S => down,
+            Keyboard.ENTER => a,
         ]);
         rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, BasicGamepadButtons), new ButtonInputBinder(BasicGamepadButtons.basisTypeName(), basic));
         rootEntity.addComponentByName(MGA.toAlias(ButtonOutputBinder, BasicGamepadButtons), new ButtonOutputBinder(BasicGamepadButtons.basisTypeName(), basic));
