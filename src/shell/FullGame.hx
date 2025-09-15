@@ -1,5 +1,7 @@
 package shell;
 
+import input.UnlockBackButton;
+import ec.CtxWatcher;
 import al.Builder;
 import bootstrap.GameRunBase;
 import bootstrap.RunSwitcher;
@@ -47,6 +49,7 @@ class FullGame extends RunSwitcher {
 
     function initMainMenu() {
         mainMenu = new MenuBuilder(this, new MenuActivity(new Entity("main menu"), Builder.widget()));
+        new CtxWatcher(UnlockBackButton, mainMenu.activity.entity);
         mainMenu.addButton({caption: "new game", handler: () -> newGame()});
         #if sys
         mainMenu.addButton({caption: "exit", handler: () -> System.exit(0)});

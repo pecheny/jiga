@@ -15,13 +15,28 @@ class EscGameButton implements GameButtonsListener<BasicGamepadButtons> {
 
     public function reset() {}
 
-    public function onButtonUp(b:BasicGamepadButtons) {}
-
-    public function onButtonDown(b:BasicGamepadButtons) {
+    public function onButtonUp(b:BasicGamepadButtons) {
+        if (!pressed)
+            return;
+        pressed = false;
+        #if android
         switch b {
             case start:
                 handler();
             case _:
         }
+        #end
+    }
+
+    var pressed = false;
+    public function onButtonDown(b:BasicGamepadButtons) {
+        pressed = true;
+        #if !android
+        switch b {
+            case start:
+                handler();
+            case _:
+        }
+        #end
     }
 }

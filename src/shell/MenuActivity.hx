@@ -3,8 +3,6 @@ package shell;
 import a2d.Placeholder2D;
 import al.core.DataView;
 import bootstrap.GameRunBase;
-import ginp.ButtonSignals;
-import ginp.presets.NavigationButtons;
 import shell.MenuItem.MenuData;
 
 class MenuActivity extends GameRunBase {

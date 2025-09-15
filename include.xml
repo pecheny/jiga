@@ -15,10 +15,9 @@
     <haxelib name="domkit"/>
     <haxelib name="hxmath"/>
 
-
-    <!-- <haxeflag name="--macro" value='domkit.Macros.registerComponentsPath("fancy.domkit.Dkit.$Dkit")'/> -->
-    <!-- <haxedef name = "openfl_disable_context_cache" value = "true" />
-    <haxedef name = "openfl_always_render" value = "true" /> -->
+    <haxeflag name="-D" value="message.reporting=classic" />
     <haxeflag name="-D" value="no-deprecation-warnings" />
+    <haxeflag name="-D" value="back_as_esc=true" />
+
 
 </project>

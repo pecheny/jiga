@@ -7,7 +7,7 @@ class MenuBuilder {
     var switcher:RunSwitcher;
     var data:MenuData = [];
 
-    public var activity:MenuActivity;
+    public var activity(default, null):MenuActivity;
 
     public function new(switcher, run) {
         this.switcher = switcher;

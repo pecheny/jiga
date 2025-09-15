@@ -1,5 +1,7 @@
 package bootstrap;
 
+import input.UnlockBackButton;
+import openfl.OflKbd;
 import a2d.ContainerStyler;
 import a2d.Placeholder2D;
 import al.ec.WidgetSwitcher;
@@ -149,6 +151,7 @@ class BootstrapMain extends AbstractEngine {
             Keyboard.S => down,
             Keyboard.ENTER => a,
         ]);
+        rootEntity.addComponent(new UnlockBackButton(@:privateAccess basic.kbd));
         rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, BasicGamepadButtons), new ButtonInputBinder(BasicGamepadButtons.basisTypeName(), basic));
         rootEntity.addComponentByName(MGA.toAlias(ButtonOutputBinder, BasicGamepadButtons), new ButtonOutputBinder(BasicGamepadButtons.basisTypeName(), basic));
         rootEntity.addComponentByName(MGA.toAlias(GameButtons, BasicGamepadButtons), basic);
