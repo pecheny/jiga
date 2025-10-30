@@ -15,7 +15,7 @@ typedef LoopConfig = {
     var hitReroll:Bool;
     var periodDuration:Void->Float;// more customization -> replace with PeriodDuration
     // linear activity t -> pointer pos t transformer. kinda easing
-    var timeFunction:String;
+    var ?timeFunction:Float->Float;
     // Float normalized values of 'hit' regions, order refered to id of each region and doesnt affect visual representation order
     var regions:Array<RegionPreset>;
     //

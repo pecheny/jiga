@@ -5,9 +5,11 @@
     <!-- <include path="demo/actionplay/project.xml" /> -->
     <!-- <include path="demo/gamebuttons/project.xml" /> -->
     <!-- <include path="demo/gamecycle/project.xml" /> -->
-    <include path="demo/datacontainer/project.xml" />
+    <!-- <include path="demo/datacontainer/project.xml" /> -->
+    <!-- <include path="demo/inventory/project.xml" /> -->
     <!-- <include path="demo/localconfig/project.xml" /> -->
     <!-- <include path="demo/roguefloor/project.xml" /> -->
+    <include path="demo/bouncing/project.xml" />
 
     <haxeflag name="-D" value="dump=pretty" />
 </project>

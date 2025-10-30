@@ -64,6 +64,10 @@ class BouncingLoop extends GameRunBase implements ActHandler<LoopConfig> {
         loopCount = d.numOfHits;
         fsm.numBounces = d.numOfBounces;
         fsm.periodDuration = d.periodDuration;
+        if (d.timeFunction != null)
+            fsm.timeTranformer = d.timeFunction;
+        else
+            fsm.timeTranformer = t -> t;
         var rps:ResultPresentation = cast @:privateAccess fsm.states.get(ResultPresentation);
         rps.duration = d.afterHitDelay;
         var tl = entity.getComponent(BouncingTimeline);
@@ -81,6 +85,7 @@ class BouncingLoopFsm extends StateMachine {
     public var numBounces:Int = -1;
     public var bounceCount:Int = 0;
     public var loopsRemains(default, set) = 0;
+    public var timeTranformer:Float->Float;
 
     var actionState:BouncingState;
     var onDone:Void->Void;
@@ -124,7 +129,7 @@ class BouncingStateBase extends State {
 class BouncingState extends BouncingStateBase {
     var direction:Sign;
     var timeline:BouncingTimeline;
-    
+
     override function onEnter() {
         super.onEnter();
         fsm.gui.setState(bouncing);
@@ -140,7 +145,7 @@ class BouncingState extends BouncingStateBase {
 
     override function update(dt:Float) {
         t += direction * dt / fsm.periodDuration();
-        fsm.gui.setT(t);
+        fsm.gui.setT(fsm.timeTranformer(t));
         if (t <= 0 || t >= 1) {
             // todo check bounces num
             if (fsm.numBounces > -1) {
@@ -165,6 +170,7 @@ class BouncingState extends BouncingStateBase {
         var regId = 0;
         var regEnd = 0.;
         fsm.loopsRemains--;
+        var t = fsm.timeTranformer(this.t);
         for (i in 0...weights.length) {
             regEnd += weights[i];
             regId = i;

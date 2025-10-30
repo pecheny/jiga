@@ -1,5 +1,7 @@
 package;
 
+import BouncingDemoGui.ControlPanel;
+import bootstrap.OneButtonActivity;
 import utils.RGBA;
 import loops.bounce.BouncingTimeline;
 import loops.bounce.gui.BouncingWidget;
@@ -15,12 +17,11 @@ class ActionDemo extends BootstrapMain {
     public function new() {
         super();
 
-        var ph = Builder.widget();
-        fui.makeClickInput(ph);
+        rootEntity.addChild(createClickEmulator(new Entity("click emulator")));
 
         var e = new Entity("run");
-        var wdg = new BouncingWidget(ph);
-        var run = new BouncingLoop(e, ph, wdg);
+        var wdg = new BouncingWidget(Builder.widget());
+        var run = new BouncingLoop(e, wdg.ph, wdg);
         var timeline = new BouncingTimeline();
         e.addComponent(timeline);
         wdg.entity.addComponentByType(RegionStateProvider, timeline);
@@ -36,13 +37,23 @@ class ActionDemo extends BootstrapMain {
             hitReroll: true,
             periodDuration: () -> 1, // more customization -> replace with PeriodDuration
             // linear activity t -> pointer pos t transformer. kinda easing
-            timeFunction: "",
+            // timeFunction: (t:Float) -> (t*0.25*t) + 0.5,
             // Float normalized values of 'hit' regions, order refered to id of each region and doesnt affect visual representation order
             regions: [new RegionPreset(0.1, {})],
             //
             onMiss: null,
             // For presenting results of hit, before pointer starts move again or the activity ends
             afterHitDelay: 0.3,
+        });
+
+        var gui = new ControlPanel(Builder.widget());
+        fui.makeClickInput(gui.ph);
+        var oneButton = new OneButtonActivity(new Entity(), gui);
+        run.gameOvered.listen(() -> runSwitcher.switchTo(oneButton));
+        oneButton.gameOvered.listen(() -> {
+            runSwitcher.switchTo(run);
+            run.reset();
+            run.startGame();
         });
 
         runSwitcher.switchTo(run);
