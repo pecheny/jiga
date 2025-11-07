@@ -200,7 +200,7 @@ class ResultPresentation extends BouncingStateBase {
         t -= dt;
         var tp = (t / duration);
         if (t <= 0 || fsm.input.justPressed(button)) {
-            if (fsm.loopsRemains == 0)
+            if (fsm.loopsRemains <= 0)
                 fsm.gameOver();
             else {
                 fsm.changeState(BouncingState);
