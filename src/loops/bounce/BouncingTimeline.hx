@@ -66,6 +66,8 @@ class BouncingTimeline implements RegionStateProvider {
     }
 
     public function reroll() {
+        if(presets == null)
+            return;
         for (i in 0...execCounts.length)
             execCounts[i] = 0;
         var indsPoll = [for (i in 0...presets.length) i];

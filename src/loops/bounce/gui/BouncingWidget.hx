@@ -82,10 +82,12 @@ class BouncingWidget extends Widget implements BouncingGui {
     }
 
     public function setHitsRemain(n:Int) {
-        hitRemains.withText("" + n);
+        hitRemains?.withText("" + n);
     }
 
     public function initRegioViews() {
+        if (weights == null)
+            return;
         if (weights.length > regions.length)
             throw "Not enaugh regions inited";
         for (i in 0...regions.length) {
