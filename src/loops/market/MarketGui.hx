@@ -17,7 +17,7 @@ import loops.market.MarketData;
 using a2d.ProxyWidgetTransform;
 using al.Builder;
 
-class MarketWidget extends BaseDkit implements MarketGui {
+class MarketWidget extends BaseDkit implements MarketGui<Int> {
     public var onDone:ec.Signal<Void->Void> = new ec.Signal();
     public var onChoice(default, null) = new IntSignal();
 
@@ -52,14 +52,14 @@ class MarketWidget extends BaseDkit implements MarketGui {
         onDone.dispatch();
     }
 
-    public function initData(items:Array<MarketItemRecord>) {
+    public function initData(items:Array<MarketItemRecord<Int>>) {
         cardsContainer.initData(items);
     }
 }
 
-class MarketCard extends BaseDkit implements DataView<MarketItemRecord> {
+class MarketCard extends BaseDkit implements DataView<MarketItemRecord<Int>> {
     @:once var toggle:EnabledProp;
-    var descr:MarketItemRecord;
+    var descr:MarketItemRecord<Int>;
 
     static var SRC = <market-card vl={PortionLayout.instance} >
         <base(b().v(pfr, 0.2).b()) />
@@ -70,7 +70,7 @@ class MarketCard extends BaseDkit implements DataView<MarketItemRecord> {
         <label(b().v(pfr, 0.2).b()) id="lbl" align={Align.Center}  />
     </market-card>;
 
-    public function initData(descr:MarketItemRecord) {
+    public function initData(descr:MarketItemRecord<Int>) {
         if (this.descr != null)
             this.descr.onChange.remove(onChange);
         this.descr = descr;
@@ -86,12 +86,12 @@ class MarketCard extends BaseDkit implements DataView<MarketItemRecord> {
             content.switchTo(soldCard.ph);
         } else {
             lbl.text = getCaption(descr.data);
-            card.text = "" + descr.data.weapon;
+            card.text = "" + descr.data;
             content.switchTo(card.ph);
         }
     }
 
-    function getCaption(d:MarketItem) {
+    function getCaption(d:MarketItem<Int>) {
         // return d.weapon + " " + d.lvl + " for " + d.price + " gld";
         return d.price + " gld";
     }

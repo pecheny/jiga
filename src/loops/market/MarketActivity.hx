@@ -1,28 +1,50 @@
 package loops.market;
 
-import bootstrap.Executor;
-import fu.Signal;
 import bootstrap.Activitor;
 import bootstrap.GameRunBase;
 import bootstrap.SelfClosingScreen;
-import dungsmpl.DungeonData;
-import dungsmpl.DungeonGame.ExecCtx;
 import fancy.widgets.OptionPickerGui;
+import fu.Signal;
 import loops.market.MarketData;
+import stset.Stats.GameStat;
 
-interface MarketGui extends OptionPickerGui<MarketItemRecord> extends SelfClosingScreen {}
+interface MarketGui<TRes> extends OptionPickerGui<MarketItemRecord<TRes>> extends SelfClosingScreen {}
 
-class MarketActivity extends GameRunBase implements ActHandler<MarketDesc> implements StatefullActHandler {
+interface ResourceTransactor<TRes> {
+    public function has(res:TRes):Bool;
+    public function spend(res:TRes):Bool;
+}
+
+class IntResTransactor implements ResourceTransactor<Int> {
+    var stat:GameStat<Int>;
+
+    public function new(stat) {
+        this.stat = stat;
+    }
+
+    public function has(res:Int):Bool {
+        return stat.value >= res;
+    }
+
+    public function spend(res:Int):Bool {
+        if (! has(res))
+            return false;
+        stat.value -= res;
+        return true;
+    }
+}
+
+class MarketActivity<TRes> extends GameRunBase implements ActHandler<MarketDesc<TRes>> implements StatefullActHandler {
     public var onChange:Signal<Void->Void> = new Signal();
+    public var onPurchase:Signal<Dynamic->Void> = new Signal();
 
-    @:once var stats:ProgStats;
-    @:once var exec:ExecCtx;
-    @:once var executor:Executor;
-    @:once var gui:MarketGui;
-    var data:MarketDesc;
-    var items:Array<MarketItemRecord>;
+    @:once var gui:MarketGui<TRes>;
+    var transactor:ResourceTransactor<TRes>;
+    var data:MarketDesc<TRes>;
+    var items:Array<MarketItemRecord<TRes>>;
 
-    public function new(ctx, w) {
+    public function new(ctx, w, transactor) {
+        this.transactor = transactor;
         super(ctx, w);
         watch(w.entity);
     }
@@ -45,12 +67,9 @@ class MarketActivity extends GameRunBase implements ActHandler<MarketDesc> imple
         var item = items[n];
         if (!isAvailable(item.data))
             return;
-        stats.gld.value -= item.data.price;
+        transactor.spend(item.data.price);
         item.setState(sold);
-        exec.addItem(item.data);
-        if (item.data.actions!=null)
-            for (act in item.data.actions)
-                executor.run(act);
+        onPurchase.dispatch(item.data);
         // todo this check available right in gui now, put it there
         for (mi in items)
             if (mi.state != sold)
@@ -62,14 +81,14 @@ class MarketActivity extends GameRunBase implements ActHandler<MarketDesc> imple
         data = null;
     }
 
-    public function initDescr(d:MarketDesc):ActHandler<MarketDesc> {
+    public function initDescr(d:MarketDesc<TRes>):ActHandler<MarketDesc<TRes>> {
         data = d;
         items = data.map(mi -> new MarketItemRecord(mi, isAvailable(mi) ? available : na));
         return this;
     }
 
-    function isAvailable(item:MarketItem) {
-        return (item.price <= stats.gld.value);
+    function isAvailable(item:MarketItem<TRes>) {
+        return transactor.has(item.price);
     }
 
     public function dump():Dynamic {
