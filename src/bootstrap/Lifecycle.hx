@@ -61,17 +61,6 @@ class LifecycleImpl extends BootstrapMain implements Lifecycle {
         storage = new LocalStorage();
     }
 
-    inline static var APP_CONTROL_BACK = 0x4000010E;
-
-    private function onKeyUp(e:openfl.events.KeyboardEvent):Void {
-        if (e.keyCode == APP_CONTROL_BACK) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            e.stopPropagation();
-            toggleMenu();
-        }
-    }
-
     function bindRun(run:GameRun) {
         var goScreen = gameOver.entity.getComponent(SelfClosingScreen);
         if (goScreen == null) {

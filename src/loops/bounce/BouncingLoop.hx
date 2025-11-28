@@ -60,7 +60,6 @@ class BouncingLoop extends GameRunBase implements ActHandler<LoopConfig> {
     }
 
     public function initDescr(d:LoopConfig):ActHandler<LoopConfig> {
-        trace(d);
         loopCount = d.numOfHits;
         fsm.numBounces = d.numOfBounces;
         fsm.periodDuration = d.periodDuration;
