@@ -1,5 +1,6 @@
 package bootstrap;
 
+import backends.openfl.OpenflBackend.StageImpl;
 import input.UnlockBackButton;
 import openfl.OflKbd;
 import a2d.ContainerStyler;
@@ -44,15 +45,17 @@ import utils.MacroGenericAliasConverter as MGA;
 using a2d.transform.LiquidTransformer;
 using al.Builder;
 
-
 class BootstrapMain extends AbstractEngine {
-    var fui = new FuiBuilder();
+    var fui:FuiBuilder;
     var rootEntity:Entity;
     var stateSwitcher:StateSwitcher; // there is a entry loop, check if it is actual
     var runSwitcher:RunSwitcher;
 
     public function new() {
         super();
+        var stage = new StageImpl(1);
+        var uikit = new Uikit(stage);
+        fui = new FuiBuilder(stage, uikit);
         var root = rootEntity = new Entity("root");
         setWindowPosition();
         // lime.app.Application.current.window.onRenderContextLost.add(() -> trace("lime app context lost")); -- doesnt work
@@ -62,7 +65,6 @@ class BootstrapMain extends AbstractEngine {
         root.addComponent(contLayouts);
         BaseDkit.inject(fui);
         regTextProcessor();
-        var uikit = new Uikit(fui);
         uikit.configure(root);
         dkitDefaultStyles();
         uikit.createContainer(root);
@@ -156,7 +158,6 @@ class BootstrapMain extends AbstractEngine {
         rootEntity.addComponentByName(MGA.toAlias(ButtonOutputBinder, BasicGamepadButtons), new ButtonOutputBinder(BasicGamepadButtons.basisTypeName(), basic));
         rootEntity.addComponentByName(MGA.toAlias(GameButtons, BasicGamepadButtons), basic);
 
-
         var oneButtonMapper = new ButtonsMapper([BasicGamepadButtons.a => OneButton.button]);
         basic.addListener(oneButtonMapper);
         var oneButton = new GameButtonsImpl(OneButton.aliases.length);
@@ -164,14 +165,14 @@ class BootstrapMain extends AbstractEngine {
         oneButton.bind(oneCtx);
         rootEntity.addChild(oneCtx);
         oneButtonMapper.addListener(oneButton);
-        
+
         rootEntity.addComponentByName(MGA.toAlias(GameButtons, OneButton), oneButton);
-        
+
         // listen for gui buttons dispatchers
         rootEntity.addComponentByName(MGA.toAlias(ButtonOutputBinder, OneButton), new ButtonOutputBinder(OneButton.basisTypeName(), oneButton));
         rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, OneButton), new ButtonInputBinder(OneButton.basisTypeName(), oneButton));
     }
-    
+
     function createClickEmulator(e) {
         var clicks = new ClickEmulator(e, BasicGamepadButtons.a);
         ButtonInputBinder.addListener(BasicGamepadButtons, e, clicks);
@@ -218,7 +219,7 @@ class BootstrapMain extends AbstractEngine {
     function textStyles() {
         // var font = "Assets/fonts/robo.fnt";
         // fui.addBmFont("", font); // todo
-        var ts = fui.textStyles;
+        var ts = fui.uikit.textStyles;
         ts.newStyle("small-text")
             .withSize(sfr, .07)
             .withPadding(horizontal, sfr, 0.1)

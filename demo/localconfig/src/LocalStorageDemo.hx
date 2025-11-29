@@ -1,5 +1,7 @@
 package;
 
+import al.openfl.display.FlashDisplayRoot;
+import backends.openfl.OpenflBackend.StageImpl;
 import al.ec.WidgetSwitcher;
 import ec.Entity;
 import dkit.Dkit.BaseDkit;
@@ -13,17 +15,18 @@ import storage.LocalStorage;
 import storage.Storage;
 
 using a2d.transform.LiquidTransformer;
-using a2d.transform.LiquidTransformer;
 using al.Builder;
 
 class LocalStorageDemo extends Sprite {
     public function new() {
         super();
         
-        var fui = new FuiBuilder();
+        var stage = new StageImpl(1);
+        var uikit = new FlatUikitExtended(stage);
+        var fui = new FuiBuilder(stage, uikit);
         BaseDkit.inject(fui);
         var root:Entity = fui.createDefaultRoot();
-        var uikit = new FlatUikitExtended(fui);
+        root.addComponent(new FlashDisplayRoot(this));
         uikit.configure(root);
         uikit.createContainer(root);
 
@@ -39,7 +42,7 @@ class LocalStorageDemo extends Sprite {
 
 class DomkitSampleWidget extends BaseDkit {
     static var SRC = <domkit-sample-widget vl={PortionLayout.instance}>
-        <label(b().v(pfr, .2).b())  text={ "This button can stay in pressed or released state. The state stored in target-dependent local storage: json file in app data dir on sys targets and browser localStorage on HTML5." }  />
+        <label(b().v(pfr, .2).b()) autoSize={true} text={ "This button can stay in pressed or released state. The state stored in target-dependent local storage: json file in app data dir on sys targets and browser localStorage on HTML5." }  />
         <base(b().v(pfr, 0.1).l().b()) >
             ${new ToggleButton (__this__.ph)}
             ${new PersistentProperty(__this__.entity,CheckedProp.getOrCreate(__this__.entity), "buttonToggled")}

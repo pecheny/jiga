@@ -43,7 +43,7 @@ class BouncingWidget extends Widget implements BouncingGui {
         // rndReroll();
         poiter = createPointer();
         var b = fui.placeholderBuilder;
-        hitRemains = new Label(b.v(pfr, 0.2).b(), fui.textStyles.defaultStyle());
+        hitRemains = new Label(b.v(pfr, 0.2).b(), fui.uikit.textStyles.defaultStyle());
         Builder.createContainer(ph.sibling(), vertical, Backward).withChildren([Builder.widget(), hitRemains.ph]);
 
         initRegioViews();

@@ -62,9 +62,9 @@ class Trix5Widget extends BaseDkit {
         new GameUIButtonTuple(ph, bt, "TriButtons");
         fui.quad(ph, 0);
         if (bt.length == 1) {
-            var wdg = new GbuttonView(ph, bt[0]);
+            var wdg = new GbuttonView(ph, bt[0], TriButtons.basisTypeName());
             wdg.addHandler(new InteractiveColors(ph.entity.getComponent(ShapesColorAssigner).setColor).viewHandler);
-            new CMSDFLabel(ph, fui.textStyles.getStyle("center")).withText(bt[0].toString());
+            new CMSDFLabel(ph, fui.uikit.textStyles.getStyle("center")).withText(bt[0].toString());
         }
     }
 

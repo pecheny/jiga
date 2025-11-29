@@ -69,13 +69,13 @@ class ActionDemo extends BootstrapMain {
     //* [2024-05-29 Wed 23:42] Render passes / notes.org
 
     function createRenderLayer(ph:Placeholder2D) {
-        fui.pipeline.addPass("color", new GameRenderPass());
+        fui.uikit.pipeline.addPass("color", new GameRenderPass());
         var projAspect = new ProjectionMatrixAspect();
         ph.entity.addComponent(projAspect);
         for (a in Axis2D)
             ph.axisStates[a].addSibling(new AnyAxisApplier(projAspect, a));
-        fui.pipeline.addAspect(projAspect);
-        backends.openfl.DrawcallUtils.createContainer(fui.pipeline, ph.entity, Xml.parse(dl).firstElement());
+        fui.uikit.pipeline.addAspect(projAspect);
+        backends.openfl.DrawcallUtils.createContainer(fui.uikit.pipeline, ph.entity, Xml.parse(dl).firstElement());
         // fui.createContainer(, );
         // var spr:Sprite = ph.entity.getComponent(Sprite);
         // addChild(spr);
@@ -88,6 +88,7 @@ class GameRenderPass extends FlatColorPass {
 
         vertElems.push(ProjectionMatrixElement.instance);
         alias.push(ProjectionMatrixElement.alias);
+        uniforms.push(ProjectionMatrixElement.matrix);
 
         // drawcallType = "game-color";
         // shaderType = "game-color";
