@@ -189,9 +189,7 @@ class BootstrapMain extends AbstractEngine {
     }
 
     function createFlashDisplay() {
-        var flashCanvas = new Sprite();
-        addChild(flashCanvas);
-        rootEntity.addComponent(new FlashDisplayRoot(flashCanvas));
+        fui.configureDisplayRoot(rootEntity, this);
     }
 
     function initFui() {
