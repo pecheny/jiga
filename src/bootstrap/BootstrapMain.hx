@@ -1,23 +1,18 @@
 package bootstrap;
 
-import backends.openfl.OpenflBackend.StageImpl;
-import input.UnlockBackButton;
-import openfl.OflKbd;
-import a2d.ContainerStyler;
 import a2d.Placeholder2D;
 import al.ec.WidgetSwitcher;
 import al.layouts.PortionLayout;
 import al.layouts.WholefillLayout;
 import al.layouts.data.LayoutData;
 import al.openfl.StageAspectResizer;
-import al.openfl.display.FlashDisplayRoot;
 import backends.lime.MouseRoot;
 import backends.lime.MultitouchRoot;
+import backends.openfl.OpenflBackend.StageImpl;
 import dkit.Dkit.BaseDkit;
 import ec.CtxWatcher;
 import ec.Entity;
 import ecbind.MultiInputBinder;
-import fu.PropStorage;
 import fu.Uikit;
 import gameapi.GameRun;
 import gameapi.GameRunBinder;
@@ -32,10 +27,10 @@ import ginp.presets.BasicGamepad;
 import ginp.presets.OneButton;
 import htext.style.TextContextBuilder;
 import input.ClickEmulator;
+import input.UnlockBackButton;
 import loops.bounce.BouncingLoop;
 import loops.bounce.BouncingTimeline.MyWeaponFac;
 import loops.bounce.gui.BouncingWidget;
-import openfl.display.Sprite;
 import shimp.MultiInputTarget;
 import states.States;
 import update.UpdateBinder;
@@ -59,24 +54,16 @@ class BootstrapMain extends AbstractEngine {
         var root = rootEntity = new Entity("root");
         setWindowPosition();
         // lime.app.Application.current.window.onRenderContextLost.add(() -> trace("lime app context lost")); -- doesnt work
-        // regDrawcals();
-
-        var contLayouts = new ContainerStyler();
-        root.addComponent(contLayouts);
         BaseDkit.inject(fui);
         regTextProcessor();
         uikit.configure(root);
         dkitDefaultStyles();
         uikit.createContainer(root);
         root.addComponentByType(fu.Uikit, uikit);
-        textStyles();
         createFlashDisplay();
         initFui();
         createInput();
         iniUpdater();
-
-        // rootEntity.dispatchContext(rootEntity);
-
         var wsw = rootEntity.getComponent(WidgetSwitcher);
         runSwitcher = new RunSwitcher(rootEntity, wsw.ph, wsw);
         runSwitcher.relaunchAtBind = false;
@@ -102,18 +89,6 @@ class BootstrapMain extends AbstractEngine {
     @:deprecated
     function createRunWrapper() {
         new SimpleRunBinder(rootEntity, null);
-    }
-
-    function regDrawcals() {
-        // var pipeline = fui.pipeline;
-        // pipeline.addPass(GuiDrawcalls.BG_DRAWCALL, new FlatColorPass());
-        // pipeline.addPass(GuiDrawcalls.TEXT_DRAWCALL, new CmsdfPass());
-        // var fontAsp = new FontAspectsFactory(fui.fonts, pipeline.textureStorage);
-        // pipeline.addAspectExtractor(GuiDrawcalls.TEXT_DRAWCALL, fontAsp.create, fontAsp.getAlias);
-
-        // pipeline.addPass(PictureDrawcalls.IMAGE_DRAWCALL, new ImagePass());
-        // var picAsp = new TextureAspectFactory(pipeline.textureStorage);
-        // pipeline.addAspectExtractor(PictureDrawcalls.IMAGE_DRAWCALL, picAsp.create);
     }
 
     function setWindowPosition() {
@@ -199,9 +174,6 @@ class BootstrapMain extends AbstractEngine {
         fui.configureScreen(rootEntity);
         fui.configureAnimation(rootEntity);
         rootEntity.addComponent(fui);
-        // fui.createContainer(rootEntity, Xml.parse(GuiDrawcalls.DRAWCALLS_LAYOUT).firstElement());
-        // var container:Sprite = rootEntity.getComponent(Sprite);
-        // addChild(container);
         var v = new StageAspectResizer(rw, 2);
         var switcher = new WidgetSwitcher(rw);
         rootEntity.addComponent(switcher);
@@ -214,39 +186,10 @@ class BootstrapMain extends AbstractEngine {
         rootEntity.addComponent(new UpdateBinder(updater));
     }
 
-    function textStyles() {
-        // var font = "Assets/fonts/robo.fnt";
-        // fui.addBmFont("", font); // todo
-        var ts = fui.uikit.textStyles;
-        ts.newStyle("small-text")
-            .withSize(sfr, .07)
-            .withPadding(horizontal, sfr, 0.1)
-            .withAlign(vertical, Center)
-            .build();
-        ts.resetToDefaults();
-        ts.newStyle("center").withAlign(horizontal, Center).build();
-        ts.newStyle(TextContextBuilder.DEFAULT_STYLE).withAlign(horizontal, Center).build();
-        ts.newStyle("fit")
-            .withSize(pfr, .5)
-            .withAlign(horizontal, Forward)
-            .withAlign(vertical, Backward)
-            .withPadding(horizontal, pfr, 0.33)
-            .withPadding(vertical, pfr, 0.33)
-            .build();
-        rootEntity.addComponent(ts.getStyle("fit"));
-        ts.resetToDefaults();
-        rootEntity.addComponentByType(TextContextStorage, ts);
-    }
-
     function dkitDefaultStyles() {
-        var e = rootEntity;
-        var props = e.getOrCreate(PropStorage, () -> new CascadeProps<String>(null, "root-props"));
-        // props.set(Dkit.TEXT_STYLE, "small-text");
-
+        var contLayouts = fui.uikit.containers;
         var distributer = new al.layouts.Padding(new FractionSize(.25), new PortionLayout(Center, new FixedSize(0.1)));
-        var contLayouts = e.getComponent(ContainerStyler);
         contLayouts.reg(GuiStyles.L_HOR_CARDS, distributer, WholefillLayout.instance);
         contLayouts.reg(GuiStyles.L_VERT_BUTTONS, WholefillLayout.instance, distributer);
-        // e.addComponent(contLayouts);
     }
 }

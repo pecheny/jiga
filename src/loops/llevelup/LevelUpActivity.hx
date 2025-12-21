@@ -77,8 +77,6 @@ class LevelUpActivity extends GameRunBase implements CheckedActivity {
 class LevelupGui extends BaseDkit implements OptionPickerGui<String> {
     public var onChoice(default, null) = new IntSignal();
 
-    @:once var props:PropStorage<Dynamic>;
-
     static var SRC = <levelup-gui>
     <data-container(b().v(pfr, 1).b()) id="cardsContainer"  layouts={GuiStyles.L_HOR_CARDS} dispatch={true} itemFactory={cardFactory}>
         // ${new DataContainerFocus(__this__)}

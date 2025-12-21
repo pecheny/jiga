@@ -16,13 +16,13 @@ using Lambda;
 class StatsDisplay extends Widget {
     @:once var unit:StatsSet;
     @:once var styles:TextContextStorage;
-    @:once var props:PropStorage<Dynamic>;
+    @:once var props:MultiPropStorage;
     @:onceOpt var i18n(default, set):I18n;
     var tc:TextStyleContext;
     var labels:Map<String, IStatLabel>;
 
     override function init() {
-        var styleName = props.get(Dkit.TEXT_STYLE);
+        var styleName = props.getString(Dkit.TEXT_STYLE);
         tc = styles.getStyle(styleName ?? "");
         labels = [for (k in unit.keys) k => factory(k, cast Reflect.field(unit, k))];
         Builder.createContainer(ph, horizontal, Center).withChildren(unit.keys.map(k -> labels[k].ph));
