@@ -23,8 +23,11 @@ class StatsDisplay extends Widget {
 
     override function init() {
         var styleName = props.getString(Dkit.TEXT_STYLE);
+        var color = props.getInt(Dkit.TEXT_COLOR);
         tc = styles.getStyle(styleName ?? "");
         labels = [for (k in unit.keys) k => factory(k, cast Reflect.field(unit, k))];
+        for (l in labels)
+            untyped l.lbl.setColor(color);
         Builder.createContainer(ph, horizontal, Center).withChildren(unit.keys.map(k -> labels[k].ph));
         localize();
         new KeyBinder().addCommand(Keyboard.E, () -> trace(i18n, entity.getComponentUpward(I18n)));
