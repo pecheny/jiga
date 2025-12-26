@@ -12,10 +12,10 @@ class DeltaProgressBar extends Widget {
     var healthbar:ProgressBarWidget;
     var value:Float;
 
-    public function new(w) {
+    public function new(w, mainColor = 0xffffff, deltaColor=0xff0000) {
         super(w);
-        healthRed = new ProgressBarWidget(w, 0xff0000);
-        healthbar = new ProgressBarWidget(w);
+        healthRed = new ProgressBarWidget(w, deltaColor);
+        healthbar = new ProgressBarWidget(w, mainColor);
     }
 
     public function hideDelta() {
