@@ -32,7 +32,7 @@ class MarketWidget extends BaseDkit implements MarketGui<Int> {
         </data-container>
 
         <base(b().v(pfr, .1).b()) />
-        <button(b().h(sfr, .36).v(sfr, .12).b()) focus={true} text={ "Done" } onClick={onOkClick} style={"small-text-center"} />
+        <button(b().h(sfr, .36).v(sfr, .12).b("done")) autoFocus={true} focus={true} text={ "Done" } onClick={onOkClick} style={"small-text-center"} />
     </market-widget>;
 
     var maxNumber:Int;
