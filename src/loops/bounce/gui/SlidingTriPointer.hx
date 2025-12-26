@@ -49,4 +49,6 @@ class SlidingTriPointer <T:AttribSet> implements Shape {
     public function getVertsCount():Int {
         return 3;
     }
+
+    public function initInBuffer(target:Bytes, vertOffset:Int) {}
 }
