@@ -1,5 +1,11 @@
 package loops.market;
 
+import ec.Entity;
+import al.core.Placeholder;
+import Axis2D;
+import al.core.TWidget.IWidget;
+import a2d.Placeholder2D;
+import dkit.Dkit.SwitcherDkit;
 import al.core.DataView;
 import al.layouts.PortionLayout;
 import dkit.Dkit.BaseDkit;
@@ -25,7 +31,7 @@ class MarketWidget extends BaseDkit implements MarketGui<Int> {
         <label(b().v(pfr, .24).b()) id="lbl"  text={ "Do you want to buy smth?" } align={Align.Center}/>
         <base(b().v(pfr, .1).b()) />
 
-        <data-container(b().v(pfr, 1).b()) scroll={true} id="cardsContainer"   itemFactory={cardFactory} inputFactory={inputFactory} layouts={GuiStyles.L_HOR_CARDS }>
+        <data-container(b().v(pfr, 1).b("dc")) scroll={true} id="cardsContainer"   itemFactory={cardFactory} inputFactory={inputFactory} layouts={GuiStyles.L_HOR_CARDS }>
             ${new WheelHandler(__this__.ph, horizontal)}
             ${new DataContainerFocus(__this__)}
             ${fui.createHorizontalNavigationSignals(__this__.entity);}
@@ -38,10 +44,13 @@ class MarketWidget extends BaseDkit implements MarketGui<Int> {
     var maxNumber:Int;
 
     function cardFactory() {
-        var mc = new MarketCard(b().v(sfr, 0.3).h(sfr, 0.3).t(1).b("card"));
+        var mc = createCard();
         new WidgetFocus(mc.ph);
-        new ButtonScale(mc.entity);
-        return mc;
+        return new MarketCardComponent(mc);
+    }
+
+    function createCard():MarketCardWrapper<Int> {
+        return new MarketCard(b().v(sfr, 0.3).h(sfr, 0.3).t(1).b("card"));
     }
 
     function inputFactory(ph, n) {
@@ -57,20 +66,25 @@ class MarketWidget extends BaseDkit implements MarketGui<Int> {
     }
 }
 
-class MarketCard extends BaseDkit implements DataView<MarketItemRecord<Int>> {
+interface MarketCardWrapper<TRes> extends IWidget<Axis2D> {
+    public var content(get, null):SwitcherDkit;
+    public var soldView(get, null):Placeholder2D;
+    public function setState(state:MarketItemState, ?price:TRes):Void;
+    public function getView(data:Dynamic):Placeholder2D;
+}
+
+class MarketCardComponent<TRes> implements DataView<MarketItemRecord<TRes>> implements IWidget<Axis2D> {
+    var wrapper:MarketCardWrapper<TRes>;
+
     @:once var toggle:EnabledProp;
-    var descr:MarketItemRecord<Int>;
+    var descr:MarketItemRecord<TRes>;
 
-    static var SRC = <market-card vl={PortionLayout.instance} >
-        <base(b().v(pfr, 0.2).b()) />
-        <switcher(b().v(pfr, 1).b()) id="content"   >
-            <label(b().v(pfr, 0.2).b()) id="soldCard" text={"X"} align={Align.Center} />
-            <label(b().v(pfr, 0.2).b()) public id="card"   />
-        </switcher>
-        <label(b().v(pfr, 0.2).b()) id="lbl" align={Align.Center}  />
-    </market-card>;
+    public function new(wrapper) {
+        this.wrapper = wrapper;
+        watch(wrapper.entity);
+    }
 
-    public function initData(descr:MarketItemRecord<Int>) {
+    public function initData(descr:MarketItemRecord<TRes>) {
         if (this.descr != null)
             this.descr.onChange.remove(onChange);
         this.descr = descr;
@@ -80,19 +94,66 @@ class MarketCard extends BaseDkit implements DataView<MarketItemRecord<Int>> {
 
     function onChange(s:MarketItemState) {
         toggle.enabled = s == MarketItemState.available;
-        lbl.color = s == MarketItemState.na ? 0xff0000 : 0xffffff;
-        if (s == sold) {
-            lbl.text = "Sold out!";
-            content.switchTo(soldCard.ph);
+        if (s == MarketItemState.sold) {
+            wrapper.setState(s, null);
+            wrapper.content.switchTo(wrapper.soldView);
         } else {
-            lbl.text = getCaption(descr.data);
-            card.text = "" + descr.data;
-            content.switchTo(card.ph);
+            wrapper.setState(s, descr.data.price);
+            wrapper.content.switchTo(wrapper.getView(descr.data));
         }
     }
 
-    function getCaption(d:MarketItem<Int>) {
-        // return d.weapon + " " + d.lvl + " for " + d.price + " gld";
-        return d.price + " gld";
+    public var ph(get, null):Placeholder<Axis2D>;
+    public var entity(get, null):Entity;
+
+    public function get_entity():Entity {
+        return wrapper.entity;
+    }
+
+    public function get_ph():Placeholder<Axis2D> {
+        return wrapper.ph;
+    }
+}
+
+class MarketCard extends BaseDkit implements MarketCardWrapper<Int> {
+    @:once var toggle:EnabledProp;
+    var descr:MarketItemRecord<Int>;
+
+    static var SRC = <market-card vl={PortionLayout.instance} >
+        <base(b().v(pfr, 0.2).b()) />
+        <switcher(b().v(pfr, 1).b())  id="_content">
+            <label(b().v(pfr, 0.2).b()) id="soldCard" text={"X"} align={Align.Center} />
+            <label(b().v(pfr, 0.2).b()) public id="card"   />
+        </switcher>
+        <label(b().v(pfr, 0.2).b()) id="lbl" align={Align.Center}  />
+    </market-card>;
+
+    public var soldView(get, null):Placeholder2D;
+
+    public function get_soldView():Placeholder2D {
+        return soldCard.ph;
+    }
+
+    public var content(get, null):SwitcherDkit;
+
+    function get_content():SwitcherDkit {
+        return _content;
+    }
+
+    function onChange(s:MarketItemState) {}
+
+    public function setState(s:MarketItemState, ?price:Int) {
+        toggle.enabled = s == MarketItemState.available;
+        lbl.color = s == MarketItemState.na ? 0xff0000 : 0xffffff;
+        if (s == sold) {
+            lbl.text = "Sold out!";
+        } else {
+            lbl.text = price + " gld";
+        }
+    }
+
+    public function getView(data:Dynamic):Placeholder2D {
+            card.text = "" + descr.data;
+        return card.ph;
     }
 }
