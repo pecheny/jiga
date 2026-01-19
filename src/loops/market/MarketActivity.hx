@@ -8,32 +8,6 @@ import fu.Signal;
 import loops.market.MarketData;
 import stset.Stats.GameStat;
 
-interface MarketGui<TRes> extends OptionPickerGui<MarketItemRecord<TRes>> extends SelfClosingScreen {}
-
-interface ResourceTransactor<TRes> {
-    public function has(res:TRes):Bool;
-    public function spend(res:TRes):Bool;
-}
-
-class IntResTransactor implements ResourceTransactor<Int> {
-    var stat:GameStat<Int>;
-
-    public function new(stat) {
-        this.stat = stat;
-    }
-
-    public function has(res:Int):Bool {
-        return stat.value >= res;
-    }
-
-    public function spend(res:Int):Bool {
-        if (! has(res))
-            return false;
-        stat.value -= res;
-        return true;
-    }
-}
-
 class MarketActivity<TRes> extends GameRunBase implements ActHandler<MarketDesc<TRes>> implements StatefullActHandler {
     public var onChange:Signal<Void->Void> = new Signal();
     public var onPurchase:Signal<Dynamic->Void> = new Signal();

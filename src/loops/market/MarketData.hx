@@ -9,6 +9,13 @@ enum abstract MarketItemState(Int) {
     var sold;
 }
 
+interface MarketGui<TRes> extends OptionPickerGui<MarketItemRecord<TRes>> extends SelfClosingScreen {}
+
+interface ResourceTransactor<TRes> {
+    public function has(res:TRes):Bool;
+    public function spend(res:TRes):Bool;
+}
+
 interface MarketGuiModel {
     public function getState(n:Int):MarketItemState;
 }
