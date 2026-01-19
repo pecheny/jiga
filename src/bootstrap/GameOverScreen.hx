@@ -11,6 +11,6 @@ class GameOverScreen extends BaseDkit implements SelfClosingScreen {
 
     static var SRC = <game-over-screen vl={PortionLayout.instance}>
         <label(b().v(pfr, 1).b()) text={"Game Over"} />
-        <button(b().v(sfr, 0.1).b()) text={"Menu"} onClick={()->onDone.dispatch()}/>
+        <button(b().v(sfr, 0.1).b()) text={"Menu"} autoFocus={true} onClick={()->onDone.dispatch()}/>
     </game-over-screen>
 }
