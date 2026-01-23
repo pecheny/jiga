@@ -1,5 +1,7 @@
 package loops.market;
 
+import bootstrap.SelfClosingScreen;
+import fancy.widgets.OptionPickerGui;
 import ec.Signal;
 import bootstrap.DescWrap;
 
