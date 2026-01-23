@@ -11,6 +11,7 @@ import stset.Stats.GameStat;
 class MarketActivity<TRes> extends GameRunBase implements ActHandler<MarketDesc<TRes>> implements StatefullActHandler {
     public var onChange:Signal<Void->Void> = new Signal();
     public var onPurchase:Signal<Dynamic->Void> = new Signal();
+    public var onPurchaseN = new IntSignal();
 
     @:once var gui:MarketGui<TRes>;
     var transactor:ResourceTransactor<TRes>;
@@ -44,6 +45,7 @@ class MarketActivity<TRes> extends GameRunBase implements ActHandler<MarketDesc<
         transactor.spend(item.data.price);
         item.setState(sold);
         onPurchase.dispatch(item.data);
+        onPurchaseN.dispatch(n);
         // todo this check available right in gui now, put it there
         for (mi in items)
             if (mi.state != sold)
