@@ -57,7 +57,6 @@ class BootstrapMain extends AbstractEngine {
         BaseDkit.inject(fui);
         regTextProcessor();
         uikit.configure(root);
-        dkitDefaultStyles();
         uikit.createContainer(root);
         root.addComponentByType(fu.Uikit, uikit);
         createFlashDisplay();
@@ -186,10 +185,4 @@ class BootstrapMain extends AbstractEngine {
         rootEntity.addComponent(new UpdateBinder(updater));
     }
 
-    function dkitDefaultStyles() {
-        var contLayouts = fui.uikit.containers;
-        var distributer = new al.layouts.Padding(new FractionSize(.25), new PortionLayout(Center, new FixedSize(0.1)));
-        contLayouts.reg(GuiStyles.L_HOR_CARDS, distributer, WholefillLayout.instance);
-        contLayouts.reg(GuiStyles.L_VERT_BUTTONS, WholefillLayout.instance, distributer);
-    }
 }
