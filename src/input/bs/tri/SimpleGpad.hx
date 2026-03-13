@@ -65,8 +65,8 @@ class SimpleGpad extends BaseDkit {
     function gbutton(bt:TriButtons, ph:Placeholder2D) {
         new GameUIButton(ph, bt, "TriButtons");
         fui.quad(ph, 0);
-        var wdg = new GbuttonView(ph, bt);
+        var wdg = new GbuttonView(ph, bt, TriButtons.basisTypeName());
         wdg.addHandler(new InteractiveColors(ph.entity.getComponent(ShapesColorAssigner).setColor).viewHandler);
-        new CMSDFLabel(ph, fui.textStyles.getStyle("center")).withText(labels[bt]);
+        new CMSDFLabel(ph, fui.uikit.textStyles.getStyle("center")).withText(labels[bt]);
     }
 }
