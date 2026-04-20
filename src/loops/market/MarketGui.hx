@@ -17,7 +17,6 @@ import fu.ui.ButtonEnabled;
 import fu.ui.Properties;
 import fu.ui.scroll.WheelHandler;
 import htext.Align;
-import loops.market.MarketActivity.MarketGui;
 import loops.market.MarketData;
 
 using a2d.ProxyWidgetTransform;
