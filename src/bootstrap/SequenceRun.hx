@@ -1,6 +1,5 @@
 package bootstrap;
 
-import al.ec.WidgetSwitcher;
 import gameapi.GameRun;
 
 enum abstract CheckerResult(Bool) from Bool {
@@ -16,15 +15,15 @@ enum Runnable {
 class SequenceRun extends RunSwitcher {
     var checkers:Array<Void->CheckerResult> = [];
     var activities:Array<Runnable> = [];
-    var current = 0;
-
+    var current = -1;
 
     public function addChecker(ch:Void->CheckerResult) {
         checkers.push(ch);
     }
 
-    public function addActivity(a:GameRunBase) {
-        a.injectFrom(entity);
+    public function addActivity(a:GameRun) {
+        // a.injectFrom(entity);
+        a.entity.dispatchContext(entity);
         a.gameOvered.listen(turn);
         activities.push(Activity(a));
     }
