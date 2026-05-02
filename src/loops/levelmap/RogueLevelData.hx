@@ -1,5 +1,6 @@
 package loops.levelmap;
 
+import persistent.State;
 import ec.PropertyComponent.FlagComponent;
 import fu.Signal;
 
@@ -9,7 +10,7 @@ class Room {
 
 typedef Doorways<TMove:Int> = Map<TMove, Int>;
 
-class Level<TMove:Int, TRoom:(Room & fu.Serializable)> implements fu.Serializable {
+class Level<TMove:Int, TRoom:(Room & fu.Serializable)> implements fu.Serializable implements State {
     public var rooms(default, null):Array<TRoom> = [];
     @:serialize public var doors(default, null):Array<Doorways<TMove>> = [];
     public var onChange:Signal<Void->Void> = new Signal();
