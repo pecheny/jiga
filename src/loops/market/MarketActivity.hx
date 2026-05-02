@@ -2,20 +2,18 @@ package loops.market;
 
 import bootstrap.Activitor;
 import bootstrap.GameRunBase;
-import bootstrap.SelfClosingScreen;
-import fancy.widgets.OptionPickerGui;
 import fu.Signal;
 import loops.market.MarketData;
-import stset.Stats.GameStat;
+using Lambda;
 
-class MarketActivity<TRes> extends GameRunBase implements ActHandler<MarketDesc<TRes>> implements StatefullActHandler {
+class MarketActivity<TRes> extends GameRunBase implements ActHandler<Array<MarketItem<TRes>>> implements StatefullActHandler {
     public var onChange:Signal<Void->Void> = new Signal();
     public var onPurchase:Signal<Dynamic->Void> = new Signal();
     public var onPurchaseN = new IntSignal();
 
     @:once var gui:MarketGui<TRes>;
     var transactor:ResourceTransactor<TRes>;
-    var data:MarketDesc<TRes>;
+    var data:Iterable<MarketItem<TRes>>;
     var items:Array<MarketItemRecord<TRes>>;
 
     public function new(ctx, w, transactor) {
@@ -57,7 +55,7 @@ class MarketActivity<TRes> extends GameRunBase implements ActHandler<MarketDesc<
         data = null;
     }
 
-    public function initDescr(d:MarketDesc<TRes>):ActHandler<MarketDesc<TRes>> {
+    public function initDescr(d:Iterable<MarketItem<TRes>>):ActHandler<Array<MarketItem<TRes>>> {
         data = d;
         items = data.map(mi -> new MarketItemRecord(mi, isAvailable(mi) ? available : na));
         return this;

@@ -42,5 +42,4 @@ class MarketItemRecord<TRes> {
     }
 }
 
-typedef MarketDesc<TRes> = Array<MarketItem<TRes>>;
-class MarketData<TRes> extends DescWrap<MarketDesc<TRes>> {}
+class MarketData<TRes> extends DescWrap<Array<MarketItem<TRes>>> {}
