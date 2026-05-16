@@ -24,7 +24,6 @@ class SequenceRun extends RunSwitcher {
     public function addActivity(a:GameRun) {
         // a.injectFrom(entity);
         a.entity.dispatchContext(entity);
-        a.gameOvered.listen(turn);
         activities.push(Activity(a));
     }
 
@@ -39,6 +38,8 @@ class SequenceRun extends RunSwitcher {
     public dynamic function afterReset() {}
 
     override function reset() {
+        if (activity != null)
+            activity.gameOvered.remove(turn);
         current = -1;
         for (run in activities)
             switch run {
@@ -51,6 +52,8 @@ class SequenceRun extends RunSwitcher {
     }
 
     function gameOver() {
+        if (activity != null)
+            activity.gameOvered.remove(turn);
         // reset(); brokes bouncing.invalidateInput()
         gameOvered.dispatch();
     }
@@ -82,6 +85,13 @@ class SequenceRun extends RunSwitcher {
                 turn();
         }
         // ?? listen forgot or listen all at add
+    }
+
+    override function switchTo(activity:GameRun) {
+        if (this.activity != null)
+            this.activity.gameOvered.remove(turn);
+        super.switchTo(activity);
+        activity?.gameOvered.listen(turn);
     }
 
     public var interruptFlag:Bool = false;
