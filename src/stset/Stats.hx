@@ -6,6 +6,7 @@ import haxe.ds.ReadOnlyArray;
 @:autoBuild(stset.Stats.StatsMacro.build())
 interface StatsSet {
     var keys(default, null):ReadOnlyArray<String>;
+    function get(key:String) :GameStat<Int>;
 }
 
 interface StatRO<T:Float> {
