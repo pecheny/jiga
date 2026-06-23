@@ -22,13 +22,14 @@ class LocalStorageDemo extends Sprite {
         super();
         
         var stage = new StageImpl(1);
-        var uikit = new FlatUikitExtended(stage);
-        var fui = new FuiBuilder(stage, uikit);
+        // var uikit = new FlatUikitExtended(stage);
+        var fui = new FuiBuilder(stage);
         BaseDkit.inject(fui);
         var root:Entity = fui.createDefaultRoot();
-        root.addComponent(new FlashDisplayRoot(this));
-        uikit.configure(root);
-        uikit.createContainer(root);
+
+        fui.uikit.configure(root);
+        fui.uikit.createContainer(root);
+        fui.configureDisplayRoot(root, this);
 
         var switcher = root.getComponent(WidgetSwitcher);
         var bw = new DomkitSampleWidget(Builder.widget());

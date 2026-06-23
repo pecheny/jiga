@@ -5,7 +5,7 @@ import al.core.DataView;
 import al.ec.WidgetSwitcher;
 import al.layouts.PortionLayout;
 import bootstrap.BootstrapMain;
-import dkit.Components.ButtonDkit;
+import dkit.ButtonDkit;
 import dkit.Dkit.BaseDkit;
 import ec.Entity;
 import fu.input.DataContainerFocus;
@@ -34,20 +34,27 @@ class DataContainerDemo extends BootstrapMain {
 
         switcher.switchTo(bw.ph);
 
-        bw.cardsContainer.initData([for (i in 0...10) "b " +i ]);
+        bw.cardsContainer.initData([for (i in 0...10) "b " + i]);
     }
-    
+
     override function createInput() {
         var basic = new BasicGamepadInput();
-        basic.createKeyMapping([Keyboard.ESCAPE => start, Keyboard.LEFT => left, Keyboard.RIGHT => right, Keyboard.UP => up, Keyboard.DOWN =>down, Keyboard.SPACE => a]);
+        basic.createKeyMapping([
+            Keyboard.ESCAPE => start,
+            Keyboard.LEFT => left,
+            Keyboard.RIGHT => right,
+            Keyboard.UP => up,
+            Keyboard.DOWN => down,
+            Keyboard.SPACE => a
+        ]);
         rootEntity.addComponentByName(MGA.toAlias(ButtonInputBinder, BasicGamepadButtons), new ButtonInputBinder(MGA.toString(BasicGamepadButtons), basic));
         rootEntity.addComponentByName(MGA.toAlias(ButtonOutputBinder, BasicGamepadButtons), new ButtonOutputBinder(MGA.toString(BasicGamepadButtons), basic));
     }
-
 }
 
 class DomkitSampleWidget extends BaseDkit {
     public var focus:DataContainerFocus;
+
     static var SRC = <domkit-sample-widget vl={PortionLayout.instance}>
         <data-container(b().v(pfr, 1).b()) scroll={true} public id="cardsContainer"   itemFactory={cardFactory} inputFactory={inputFactory} layouts={GuiStyles.L_HOR_CARDS} hl={PortionLayout.instance}>
             ${new WheelHandler(__this__.ph, horizontal)}
@@ -73,6 +80,6 @@ class DomkitSampleWidget extends BaseDkit {
 class MarketCard extends ButtonDkit implements DataView<String> {
     public function initData(descr:String) {
         text = descr;
-        onClick = ()->trace(descr);
+        onClick = () -> trace(descr);
     }
 }
