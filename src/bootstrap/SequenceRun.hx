@@ -32,6 +32,10 @@ class SequenceRun extends RunSwitcher {
     }
 
     override function startGame() {
+        #if debug
+        if (activities.filter(r -> switch r {case Activity(gr):true; case Function(f):false;}).length < 2)
+            trace("Warn: SeqRun should contain at least 2 activities");
+        #end
         turn();
     }
 
