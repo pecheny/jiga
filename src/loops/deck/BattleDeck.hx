@@ -16,8 +16,8 @@ abstract BattleCardId(Int) {
     }
 }
 
-class BattleDeck<T, BT:T & BattleCard<TPile>, TPile:Int> extends Component {
-    var deck:Array<BT> = [];
+class BattleDeck<TCard, TBatCard:TCard & BattleCard<TPile>, TPile:Int> extends Component {
+    var deck:Array<TBatCard> = [];
 
     var piles:Map<TPile, Array<BattleCardId>>;
     public function new(nOfPiles:Int) {
@@ -31,8 +31,8 @@ class BattleDeck<T, BT:T & BattleCard<TPile>, TPile:Int> extends Component {
             piles[k].resize(0);
     }
 
-    public function addCard(c:T, pile:TPile) {
-        var b:BT = cast c;
+    public function addCard(c:TCard, pile:TPile) {
+        var b:TBatCard = cast c;
         b.pile = pile;
         b.ph = null;
         b.id = new BattleCardId(deck.length);
@@ -61,7 +61,7 @@ class BattleDeck<T, BT:T & BattleCard<TPile>, TPile:Int> extends Component {
         return deck.length;
     }
 
-    public function getPile(pile:TPile):Array<BT> {
+    public function getPile(pile:TPile):Array<TBatCard> {
         return piles[pile].map(i -> deck[cast i]);
     }
 }
