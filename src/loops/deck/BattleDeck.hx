@@ -1,5 +1,7 @@
 package loops.deck;
 
+import fu.Signal;
+import update.Updatable;
 import PhSerializer.PhDump;
 import ec.Component;
 import haxe.ds.Map;
@@ -16,19 +18,60 @@ abstract BattleCardId(Int) {
     }
 }
 
-class BattleDeck<TCard, TBatCard:TCard & BattleCard<TPile>, TPile:Int> extends Component {
-    var deck:Array<TBatCard> = [];
+typedef CardTransition = {
+    id:BattleCardId,
+    t:Float
+}
 
-    var piles:Map<TPile, Array<BattleCardId>>;
+class APile {
+    public var cardAdded:Signal<BattleCardId->Void> = new Signal();
+    public var cards(default, null):Array<BattleCardId> = [];
+    public var inbox(default, null):Array<CardTransition> = [];
+
+    public function new() {}
+
+    public function addCard(id) {
+        cards.push(id);
+        // inbox.push({
+        //     id: id,
+        //     t: -1
+        // });
+    }
+
+    public function remove(id) {
+        return cards.remove(id);
+    }
+
+    public function clear() {
+        cards.resize(0);
+        inbox.resize(0);
+    }
+
+    public function processInbox() {
+        for (c in inbox) {
+            if (c.t == 1) {
+                inbox.remove(c);
+                cards.push(c.id);
+                cardAdded.dispatch(c.id);
+            }
+        }
+    }
+}
+
+class BattleDeck<TCard, TBatCard:TCard & BattleCard<TPile>, TPile:Int> extends Component implements Updatable {
+    var deck:Array<TBatCard> = [];
+    // var piles:Map<TPile, Array<BattleCardId>>;
+    public  var piles:Map<TPile, APile>;
+
     public function new(nOfPiles:Int) {
         super(null);
-        piles = [for (p in 0...nOfPiles) (cast p) => []];
+        piles = [for (p in 0...nOfPiles) (cast p) => new APile()];
     }
 
     public function reset() {
         deck.resize(0);
         for (k in piles.keys())
-            piles[k].resize(0);
+            piles[k].clear();
     }
 
     public function addCard(c:TCard, pile:TPile) {
@@ -36,7 +79,7 @@ class BattleDeck<TCard, TBatCard:TCard & BattleCard<TPile>, TPile:Int> extends C
         b.pile = pile;
         b.ph = null;
         b.id = new BattleCardId(deck.length);
-        piles[pile].push(b.id);
+        piles[pile].addCard(b.id);
         deck.push(b);
     }
 
@@ -48,7 +91,7 @@ class BattleDeck<TCard, TBatCard:TCard & BattleCard<TPile>, TPile:Int> extends C
         if (!from.remove(id))
             throw "wrong";
         card.pile = to;
-        piles[to].push(id);
+        piles[to].addCard(id);
     }
 
     public function shuffle() {
@@ -57,11 +100,28 @@ class BattleDeck<TCard, TBatCard:TCard & BattleCard<TPile>, TPile:Int> extends C
 
     public function cardsCount(?pile:TPile) {
         if (pile != null)
-            return piles[pile].length;
+            return piles[pile].cards.length;
         return deck.length;
     }
 
     public function getPile(pile:TPile):Array<TBatCard> {
-        return piles[pile].map(i -> deck[cast i]);
+        return piles[pile].cards.map(i -> deck[cast i]);
+    }
+
+    var duration = 1;
+
+    public function update(dt:Float) {
+        for (p => ap in piles) {
+            for (ib in ap.inbox) {
+                if (ib.t < 0)
+                    continue;
+                var value = ib.t + dt / duration;
+                if (value >= 1)
+                    ib.t = 1;
+                else
+                    ib.t = value;
+            }
+            ap.processInbox();
+        }
     }
 }
