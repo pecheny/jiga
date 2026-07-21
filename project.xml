@@ -3,7 +3,6 @@
     <include path="include.xml" />
     <!-- <include path="demo/levelup/project.xml" /> -->
     <!-- <include path="demo/actionplay/project.xml" /> -->
-    <!-- <include path="demo/gamebuttons/project.xml" /> -->
     <!-- <include path="demo/gamecycle/project.xml" /> -->
     <!-- <include path="demo/datacontainer/project.xml" /> -->
     <!-- <include path="demo/inventory/project.xml" /> -->
@@ -12,4 +11,5 @@
     <include path="demo/bouncing/project.xml" />
 
     <haxeflag name="-D" value="dump=pretty" />
+    <haxedef name="disable_exception_interception" value="true"/>
 </project>
